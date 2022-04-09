@@ -5,6 +5,7 @@ using UnityEngine;
 public class CharController : MonoBehaviour
 {
     private CharacterController charController;
+    private Coroutine m_bCoroutine;
 
     public float pSpeed = 0.3f;
 
@@ -12,31 +13,34 @@ public class CharController : MonoBehaviour
     void Start()
     {
         charController = GetComponent<CharacterController>();
+        m_bCoroutine = StartCoroutine(CharacterMoveMent());
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator CharacterMoveMent()
     {
-        float horizon = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-
-        Vector3 Movement = new Vector3(horizon, 0.0f, vertical) * pSpeed;
-
-        charController.Move(Movement);
-
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit))
+        while(true)
         {
-            Vector3 targetPosition = new Vector3(hit.point.x, transform.position.y, hit.point.z);
+            float horizon = Input.GetAxis("Horizontal");
+            float vertical = Input.GetAxis("Vertical");
 
-            Debug.DrawRay(transform.position, targetPosition * 1000, Color.red, 0.1f, false);
+            Vector3 Movement = new Vector3(horizon, 0.0f, vertical) * pSpeed;
 
-            Quaternion rotation = Quaternion.LookRotation(targetPosition - transform.position);
+            charController.Move(Movement);
 
-            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * 10.0f);
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                Vector3 targetPosition = new Vector3(hit.point.x, transform.position.y, hit.point.z);
+
+                Debug.DrawRay(transform.position, transform.position + transform.forward * 1000, Color.red, 0.01f, false);
+
+                Quaternion rotation = Quaternion.LookRotation(targetPosition - transform.position);
+
+                transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * 10.0f);
+            }
+            yield return new WaitForSeconds(0.01f);
         }
-
     }
 }

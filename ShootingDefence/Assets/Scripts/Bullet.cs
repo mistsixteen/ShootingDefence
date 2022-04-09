@@ -28,4 +28,13 @@ public class Bullet : MonoBehaviour
         Destroy(this.gameObject);
     }
 
+    void OnTriggerEnter(Collider collision)
+    {
+
+        Debug.Log("감지 시작!");
+        Destroy(this.gameObject);
+
+    }
+
+
 }

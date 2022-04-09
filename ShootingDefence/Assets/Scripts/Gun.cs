@@ -6,7 +6,7 @@ public class Gun : MonoBehaviour
 {
     private GameObject Bullet;
     public Transform BulletSpawn;
-    public float delay_fire = 0.1f;
+    public float delay_fire = 0.05f;
     private float timeStamp = 0.0f;
 
     // Start is called before the first frame update

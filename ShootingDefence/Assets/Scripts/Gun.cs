@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-    public GameObject Bullet;
+    private GameObject Bullet;
     public Transform BulletSpawn;
     public float delay_fire = 0.1f;
     private float timeStamp = 0.0f;
@@ -12,7 +12,7 @@ public class Gun : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Bullet = Resources.Load<GameObject>("Prefabs/Bullet");
     }
 
     // Update is called once per frame
@@ -32,12 +32,6 @@ public class Gun : MonoBehaviour
     }
     void Fire()
     {
-        var bullet = (GameObject)Instantiate(Bullet, BulletSpawn.position, BulletSpawn.rotation);
-
-        // Add velocity to the bullet
-        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward;
-
-        // Destroy the bullet after 2 seconds
-        Destroy(bullet, 2.0f);
+        Instantiate(Bullet, BulletSpawn.position, BulletSpawn.rotation);
     }
 }

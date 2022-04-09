@@ -4,17 +4,28 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    Vector3 m_moveVector;
-    float m_Speed;
+    private Vector3 m_moveVector;
+    public float m_Speed;
+    public int m_Lifespan;
+    private Coroutine m_bCoroutine;
 
     // Start is called before the first frame update
     void Start()
     {
+        m_moveVector = transform.forward;
+        m_bCoroutine = StartCoroutine(BulletMove());
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator BulletMove()
     {
-        
+        while(m_Lifespan >= 0)
+        {
+            m_Lifespan--;
+            transform.position += m_moveVector * m_Speed;
+
+            yield return new WaitForSeconds(0.01f);
+        }
+        Destroy(this.gameObject);
     }
+
 }

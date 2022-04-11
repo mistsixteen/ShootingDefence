@@ -32,7 +32,7 @@ public class CharController : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
-                Vector3 targetPosition = new Vector3(hit.point.x, transform.position.y, hit.point.z);
+                Vector3 targetPosition = new Vector3(hit.point.x, 1.0f, hit.point.z);
 
                 Debug.DrawRay(transform.position, transform.position + transform.forward * 1000, Color.red, 0.01f, false);
 

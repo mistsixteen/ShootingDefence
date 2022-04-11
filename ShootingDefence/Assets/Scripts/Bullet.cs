@@ -33,7 +33,7 @@ public class Bullet : MonoBehaviour
         Debug.Log("Bullet Hit!!");
         if (collision.gameObject.TryGetComponent(out Damageable dObject))
         {
-            dObject.getDamage(10);
+            dObject.getDamage(1);
         }
         
         Destroy(this.gameObject);

@@ -30,10 +30,13 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter(Collider collision)
     {
-
         Debug.Log("Bullet Hit!!");
+        if (collision.gameObject.TryGetComponent(out Damageable dObject))
+        {
+            dObject.getDamage(10);
+        }
+        
         Destroy(this.gameObject);
-
     }
 
 

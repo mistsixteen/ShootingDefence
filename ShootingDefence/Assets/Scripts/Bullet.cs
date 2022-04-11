@@ -31,7 +31,7 @@ public class Bullet : MonoBehaviour
     void OnTriggerEnter(Collider collision)
     {
 
-        Debug.Log("감지 시작!");
+        Debug.Log("Bullet Hit!!");
         Destroy(this.gameObject);
 
     }

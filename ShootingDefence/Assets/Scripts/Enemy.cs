@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour, Damageable
 {
     private Coroutine eCoroutine, bCoroutine;
     public float moveSpeed;
+    public int MaxHp = 100;
     public int currentHp = 100;
     GameObject player;
     Renderer render;
+    Image healthBar;
     Color oriColor;
     bool isBlink = false;
     // Start is called before the first frame update
@@ -17,6 +20,7 @@ public class Enemy : MonoBehaviour, Damageable
         player = GameObject.Find("Player");
         render = GetComponent<Renderer>();
         oriColor = render.material.color;
+        healthBar = transform.Find("Healthbar/health").GetComponent<Image>();
         eCoroutine = StartCoroutine(EnemyCoroutine());
         bCoroutine = StartCoroutine(blinkCoroutine());
     }
@@ -60,6 +64,7 @@ public class Enemy : MonoBehaviour, Damageable
         isBlink = true;
 
         currentHp -= Damage;
+        healthBar.fillAmount = (float)currentHp / MaxHp;
         if (currentHp < 0)
             Destroy(this.gameObject);
     }

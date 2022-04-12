@@ -30,10 +30,14 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter(Collider collision)
     {
+        Vector3 direction = collision.gameObject.transform.position - transform.position;
+        direction = direction.normalized;
+        direction.y = 0;
+
         Debug.Log("Bullet Hit!!");
         if (collision.gameObject.TryGetComponent(out Damageable dObject))
         {
-            dObject.getDamage(1);
+            dObject.getDamage(1, 0.5f, direction);
         }
         
         Destroy(this.gameObject);

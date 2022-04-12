@@ -7,17 +7,19 @@ public class Enemy : MonoBehaviour, Damageable
 {
     private Coroutine eCoroutine, bCoroutine;
     public float moveSpeed;
-    public int MaxHp = 100;
-    public int currentHp = 100;
+    public float MaxHp = 100;
+    float currentHp;
     GameObject player;
     Renderer render;
     Image healthBar;
     Rigidbody m_rigidbody;
     Color oriColor;
-    bool isBlink = false;
+    Vector3 fallback;
+    bool isBlink;
     // Start is called before the first frame update
     void Start()
     {
+        currentHp = MaxHp;
         player = GameObject.Find("Player");
         render = GetComponent<Renderer>();
         oriColor = render.material.color;
@@ -25,6 +27,8 @@ public class Enemy : MonoBehaviour, Damageable
         m_rigidbody = GetComponent<Rigidbody>();
         eCoroutine = StartCoroutine(EnemyCoroutine());
         bCoroutine = StartCoroutine(blinkCoroutine());
+        isBlink = false;
+        fallback = Vector3.zero;
 
     }
 
@@ -42,9 +46,8 @@ public class Enemy : MonoBehaviour, Damageable
 
             movepos.x = positionGap.x * moveSpeed;
             movepos.z = positionGap.z * moveSpeed;
-            Debug.Log(positionGap);
-            Debug.Log(movepos);
-            m_rigidbody.MovePosition(m_rigidbody.position + movepos);
+            m_rigidbody.MovePosition(m_rigidbody.position + movepos + fallback);
+            fallback = Vector3.zero;
             yield return new WaitForSeconds(0.01f);
         }
     }
@@ -65,10 +68,12 @@ public class Enemy : MonoBehaviour, Damageable
         }
     }
 
-    public void getDamage(int Damage)
+    public void getDamage(float Damage, float pushPower, Vector3 Direction)
     {
-        Debug.Log("Bullet Hit!!" + currentHp);
+        Debug.Log("Bullet Hit!!" + currentHp + " " + Direction * pushPower);
         isBlink = true;
+
+        fallback += Direction * pushPower;
 
         currentHp -= Damage;
         healthBar.fillAmount = (float)currentHp / MaxHp;

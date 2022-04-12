@@ -5,34 +5,38 @@ using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour, Damageable
 {
-    private Coroutine eCoroutine, bCoroutine;
     public float moveSpeed;
-    public float MaxHp = 100;
-    float currentHp;
-    GameObject player;
-    Renderer render;
+    
+    public float maxHp = 100;
+    public float currentHp;
+    
+    GameObject playerChar;
+
+    Renderer myRenderer;
+    Rigidbody myRigidbody;
     Image healthBar;
-    Rigidbody m_rigidbody;
+    
     Color oriColor;
-    Vector3 fallback;
-    bool isBlink;
+    Vector3 hitVector;
+    bool blinkFlag;
+
     // Start is called before the first frame update
     void Start()
     {
-        currentHp = MaxHp;
-        player = GameObject.Find("Player");
-        render = GetComponent<Renderer>();
-        oriColor = render.material.color;
+        currentHp = maxHp;
+        playerChar = GameObject.Find("Player");
+        myRenderer = GetComponent<Renderer>();
+        oriColor = myRenderer.material.color;
         healthBar = transform.Find("Healthbar/health").GetComponent<Image>();
-        m_rigidbody = GetComponent<Rigidbody>();
-        eCoroutine = StartCoroutine(EnemyCoroutine());
-        bCoroutine = StartCoroutine(blinkCoroutine());
-        isBlink = false;
-        fallback = Vector3.zero;
+        myRigidbody = GetComponent<Rigidbody>();
+        StartCoroutine(EnemyRoutine());
+        StartCoroutine(BlinkRoutine());
+        blinkFlag = false;
+        hitVector = Vector3.zero;
 
     }
 
-    IEnumerator EnemyCoroutine()
+    IEnumerator EnemyRoutine()
     {
         Vector3 positionGap;
         Vector3 movepos;
@@ -40,43 +44,43 @@ public class Enemy : MonoBehaviour, Damageable
 
         while (true)
         {
-            positionGap = player.transform.position - transform.position;
+            positionGap = playerChar.transform.position - transform.position;
 
             positionGap = positionGap.normalized;
 
             movepos.x = positionGap.x * moveSpeed;
             movepos.z = positionGap.z * moveSpeed;
-            m_rigidbody.MovePosition(m_rigidbody.position + movepos + fallback);
-            fallback = Vector3.zero;
+            myRigidbody.MovePosition(myRigidbody.position + movepos + hitVector);
+            hitVector = Vector3.zero;
             yield return new WaitForSeconds(0.01f);
         }
     }
 
-    IEnumerator blinkCoroutine()
+    IEnumerator BlinkRoutine()
     {
         while (true)
         {
-            if (isBlink)
+            if (blinkFlag)
             {
                 Debug.Log("true");
-                render.material.color = Color.white;
+                myRenderer.material.color = Color.white;
                 yield return new WaitForSeconds(0.01f);
-                render.material.color = oriColor;
-                isBlink = false;
+                myRenderer.material.color = oriColor;
+                blinkFlag = false;
             }
             yield return new WaitForSeconds(0.1f);
         }
     }
 
-    public void getDamage(float Damage, float pushPower, Vector3 Direction)
+    public void GetDamage(float Damage, float pushPower, Vector3 Direction)
     {
         Debug.Log("Bullet Hit!!" + currentHp + " " + Direction * pushPower);
-        isBlink = true;
+        blinkFlag = true;
 
-        fallback += Direction * pushPower;
+        hitVector += Direction * pushPower;
 
         currentHp -= Damage;
-        healthBar.fillAmount = (float)currentHp / MaxHp;
+        healthBar.fillAmount = (float)currentHp / maxHp;
         if (currentHp < 0)
             Destroy(this.gameObject);
     }

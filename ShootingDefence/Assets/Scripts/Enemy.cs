@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour, Damageable
     GameObject player;
     Renderer render;
     Image healthBar;
+    Rigidbody m_rigidbody;
     Color oriColor;
     bool isBlink = false;
     // Start is called before the first frame update
@@ -21,13 +22,17 @@ public class Enemy : MonoBehaviour, Damageable
         render = GetComponent<Renderer>();
         oriColor = render.material.color;
         healthBar = transform.Find("Healthbar/health").GetComponent<Image>();
+        m_rigidbody = GetComponent<Rigidbody>();
         eCoroutine = StartCoroutine(EnemyCoroutine());
         bCoroutine = StartCoroutine(blinkCoroutine());
+
     }
 
     IEnumerator EnemyCoroutine()
     {
         Vector3 positionGap;
+        Vector3 movepos;
+        movepos.y = 0.0f;
 
         while (true)
         {
@@ -35,10 +40,11 @@ public class Enemy : MonoBehaviour, Damageable
 
             positionGap = positionGap.normalized;
 
-            transform.Translate(positionGap.x * Time.deltaTime * moveSpeed,
-                                0f,
-                                positionGap.z * Time.deltaTime * moveSpeed);
-
+            movepos.x = positionGap.x * moveSpeed;
+            movepos.z = positionGap.z * moveSpeed;
+            Debug.Log(positionGap);
+            Debug.Log(movepos);
+            m_rigidbody.MovePosition(m_rigidbody.position + movepos);
             yield return new WaitForSeconds(0.01f);
         }
     }
@@ -49,6 +55,7 @@ public class Enemy : MonoBehaviour, Damageable
         {
             if (isBlink)
             {
+                Debug.Log("true");
                 render.material.color = Color.white;
                 yield return new WaitForSeconds(0.01f);
                 render.material.color = oriColor;

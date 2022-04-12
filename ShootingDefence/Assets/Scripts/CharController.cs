@@ -23,7 +23,7 @@ public class CharController : MonoBehaviour
             float horizon = Input.GetAxis("Horizontal");
             float vertical = Input.GetAxis("Vertical");
 
-            Vector3 Movement = new Vector3(horizon, 0.0f, vertical) * pSpeed;
+            Vector3 Movement = new Vector3(horizon, 0.0f - transform.position.y, vertical) * pSpeed;
 
             charController.Move(Movement);
 

@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,6 +34,8 @@ public class Bullet : MonoBehaviour
         direction = direction.normalized;
         direction.y = 0;
 
+        //Todo : 발사시 position, or 발사시 pos + 피격시 pos / 2로 변경
+        // 현재 Side로 밀리는 현상 발생
         Debug.Log("Bullet Hit!!");
         if (collision.gameObject.TryGetComponent(out Damageable dObject))
         {

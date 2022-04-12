@@ -4,24 +4,24 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private Vector3 m_moveVector;
-    public float m_Speed;
-    public int m_Lifespan;
-    private Coroutine m_bCoroutine;
+    private Vector3 moveVector;
+    public float bulletSpeed;
+    public int bulletLifespan;
+    private Coroutine bulletCoroutine;
 
     // Start is called before the first frame update
     void Start()
     {
-        m_moveVector = transform.forward;
-        m_bCoroutine = StartCoroutine(BulletMove());
+        moveVector = transform.forward;
+        bulletCoroutine = StartCoroutine(BulletRoutine());
     }
 
-    IEnumerator BulletMove()
+    IEnumerator BulletRoutine()
     {
-        while(m_Lifespan >= 0)
+        while(bulletLifespan >= 0)
         {
-            m_Lifespan--;
-            transform.position += m_moveVector * m_Speed;
+            bulletLifespan--;
+            transform.position += moveVector * bulletSpeed;
 
             yield return new WaitForSeconds(0.01f);
         }
@@ -30,8 +30,7 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter(Collider collision)
     {
-        Vector3 direction = collision.gameObject.transform.position - transform.position;
-        direction = direction.normalized;
+        Vector3 direction = moveVector.normalized;
         direction.y = 0;
 
         //Todo : 발사시 position, or 발사시 pos + 피격시 pos / 2로 변경

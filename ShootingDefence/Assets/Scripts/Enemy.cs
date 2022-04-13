@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour, Damageable
 {
@@ -41,17 +42,13 @@ public class Enemy : MonoBehaviour, Damageable
         Vector3 positionGap;
         Vector3 movepos;
         movepos.y = 0.0f;
-
+        NavMeshAgent agent = GetComponent<NavMeshAgent>();
         while (true)
         {
-            positionGap = playerChar.transform.position - transform.position;
-
-            positionGap = positionGap.normalized;
-
-            movepos.x = positionGap.x * moveSpeed;
-            movepos.z = positionGap.z * moveSpeed;
-            myRigidbody.MovePosition(myRigidbody.position + movepos + hitVector);
+            agent.destination = playerChar.transform.position;
+            agent.Move(hitVector);
             hitVector = Vector3.zero;
+
             yield return new WaitForSeconds(0.01f);
         }
     }

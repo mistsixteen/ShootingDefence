@@ -8,6 +8,7 @@ public class Gun : MonoBehaviour
     public Transform BulletSpawn;
     public float delay_fire = 0.01f;
     private float timeStamp = 0.0f;
+    private float tileAngle = 10.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +33,7 @@ public class Gun : MonoBehaviour
     }
     void Fire()
     {
-        Instantiate(Bullet, BulletSpawn.position, BulletSpawn.rotation);
+        GameObject newBullet = Instantiate(Bullet, BulletSpawn.position, BulletSpawn.rotation);
+        newBullet.transform.Rotate(new Vector3(0.0f, Random.Range(0 - tileAngle, tileAngle), 0.0f));
     }
 }

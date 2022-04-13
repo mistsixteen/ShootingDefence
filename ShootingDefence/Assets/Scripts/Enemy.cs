@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour, Damageable
     Renderer myRenderer;
     Rigidbody myRigidbody;
     Image healthBar;
+    Transform healthGrid;
     
     Color oriColor;
     Vector3 hitVector;
@@ -29,6 +30,7 @@ public class Enemy : MonoBehaviour, Damageable
         myRenderer = GetComponent<Renderer>();
         oriColor = myRenderer.material.color;
         healthBar = transform.Find("Healthbar/health").GetComponent<Image>();
+        healthGrid = transform.Find("Healthbar").GetComponent<Transform>();
         myRigidbody = GetComponent<Rigidbody>();
         StartCoroutine(EnemyRoutine());
         StartCoroutine(BlinkRoutine());
@@ -48,7 +50,7 @@ public class Enemy : MonoBehaviour, Damageable
             agent.destination = playerChar.transform.position;
             agent.Move(hitVector);
             hitVector = Vector3.zero;
-
+            healthGrid.rotation = Quaternion.Euler(70.0f, 0.0f, 0.0f);
             yield return new WaitForSeconds(0.01f);
         }
     }

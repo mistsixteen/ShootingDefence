@@ -14,7 +14,6 @@ public class Enemy : MonoBehaviour, Damageable
     GameObject playerChar;
 
     Renderer myRenderer;
-    Rigidbody myRigidbody;
     Image healthBar;
     Transform healthGrid;
     
@@ -31,7 +30,6 @@ public class Enemy : MonoBehaviour, Damageable
         oriColor = myRenderer.material.color;
         healthBar = transform.Find("Healthbar/health").GetComponent<Image>();
         healthGrid = transform.Find("Healthbar").GetComponent<Transform>();
-        myRigidbody = GetComponent<Rigidbody>();
         StartCoroutine(EnemyRoutine());
         StartCoroutine(BlinkRoutine());
         blinkFlag = false;
@@ -41,9 +39,6 @@ public class Enemy : MonoBehaviour, Damageable
 
     IEnumerator EnemyRoutine()
     {
-        Vector3 positionGap;
-        Vector3 movepos;
-        movepos.y = 0.0f;
         NavMeshAgent agent = GetComponent<NavMeshAgent>();
         while (true)
         {
@@ -61,7 +56,6 @@ public class Enemy : MonoBehaviour, Damageable
         {
             if (blinkFlag)
             {
-                Debug.Log("true");
                 myRenderer.material.color = Color.white;
                 yield return new WaitForSeconds(0.01f);
                 myRenderer.material.color = oriColor;
@@ -73,7 +67,6 @@ public class Enemy : MonoBehaviour, Damageable
 
     public void GetDamage(float Damage, float pushPower, Vector3 Direction)
     {
-        Debug.Log("Bullet Hit!!" + currentHp + " " + Direction * pushPower);
         blinkFlag = true;
 
         hitVector += Direction * pushPower;

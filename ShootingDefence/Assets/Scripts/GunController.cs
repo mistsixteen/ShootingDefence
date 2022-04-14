@@ -2,7 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gun : MonoBehaviour
+
+public class GunItem
+{
+    public int currentMagazine;
+    public int BulletLeft;
+    
+}
+
+public class GunController : MonoBehaviour
 {
     private GameObject Bullet;
     public Transform BulletSpawn;

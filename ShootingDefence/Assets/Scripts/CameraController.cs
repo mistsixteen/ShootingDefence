@@ -5,7 +5,11 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     public Transform pTransform;
-    float camOffsetZ;
+    public float minYOffset = 10.0f;
+    public float maxYOffset = 20.0f;
+    private float currentYOffset = 18.0f;
+    private float camOffsetZ;
+
     private Coroutine c_followCamera;
     // Start is called before the first frame update
     void Start()
@@ -19,7 +23,13 @@ public class CameraController : MonoBehaviour
     {
         while(true)
         {
-            Vector3 m_cameraPos = new Vector3(pTransform.position.x, gameObject.transform.position.y, pTransform.position.z + camOffsetZ);
+            currentYOffset += Input.mouseScrollDelta.y;
+            if (currentYOffset < minYOffset)
+                currentYOffset = minYOffset;
+            if (currentYOffset > maxYOffset)
+                currentYOffset = maxYOffset;
+
+            Vector3 m_cameraPos = new Vector3(pTransform.position.x, currentYOffset, pTransform.position.z + camOffsetZ);
 
             gameObject.transform.position = m_cameraPos;
 

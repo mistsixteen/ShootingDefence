@@ -31,19 +31,32 @@ public class GunInventory
     {
         gunItemList = new List<GunItem>();
         //TODO : 코드 정리해서 Factory class로 분리
-        GunItem handgun = new GunItem();
-        handgun.gunName = "HandGun";
-        handgun.currentMagazine = 12;
-        handgun.bulletLeft = 12;
-        handgun.totalBulletLeft = 200;
-        handgun.reloadTime = 5.0f;
-        handgun.bulletSpeed = 0.5f;
-        handgun.bulletDamage = 5.0f;
-        handgun.bulletPushPower = 2.0f;
-        handgun.fireDelay = 1.0f;
-        handgun.fireAngle = 0.0f;
+        GunItem handGun = new GunItem();
+        handGun.gunName = "handGun";
+        handGun.currentMagazine = 12;
+        handGun.bulletLeft = 12;
+        handGun.totalBulletLeft = 200;
+        handGun.reloadTime = 5.0f;
+        handGun.bulletSpeed = 0.5f;
+        handGun.bulletDamage = 5.0f;
+        handGun.bulletPushPower = 2.0f;
+        handGun.fireDelay = 1.0f;
+        handGun.fireAngle = 0.0f;
 
-        gunItemList.Add(handgun);
+        GunItem machineGun = new GunItem();
+        machineGun.gunName = "SMG";
+        machineGun.currentMagazine = 40;
+        machineGun.bulletLeft = 40;
+        machineGun.totalBulletLeft = 800;
+        machineGun.reloadTime = 5.0f;
+        machineGun.bulletSpeed = 0.5f;
+        machineGun.bulletDamage = 5.0f;
+        machineGun.bulletPushPower = 2.0f;
+        machineGun.fireDelay = 0.1f;
+        machineGun.fireAngle = 10.0f;
+
+        gunItemList.Add(handGun);
+        gunItemList.Add(machineGun);
 
         currentIdx = 0;
     }

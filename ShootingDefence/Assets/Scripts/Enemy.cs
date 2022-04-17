@@ -12,11 +12,10 @@ public class Enemy : MonoBehaviour, Damageable
     public float currentHp;
     
     GameObject playerChar;
-
     Renderer myRenderer;
     Image healthBar;
     Transform healthGrid;
-    
+  
     Color oriColor;
     Vector3 hitVector;
     bool blinkFlag;
@@ -67,7 +66,6 @@ public class Enemy : MonoBehaviour, Damageable
 
     public void GetDamage(float Damage, float pushPower, Vector3 Direction)
     {
-        Debug.Log(Damage + " " + currentHp);
         blinkFlag = true;
 
         hitVector += Direction * pushPower;

@@ -21,36 +21,73 @@ public class GunController : MonoBehaviour
     {
         Bullet = Resources.Load<GameObject>("Prefabs/Bullet");
         currentGunItem = GunInventory.GetInstance().GetCurrentItem();
+        StartCoroutine(GunRoutine());
+
     }
 
-    // Update is called once per frame
-    void Update()
+    bool CanFire()
     {
-        if (Input.GetMouseButton(0))
-        {
-            if ((Time.time >= timeStamp))
-            {
-                Fire();
-                timeStamp = Time.time + currentGunItem.fireDelay;
-            }
-        }
-        if (Input.GetButton("RWeapon"))
-        {
-            GunInventory.GetInstance().SetGunIdx(1);
-            currentGunItem = GunInventory.GetInstance().GetCurrentItem();
-        }
-        else if (Input.GetButton("LWeapon"))
-        {
-            GunInventory.GetInstance().SetGunIdx(0);
-            currentGunItem = GunInventory.GetInstance().GetCurrentItem();
-        }
-        myLineRenderer.SetPosition(0, BulletSpawn.position);
-        myLineRenderer.SetPosition(1, BulletSpawn.position + BulletSpawn.forward * 40.0f);
+        if (currentGunItem.bulletLeft > 0)
+            return true;
+        return false;
     }
+    IEnumerator GunRoutine()
+    {
+        while(true)
+        { 
+            if (Input.GetMouseButton(0))
+            {
+                if (CanFire() && (Time.time >= timeStamp))
+                {
+                    Fire();
+                    timeStamp = Time.time + currentGunItem.fireDelay;
+                }
+            }
+            if (Input.GetButton("RWeapon"))
+            {
+                GunInventory.GetInstance().SetGunIdx(1);
+                currentGunItem = GunInventory.GetInstance().GetCurrentItem();
+            }
+            else if (Input.GetButton("LWeapon"))
+            {
+                GunInventory.GetInstance().SetGunIdx(0);
+                currentGunItem = GunInventory.GetInstance().GetCurrentItem();
+            }
+            else if (Input.GetButton("Reload"))
+            {
+                if(currentGunItem.totalBulletLeft > 0 && currentGunItem.bulletLeft != currentGunItem.gunMagazine)
+                {
+                    myLineRenderer.enabled = false;
+                    string temp = currentGunItem.gunName;
+                    currentGunItem.gunName = "Reloading...";
+                    yield return new WaitForSeconds(currentGunItem.reloadTime);
+                    if (currentGunItem.totalBulletLeft >= currentGunItem.gunMagazine)
+                    {
+                        currentGunItem.bulletLeft = currentGunItem.gunMagazine;
+                        currentGunItem.totalBulletLeft -= currentGunItem.gunMagazine; 
+                    }
+                    else
+                    {
+                        currentGunItem.bulletLeft = currentGunItem.totalBulletLeft;
+                        currentGunItem.totalBulletLeft = 0;
+                    }
+                    currentGunItem.gunName = temp;
+                    myLineRenderer.enabled = true;
+                }
+
+            }
+            //조준선 : LineRenderer 사용
+            myLineRenderer.SetPosition(0, BulletSpawn.position);
+            myLineRenderer.SetPosition(1, BulletSpawn.position + BulletSpawn.forward * 40.0f);
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
     void Fire()
     {
         GameObject newBullet = Instantiate(Bullet, BulletSpawn.position, BulletSpawn.rotation);
         newBullet.GetComponent<Bullet>().registerBulletInfo(currentGunItem);
         newBullet.transform.Rotate(new Vector3(0.0f, Random.Range(0 - tileAngle, tileAngle), 0.0f));
+        currentGunItem.bulletLeft--;
     }
 }

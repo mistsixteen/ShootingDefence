@@ -7,7 +7,7 @@ public class GunItem
 {
     public string gunName;
 
-    public int currentMagazine;
+    public int gunMagazine;
     public int bulletLeft;
     public int totalBulletLeft;
  
@@ -33,7 +33,7 @@ public class GunInventory
         //TODO : 코드 정리해서 Factory class로 분리
         GunItem handGun = new GunItem();
         handGun.gunName = "handGun";
-        handGun.currentMagazine = 12;
+        handGun.gunMagazine = 12;
         handGun.bulletLeft = 12;
         handGun.totalBulletLeft = 200;
         handGun.reloadTime = 5.0f;
@@ -45,7 +45,7 @@ public class GunInventory
 
         GunItem machineGun = new GunItem();
         machineGun.gunName = "SMG";
-        machineGun.currentMagazine = 40;
+        machineGun.gunMagazine = 40;
         machineGun.bulletLeft = 40;
         machineGun.totalBulletLeft = 800;
         machineGun.reloadTime = 5.0f;

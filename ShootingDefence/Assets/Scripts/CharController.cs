@@ -27,6 +27,7 @@ public class CharController : MonoBehaviour
 
             charController.Move(Movement);
 
+            // 마우스가 향하는 방향으로 캐릭터 회전
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 

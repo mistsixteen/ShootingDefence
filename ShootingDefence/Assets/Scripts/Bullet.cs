@@ -6,6 +6,8 @@ public class Bullet : MonoBehaviour
 {
     private Vector3 moveVector;
     public float bulletSpeed;
+    public float bulletDamage;
+    public float bulletPushpower;
     public int bulletLifespan;
     private Coroutine bulletCoroutine;
 
@@ -14,6 +16,14 @@ public class Bullet : MonoBehaviour
     {
         moveVector = transform.forward;
         bulletCoroutine = StartCoroutine(BulletRoutine());
+    }
+
+    public void registerBulletInfo(in GunItem gunInfo )
+    {
+        bulletSpeed = gunInfo.bulletSpeed;
+        bulletDamage = gunInfo.bulletDamage;
+        bulletPushpower = gunInfo.bulletPushPower;
+
     }
 
     IEnumerator BulletRoutine()
@@ -33,10 +43,9 @@ public class Bullet : MonoBehaviour
         Vector3 direction = moveVector.normalized;
         direction.y = 0;
 
-        Debug.Log("Bullet Hit!!");
         if (collision.gameObject.TryGetComponent(out Damageable dObject))
         {
-            dObject.GetDamage(1, 0.5f, direction);
+            dObject.GetDamage(bulletDamage, bulletPushpower, direction);
         }
         
         Destroy(this.gameObject);

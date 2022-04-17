@@ -67,6 +67,7 @@ public class Enemy : MonoBehaviour, Damageable
 
     public void GetDamage(float Damage, float pushPower, Vector3 Direction)
     {
+        Debug.Log(Damage + " " + currentHp);
         blinkFlag = true;
 
         hitVector += Direction * pushPower;

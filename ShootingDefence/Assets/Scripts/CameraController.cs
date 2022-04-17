@@ -31,6 +31,7 @@ public class CameraController : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
+            //마우스 포인터의 위치를 Raycast하여, 마우스 위치 - 캐릭터 위치의 중간값으로 카메라 이동
             if (Physics.Raycast(ray, out hit))
             {
                 screenPosition = new Vector3(hit.point.x, 0.0f, hit.point.z);
@@ -41,14 +42,14 @@ public class CameraController : MonoBehaviour
             }
             else // Raycast 실패시 Camera 위치 유지
                 targetPosition = transform.position;
-
+            //카메라 높이는 Wheel로 수정
             currentYOffset += Input.mouseScrollDelta.y;
             currentYOffset = Mathf.Clamp(currentYOffset, minYOffset, maxYOffset);
             targetPosition.y = currentYOffset;
 
             gameObject.transform.position = targetPosition;
 
-            yield return new WaitForSeconds(0.03f);
+            yield return new WaitForSeconds(0.01f);
         }
         
     }

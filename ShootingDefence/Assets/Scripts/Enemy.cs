@@ -4,6 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.AI;
 
+public enum EnemyState
+{
+    eStateFinding,
+    eStateAttacking,
+    eStateAfterAttack
+}
+
 public class Enemy : MonoBehaviour, Damageable
 {
     public float moveSpeed;
@@ -15,7 +22,9 @@ public class Enemy : MonoBehaviour, Damageable
     Renderer myRenderer;
     Image healthBar;
     Transform healthGrid;
-  
+    public Transform BulletSpawn;
+    public GameObject Bullet;
+
     Color oriColor;
     Vector3 hitVector;
     bool blinkFlag;
@@ -41,10 +50,20 @@ public class Enemy : MonoBehaviour, Damageable
         NavMeshAgent agent = GetComponent<NavMeshAgent>();
         while (true)
         {
+            //Move-rotate to Player
             agent.destination = playerChar.transform.position;
             agent.Move(hitVector);
             hitVector = Vector3.zero;
             healthGrid.rotation = Quaternion.Euler(70.0f, 0.0f, 0.0f);
+            //Attack
+            float distance = Vector3.Distance(this.transform.position, playerChar.transform.position);
+            Debug.Log(distance);
+            if(distance < 20.0f)
+            {
+                GameObject newBullet = Instantiate(Bullet, BulletSpawn.position, BulletSpawn.rotation);
+                newBullet.GetComponent<Bullet>().bulletSpeed = 0.5f;
+                yield return new WaitForSeconds(0.5f);
+            }
             yield return new WaitForSeconds(0.01f);
         }
     }

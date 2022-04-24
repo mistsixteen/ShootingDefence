@@ -40,6 +40,7 @@ public class GunController : MonoBehaviour
             return true;
         return false;
     }
+
     IEnumerator GunRoutine()
     {
         while(true)

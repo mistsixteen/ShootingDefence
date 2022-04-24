@@ -36,7 +36,7 @@ public class GunInventory
         handGun.gunMagazine = 12;
         handGun.bulletLeft = 12;
         handGun.totalBulletLeft = 200;
-        handGun.reloadTime = 5.0f;
+        handGun.reloadTime = 2.0f;
         handGun.bulletSpeed = 0.5f;
         handGun.bulletDamage = 5.0f;
         handGun.bulletPushPower = 2.0f;
@@ -45,15 +45,15 @@ public class GunInventory
 
         GunItem machineGun = new GunItem();
         machineGun.gunName = "SMG";
-        machineGun.gunMagazine = 40;
-        machineGun.bulletLeft = 40;
+        machineGun.gunMagazine = 80;
+        machineGun.bulletLeft = 80;
         machineGun.totalBulletLeft = 800;
         machineGun.reloadTime = 5.0f;
         machineGun.bulletSpeed = 0.5f;
         machineGun.bulletDamage = 5.0f;
         machineGun.bulletPushPower = 2.0f;
         machineGun.fireDelay = 0.1f;
-        machineGun.fireAngle = 10.0f;
+        machineGun.fireAngle = 5.0f;
 
         gunItemList.Add(handGun);
         gunItemList.Add(machineGun);

@@ -62,6 +62,7 @@ public class Enemy : MonoBehaviour, Damageable
             {
                 GameObject newBullet = Instantiate(Bullet, BulletSpawn.position, BulletSpawn.rotation);
                 newBullet.GetComponent<Bullet>().bulletSpeed = 0.5f;
+                //newBullet.GetComponent<Bullet>().
                 yield return new WaitForSeconds(0.5f);
             }
             yield return new WaitForSeconds(0.01f);

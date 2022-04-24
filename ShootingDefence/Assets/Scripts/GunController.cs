@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum gunState
+{
+    gunStateEmpty,
+    gunStateIdle,
+    gunStateReloading
+}
 
 
 public class GunController : MonoBehaviour
@@ -12,7 +18,10 @@ public class GunController : MonoBehaviour
     public Transform BulletSpawn;
     public LineRenderer myLineRenderer;
 
+    public gunState cGunState = gunState.gunStateIdle;
+
     public float delay_fire = 0.01f;
+    public float delay_reload = 0.0f;
     private float timeStamp = 0.0f;
     private float tileAngle = 10.0f;
 
@@ -58,9 +67,16 @@ public class GunController : MonoBehaviour
                 if(currentGunItem.totalBulletLeft > 0 && currentGunItem.bulletLeft != currentGunItem.gunMagazine)
                 {
                     myLineRenderer.enabled = false;
-                    string temp = currentGunItem.gunName;
-                    currentGunItem.gunName = "Reloading...";
-                    yield return new WaitForSeconds(currentGunItem.reloadTime);
+                    delay_reload = currentGunItem.reloadTime;
+                    cGunState = gunState.gunStateReloading;
+                    for(int i = 0; i < 50; i++)
+                    {
+                        yield return new WaitForSeconds(currentGunItem.reloadTime / 50);
+                        delay_reload -= currentGunItem.reloadTime / 50;
+                        
+                    }
+                    delay_reload = 0.0f;
+
                     if (currentGunItem.totalBulletLeft >= currentGunItem.gunMagazine)
                     {
                         currentGunItem.bulletLeft = currentGunItem.gunMagazine;
@@ -71,8 +87,9 @@ public class GunController : MonoBehaviour
                         currentGunItem.bulletLeft = currentGunItem.totalBulletLeft;
                         currentGunItem.totalBulletLeft = 0;
                     }
-                    currentGunItem.gunName = temp;
+
                     myLineRenderer.enabled = true;
+                    cGunState = gunState.gunStateIdle;
                 }
 
             }

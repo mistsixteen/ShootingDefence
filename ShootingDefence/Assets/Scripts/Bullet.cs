@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Bullet : MonoBehaviour
 {
     private Vector3 moveVector;
@@ -9,13 +10,23 @@ public class Bullet : MonoBehaviour
     public float bulletDamage;
     public float bulletPushpower;
     public int bulletLifespan;
+
+    //Coroutines
     private Coroutine bulletCoroutine;
+
+    //Components
+
+    private Material myMaterial;
+    private TrailRenderer myTrailRenderer;
 
     // Start is called before the first frame update
     void Start()
     {
         moveVector = transform.forward;
         bulletCoroutine = StartCoroutine(BulletRoutine());
+
+        myMaterial = GetComponent<Material>();
+        myTrailRenderer = GetComponent<TrailRenderer>();
     }
 
     public void registerBulletInfo(in GunItem gunInfo )
@@ -23,7 +34,6 @@ public class Bullet : MonoBehaviour
         bulletSpeed = gunInfo.bulletSpeed;
         bulletDamage = gunInfo.bulletDamage;
         bulletPushpower = gunInfo.bulletPushPower;
-
     }
 
     IEnumerator BulletRoutine()
@@ -51,10 +61,14 @@ public class Bullet : MonoBehaviour
         Destroy(this.gameObject);
     }
 
+    public void changeBulletColor(Color newColor)
+    {
+
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         Destroy(this.gameObject);
     }
-
 
 }

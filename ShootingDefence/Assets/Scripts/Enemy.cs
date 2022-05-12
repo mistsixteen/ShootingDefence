@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -54,7 +54,6 @@ public class Enemy : MonoBehaviour, Damageable
             agent.destination = playerChar.transform.position;
             agent.Move(hitVector);
             hitVector = Vector3.zero;
-            healthGrid.rotation = Quaternion.Euler(70.0f, 0.0f, 0.0f);
             //Attack
             float distance = Vector3.Distance(this.transform.position, playerChar.transform.position);
             Debug.Log(distance);
@@ -62,8 +61,7 @@ public class Enemy : MonoBehaviour, Damageable
             {
                 GameObject newBullet = Instantiate(Bullet, BulletSpawn.position, BulletSpawn.rotation);
                 newBullet.GetComponent<Bullet>().bulletSpeed = 0.5f;
-                //newBullet.GetComponent<Bullet>().
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(0.1f);
             }
             yield return new WaitForSeconds(0.01f);
         }
@@ -94,5 +92,13 @@ public class Enemy : MonoBehaviour, Damageable
         healthBar.fillAmount = (float)currentHp / maxHp;
         if (currentHp < 0)
             Destroy(this.gameObject);
+    }
+
+    public void Update()
+    {
+        //NavMesh에서 이동할 시 healthBar가 잠깐 휘어져 보이는 현상 해결
+        //Update에서 rotation을 재조정해줘야 자연스럽게 보임
+        //추후 해당 rotation 고정할 방법 찾아서 사용할 것
+        healthGrid.rotation = Quaternion.Euler(70.0f, 0.0f, 0.0f);
     }
 }

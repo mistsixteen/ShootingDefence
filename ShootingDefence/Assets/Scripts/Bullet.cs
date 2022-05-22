@@ -16,8 +16,12 @@ public class Bullet : MonoBehaviour
     private Coroutine bulletCoroutine;
 
     //Components
-    private Material myMaterial;
+    private Renderer myRenderer;
     private TrailRenderer myTrailRenderer;
+
+    private Color myColor, trailStartColor, trailEndColor;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -25,8 +29,11 @@ public class Bullet : MonoBehaviour
         moveVector = transform.forward;
         bulletCoroutine = StartCoroutine(BulletRoutine());
 
-        myMaterial = GetComponent<Material>();
+        myRenderer = GetComponent<Renderer>();
+        myRenderer.material.color = myColor;
         myTrailRenderer = GetComponent<TrailRenderer>();
+        myTrailRenderer.startColor = trailStartColor;
+        myTrailRenderer.endColor = trailEndColor;
     }
 
     public void registerBulletInfo(in GunItem gunInfo )
@@ -34,6 +41,26 @@ public class Bullet : MonoBehaviour
         bulletSpeed = gunInfo.bulletSpeed;
         bulletDamage = gunInfo.bulletDamage;
         bulletPushpower = gunInfo.bulletPushPower;
+    }
+
+    public void RegisterBulletInfo(in BulletInfo bInfo)
+    {
+        bulletSpeed = bInfo.bulletSpeed;
+        bulletDamage = bInfo.bulletDamage;
+        bulletPushpower = bInfo.bulletPushpower;
+        bulletLifespan = bInfo.bulletLifespan;
+        //bulletColor
+        if(myRenderer != null)
+            myRenderer.material.color = bInfo.bulletColor;
+        myColor = bInfo.bulletColor;
+        //trailColor
+        if(myTrailRenderer != null)
+        {
+            myTrailRenderer.startColor = bInfo.trailColor;
+            myTrailRenderer.endColor = bInfo.trailColor;
+        }
+        trailStartColor = bInfo.trailColor;
+        trailEndColor = bInfo.trailColor;
     }
 
     IEnumerator BulletRoutine()
@@ -68,11 +95,6 @@ public class Bullet : MonoBehaviour
         }
         else
             Destroy(this.gameObject);
-    }
-
-    public void changeBulletColor(Color newColor)
-    {
-
     }
 
     private void OnCollisionEnter(Collision collision)

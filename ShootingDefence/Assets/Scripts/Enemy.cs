@@ -22,6 +22,8 @@ public class Enemy : MonoBehaviour, Damageable
     Vector3 hitVector;
     bool blinkFlag;
 
+    BulletInfo enemyBulletInfo;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,11 +33,24 @@ public class Enemy : MonoBehaviour, Damageable
         oriColor = myRenderer.material.color;
         healthBar = transform.Find("Healthbar/health").GetComponent<Image>();
         healthGrid = transform.Find("Healthbar").GetComponent<Transform>();
+        SetBulletInfo();
+
         StartCoroutine(EnemyRoutine());
         StartCoroutine(BlinkRoutine());
         blinkFlag = false;
         hitVector = Vector3.zero;
 
+        
+    }
+
+    void SetBulletInfo()
+    {
+        enemyBulletInfo.bulletSpeed = 0.5f;
+        enemyBulletInfo.bulletDamage = 1.0f;
+        enemyBulletInfo.bulletPushpower = 1.0f;
+        enemyBulletInfo.bulletLifespan = 30;
+        enemyBulletInfo.bulletColor = Color.red;
+        enemyBulletInfo.trailColor = Color.red;
     }
 
     IEnumerator EnemyRoutine()
@@ -51,8 +66,7 @@ public class Enemy : MonoBehaviour, Damageable
             float distance = Vector3.Distance(this.transform.position, playerChar.transform.position);
             if(distance < 20.0f)
             {
-                GameObject newBullet = Instantiate(Bullet, BulletSpawn.position, BulletSpawn.rotation);
-                newBullet.GetComponent<Bullet>().bulletSpeed = 0.5f;
+                GameObject newBullet = BulletFactory.GetInstance().createBullet(enemyBulletInfo, BulletSpawn.position, BulletSpawn.rotation);
                 newBullet.GetComponent<Bullet>().bulletFaction =  ObjectFaction.Enemy;
                 yield return new WaitForSeconds(0.1f);
             }

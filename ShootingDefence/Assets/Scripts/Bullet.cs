@@ -10,12 +10,12 @@ public class Bullet : MonoBehaviour
     public float bulletDamage;
     public float bulletPushpower;
     public int bulletLifespan;
+    public ObjectFaction bulletFaction;
 
     //Coroutines
     private Coroutine bulletCoroutine;
 
     //Components
-
     private Material myMaterial;
     private TrailRenderer myTrailRenderer;
 
@@ -55,10 +55,19 @@ public class Bullet : MonoBehaviour
 
         if (collision.gameObject.TryGetComponent(out Damageable dObject))
         {
-            dObject.GetDamage(bulletDamage, bulletPushpower, direction);
+            if (dObject.getFaction() != bulletFaction)
+            {
+                dObject.GetDamage(bulletDamage, bulletPushpower, direction);
+                Destroy(this.gameObject);
+            }
+            else // bypass Friendly Object
+            {
+
+            }
+                
         }
-        
-        Destroy(this.gameObject);
+        else
+            Destroy(this.gameObject);
     }
 
     public void changeBulletColor(Color newColor)

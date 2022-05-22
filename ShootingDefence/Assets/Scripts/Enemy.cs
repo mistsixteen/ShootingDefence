@@ -56,11 +56,11 @@ public class Enemy : MonoBehaviour, Damageable
             hitVector = Vector3.zero;
             //Attack
             float distance = Vector3.Distance(this.transform.position, playerChar.transform.position);
-            Debug.Log(distance);
             if(distance < 20.0f)
             {
                 GameObject newBullet = Instantiate(Bullet, BulletSpawn.position, BulletSpawn.rotation);
                 newBullet.GetComponent<Bullet>().bulletSpeed = 0.5f;
+                newBullet.GetComponent<Bullet>().bulletFaction =  ObjectFaction.Enemy;
                 yield return new WaitForSeconds(0.1f);
             }
             yield return new WaitForSeconds(0.01f);
@@ -80,6 +80,11 @@ public class Enemy : MonoBehaviour, Damageable
             }
             yield return new WaitForSeconds(0.1f);
         }
+    }
+
+    public ObjectFaction getFaction()
+    {
+        return ObjectFaction.Enemy;
     }
 
     public void GetDamage(float Damage, float pushPower, Vector3 Direction)

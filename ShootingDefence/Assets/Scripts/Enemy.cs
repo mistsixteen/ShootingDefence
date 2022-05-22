@@ -4,13 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.AI;
 
-public enum EnemyState
-{
-    eStateFinding,
-    eStateAttacking,
-    eStateAfterAttack
-}
-
 public class Enemy : MonoBehaviour, Damageable
 {
     public float moveSpeed;

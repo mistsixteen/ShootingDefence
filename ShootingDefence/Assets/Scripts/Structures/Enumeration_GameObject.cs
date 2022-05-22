@@ -9,3 +9,17 @@ public enum ObjectFaction
     Enemy,
     Normal
 }
+
+public enum EnemyState
+{
+    eStateFinding,
+    eStateAttacking,
+    eStateAfterAttack
+}
+
+public enum gunState
+{
+    gunStateEmpty,
+    gunStateIdle,
+    gunStateReloading
+}

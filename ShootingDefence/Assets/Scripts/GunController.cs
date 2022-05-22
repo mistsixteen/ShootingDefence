@@ -2,12 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum gunState
-{
-    gunStateEmpty,
-    gunStateIdle,
-    gunStateReloading
-}
 
 
 public class GunController : MonoBehaviour

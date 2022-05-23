@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerCharacter : MonoBehaviour, Damageable
 {
+    public float playerHealth = 100;
+    public float playerMaxHealth = 100;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,13 +19,27 @@ public class PlayerCharacter : MonoBehaviour, Damageable
         
     }
 
+    public void ChangeHealthBy(float damage)
+    {
+        playerHealth -= damage;
+        playerHealth = Mathf.Clamp(playerHealth, 0.0f, playerMaxHealth);
+        //todo:Change Helath UI
+    }
+
     public ObjectFaction getFaction()
     {
         return ObjectFaction.Ally;
     }
 
+    public float getHpPercentage()
+    {
+        float fillAmount = (playerHealth / playerMaxHealth);
+        Debug.Log(fillAmount);
+        return (playerHealth / playerMaxHealth);
+    }
+
     public void GetDamage(float Damage, float pushPower, Vector3 Direction)
     {
-        Debug.Log("GetDamaged");
+        ChangeHealthBy(Damage);
     }
 }

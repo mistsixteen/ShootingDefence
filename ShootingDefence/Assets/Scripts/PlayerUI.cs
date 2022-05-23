@@ -8,6 +8,8 @@ public class PlayerUI : MonoBehaviour
     public Text waveText, gunTypeText, bulletText;
     public Image healthBar;
 
+    public PlayerCharacter player;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +24,7 @@ public class PlayerUI : MonoBehaviour
             waveText.text = "Wave 001";
 
             //HpBar
-
+            healthBar.fillAmount = player.getHpPercentage();
             //GunUI
             gunTypeText.text = GunInventory.GetInstance().GetCurrentItem().gunName;
             bulletText.text = "" + GunInventory.GetInstance().GetCurrentItem().bulletLeft + " / " + GunInventory.GetInstance().GetCurrentItem().totalBulletLeft;

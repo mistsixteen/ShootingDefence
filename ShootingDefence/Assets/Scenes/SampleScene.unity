@@ -1417,7 +1417,8 @@ MonoBehaviour:
   waveText: {fileID: 56856113}
   gunTypeText: {fileID: 1273128562}
   bulletText: {fileID: 950448893}
-  healthBar: {fileID: 0}
+  healthBar: {fileID: 214127335}
+  player: {fileID: 2110926418}
 --- !u!1 &1675979921
 GameObject:
   m_ObjectHideFlags: 0
@@ -2453,9 +2454,9 @@ GameObject:
   - component: {fileID: 2110926412}
   - component: {fileID: 2110926411}
   - component: {fileID: 2110926415}
+  - component: {fileID: 2110926418}
   - component: {fileID: 2110926416}
   - component: {fileID: 2110926417}
-  - component: {fileID: 2110926418}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2602,3 +2603,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c114f4903795446b7814786aa3b41d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerHealth: 100
+  playerMaxHealth: 100

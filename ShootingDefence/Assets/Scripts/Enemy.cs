@@ -48,7 +48,7 @@ public class Enemy : MonoBehaviour, Damageable
         enemyBulletInfo.bulletSpeed = 0.5f;
         enemyBulletInfo.bulletDamage = 1.0f;
         enemyBulletInfo.bulletPushpower = 1.0f;
-        enemyBulletInfo.bulletLifespan = 30;
+        enemyBulletInfo.bulletLifespan = 3000;
         enemyBulletInfo.bulletColor = Color.red;
         enemyBulletInfo.trailColor = Color.red;
     }

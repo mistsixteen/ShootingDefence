@@ -27,7 +27,7 @@ public class GunInventory
         handGun.bInfo.bulletSpeed = 0.5f;
         handGun.bInfo.bulletDamage = 5.0f;
         handGun.bInfo.bulletPushpower = 2.0f;
-        handGun.bInfo.bulletLifespan = 200;
+        handGun.bInfo.bulletLifespan = 3000;
         handGun.bInfo.bulletColor = Color.blue;
         handGun.bInfo.trailColor = Color.blue;
 
@@ -44,7 +44,7 @@ public class GunInventory
         machineGun.bInfo.bulletSpeed = 0.5f;
         machineGun.bInfo.bulletDamage = 5.0f;
         machineGun.bInfo.bulletPushpower = 2.0f;
-        machineGun.bInfo.bulletLifespan = 200;
+        machineGun.bInfo.bulletLifespan = 3000;
         machineGun.bInfo.bulletColor = Color.blue;
         machineGun.bInfo.trailColor = Color.blue;
 

@@ -9,3 +9,19 @@ public struct BulletInfo
     public Color bulletColor;
     public Color trailColor;
 }
+
+public struct GunItem
+{
+    public string gunName;
+
+    public int gunMagazine;
+    public int bulletLeft;
+    public int totalBulletLeft;
+
+    public float fireDelay;
+    public float fireAngle;
+
+    public float reloadTime;
+
+    public BulletInfo bInfo;
+}

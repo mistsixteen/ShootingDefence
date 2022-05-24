@@ -34,7 +34,6 @@ public class PlayerCharacter : MonoBehaviour, Damageable
     public float getHpPercentage()
     {
         float fillAmount = (playerHealth / playerMaxHealth);
-        Debug.Log(fillAmount);
         return (playerHealth / playerMaxHealth);
     }
 

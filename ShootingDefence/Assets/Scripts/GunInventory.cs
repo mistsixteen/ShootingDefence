@@ -3,22 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public struct GunItem
-{
-    public string gunName;
-
-    public int gunMagazine;
-    public int bulletLeft;
-    public int totalBulletLeft;
- 
-    public float reloadTime;
-    public float bulletSpeed;
-    public float bulletDamage;
-    public float bulletPushPower;
-
-    public float fireDelay;
-    public float fireAngle;
-}
 
 public class GunInventory
 {
@@ -37,11 +21,16 @@ public class GunInventory
         handGun.bulletLeft = 12;
         handGun.totalBulletLeft = 200;
         handGun.reloadTime = 2.0f;
-        handGun.bulletSpeed = 0.5f;
-        handGun.bulletDamage = 5.0f;
-        handGun.bulletPushPower = 2.0f;
         handGun.fireDelay = 1.0f;
         handGun.fireAngle = 0.0f;
+
+        handGun.bInfo.bulletSpeed = 0.5f;
+        handGun.bInfo.bulletDamage = 5.0f;
+        handGun.bInfo.bulletPushpower = 2.0f;
+        handGun.bInfo.bulletLifespan = 200;
+        handGun.bInfo.bulletColor = Color.blue;
+        handGun.bInfo.trailColor = Color.blue;
+
 
         GunItem machineGun = new GunItem();
         machineGun.gunName = "SMG";
@@ -49,11 +38,16 @@ public class GunInventory
         machineGun.bulletLeft = 80;
         machineGun.totalBulletLeft = 800;
         machineGun.reloadTime = 5.0f;
-        machineGun.bulletSpeed = 0.5f;
-        machineGun.bulletDamage = 5.0f;
-        machineGun.bulletPushPower = 2.0f;
         machineGun.fireDelay = 0.1f;
         machineGun.fireAngle = 5.0f;
+
+        machineGun.bInfo.bulletSpeed = 0.5f;
+        machineGun.bInfo.bulletDamage = 5.0f;
+        machineGun.bInfo.bulletPushpower = 2.0f;
+        machineGun.bInfo.bulletLifespan = 200;
+        machineGun.bInfo.bulletColor = Color.blue;
+        machineGun.bInfo.trailColor = Color.blue;
+
 
         gunItemList.Add(handGun);
         gunItemList.Add(machineGun);

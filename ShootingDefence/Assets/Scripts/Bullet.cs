@@ -36,13 +36,6 @@ public class Bullet : MonoBehaviour
         myTrailRenderer.endColor = trailEndColor;
     }
 
-    public void registerBulletInfo(in GunItem gunInfo )
-    {
-        bulletSpeed = gunInfo.bulletSpeed;
-        bulletDamage = gunInfo.bulletDamage;
-        bulletPushpower = gunInfo.bulletPushPower;
-    }
-
     public void RegisterBulletInfo(in BulletInfo bInfo)
     {
         bulletSpeed = bInfo.bulletSpeed;

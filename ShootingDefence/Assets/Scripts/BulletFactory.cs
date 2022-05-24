@@ -22,7 +22,7 @@ public class BulletFactory
         bulletGameObject = Resources.Load<GameObject>("Prefabs/Bullet");
     }
 
-    public GameObject createBullet(in BulletInfo bInfo, in Vector3 bulletPos, in Quaternion bulletRot)
+    public GameObject CreateBullet(in BulletInfo bInfo, in Vector3 bulletPos, in Quaternion bulletRot)
     {
         GameObject newObject = GameObject.Instantiate(bulletGameObject, bulletPos, bulletRot);
         if(newObject == null)

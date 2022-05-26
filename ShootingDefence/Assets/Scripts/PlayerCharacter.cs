@@ -23,7 +23,6 @@ public class PlayerCharacter : MonoBehaviour, Damageable
     {
         playerHealth -= damage;
         playerHealth = Mathf.Clamp(playerHealth, 0.0f, playerMaxHealth);
-        //todo:Change Helath UI
     }
 
     public ObjectFaction getFaction()

@@ -3,19 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
 public class GunInventory
 {
-    List<GunItem> gunItemList;
+    List<WeaponGun> gunItemList;
     int currentIdx;
 
     static GunInventory instance;
 
     GunInventory()
     {
-        gunItemList = new List<GunItem>();
+        gunItemList = new List<WeaponGun>();
         //TODO : 코드 정리해서 Factory class로 분리
-        GunItem handGun = new GunItem();
+        WeaponGun handGun = new WeaponGun();
         handGun.gunName = "handGun";
         handGun.gunMagazine = 12;
         handGun.bulletLeft = 12;
@@ -32,7 +31,7 @@ public class GunInventory
         handGun.bInfo.trailColor = Color.blue;
 
 
-        GunItem machineGun = new GunItem();
+        WeaponGun machineGun = new WeaponGun();
         machineGun.gunName = "SMG";
         machineGun.gunMagazine = 80;
         machineGun.bulletLeft = 80;
@@ -63,7 +62,7 @@ public class GunInventory
         return instance;
     }
     
-    public GunItem GetCurrentItem()
+    public WeaponGun GetCurrentItem()
     {
         return gunItemList[currentIdx];
     }

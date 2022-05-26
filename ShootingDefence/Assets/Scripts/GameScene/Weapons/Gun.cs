@@ -23,6 +23,4 @@ public class WeaponGun
             return true;
         return false;
     }
-
-
 }

@@ -84,7 +84,9 @@ public class GunController : MonoBehaviour
             }
             //조준선 : LineRenderer 사용
             myLineRenderer.SetPosition(0, BulletSpawn.position);
-            myLineRenderer.SetPosition(1, BulletSpawn.position + BulletSpawn.forward * 200.0f);
+            Vector3 secondPos = BulletSpawn.forward;
+            secondPos.Normalize();
+            myLineRenderer.SetPosition(1, BulletSpawn.position + secondPos * 2000.0f);
             yield return new WaitForSeconds(0.1f);
         }
     }

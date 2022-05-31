@@ -39,8 +39,6 @@ public class Enemy : MonoBehaviour, Damageable
         StartCoroutine(BlinkRoutine());
         blinkFlag = false;
         hitVector = Vector3.zero;
-
-        
     }
 
     void SetBulletInfo()

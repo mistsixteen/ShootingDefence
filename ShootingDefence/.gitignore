@@ -12,7 +12,7 @@
 /[Mm]emoryCaptures/
 /[Aa]ssets/[Pp]olygonPrototype/
 /[Aa]ssets/Resources_Locked/
-
+/[Aa]ssets/Resources/Mixamo/
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta

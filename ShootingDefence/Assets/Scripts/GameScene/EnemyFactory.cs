@@ -17,7 +17,7 @@ public class EnemyFactory
 
     public EnemyFactory()
     {
-        enemyObject = Resources.Load<GameObject>("Prefabs/BaseGunEnemy");
+        enemyObject = Resources.Load<GameObject>("Prefabs/PaladinEnemy");
     }
 
     public GameObject CreateEnemy(in Vector3 Pos)

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.AI;
 
 
-public class EnemyPaladin : MonoBehaviour, Damageable
+public class EnemySolider : MonoBehaviour, Damageable
 {
     public float moveSpeed;
 
@@ -16,10 +16,13 @@ public class EnemyPaladin : MonoBehaviour, Damageable
     GameObject playerChar;
     Image healthBar;
     Transform healthGrid;
-    
 
     Color oriColor;
     Vector3 hitVector;
+
+    BulletInfo enemyBulletInfo;
+
+    public Transform BulletSpawn;
 
     private Coroutine currentCoroutine;
 
@@ -31,7 +34,18 @@ public class EnemyPaladin : MonoBehaviour, Damageable
         healthBar = transform.Find("Healthbar/health").GetComponent<Image>();
         healthGrid = transform.Find("Healthbar").GetComponent<Transform>();
         hitVector = Vector3.zero;
+        SetBulletInfo();
         StartCoroutine(IdleCoroutine());
+    }
+
+    void SetBulletInfo()
+    {
+        enemyBulletInfo.bulletSpeed = 0.5f;
+        enemyBulletInfo.bulletDamage = 1.0f;
+        enemyBulletInfo.bulletPushpower = 1.0f;
+        enemyBulletInfo.bulletLifespan = 3000;
+        enemyBulletInfo.bulletColor = Color.red;
+        enemyBulletInfo.trailColor = Color.red;
     }
 
 
@@ -43,7 +57,6 @@ public class EnemyPaladin : MonoBehaviour, Damageable
     }
 
     //idle
-
     IEnumerator IdleCoroutine()
     {
         ChangeCoroutine(MoveCoroutine());
@@ -66,7 +79,7 @@ public class EnemyPaladin : MonoBehaviour, Damageable
             hitVector = Vector3.zero;
             //Attack
             float distance = Vector3.Distance(this.transform.position, playerChar.transform.position);
-            if (distance < 2.0f)
+            if (distance < 10.0f)
             {
 
                 ChangeCoroutine(AttackingCoroutine());
@@ -75,6 +88,7 @@ public class EnemyPaladin : MonoBehaviour, Damageable
             yield return new WaitForSeconds(0.01f);
         }
     }
+
     //attacking
     IEnumerator AttackingCoroutine()
     {
@@ -90,22 +104,21 @@ public class EnemyPaladin : MonoBehaviour, Damageable
             hitVector = Vector3.zero;
             //Attack
             float distance = Vector3.Distance(this.transform.position, playerChar.transform.position);
-            if (distance > 3.0f)
+            if (distance > 10.0f)
             {
                 ChangeCoroutine(MoveCoroutine());
                 yield return new WaitForSeconds(0.1f);
             }
-            if(myanimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+            if (myanimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
             {
-                if(playerChar.TryGetComponent(out Damageable dObject))
-                {
-                    dObject.GetDamage(5.0f, 2.0f, Vector3.zero);
-                }
+                GameObject newBullet = BulletFactory.GetInstance().CreateBullet(enemyBulletInfo, BulletSpawn.position, BulletSpawn.rotation);
+                newBullet.GetComponent<Bullet>().bulletFaction = ObjectFaction.Enemy;
                 yield return new WaitForSeconds(0.5f);
                 ChangeCoroutine(MoveCoroutine());
             }
             yield return new WaitForSeconds(0.01f);
         }
+        yield return null;
     }
 
     //onDeath
@@ -142,7 +155,7 @@ public class EnemyPaladin : MonoBehaviour, Damageable
         {
             ChangeCoroutine(OnDeathCoroutine());
         }
-            
+
     }
 
     public void Update()
@@ -150,5 +163,7 @@ public class EnemyPaladin : MonoBehaviour, Damageable
         //추후 해당 rotation 고정할 방법 찾아서 사용할 것
         healthGrid.rotation = Quaternion.Euler(70.0f, 0.0f, 0.0f);
     }
+
+
 
 }

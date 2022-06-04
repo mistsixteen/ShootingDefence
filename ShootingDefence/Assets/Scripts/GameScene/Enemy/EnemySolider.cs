@@ -71,6 +71,7 @@ public class EnemySolider : MonoBehaviour, Damageable
         yield return new WaitForSeconds(0.01f);
         agent.isStopped = false;
         Debug.Log("Run!!");
+
         while (true)
         {
             //Move-rotate to Player
@@ -102,6 +103,12 @@ public class EnemySolider : MonoBehaviour, Damageable
             //Move
             agent.Move(hitVector);
             hitVector = Vector3.zero;
+
+            //rotate only
+            var Direction = (playerChar.transform.position - transform.position).normalized;
+            var lookRotation = Quaternion.LookRotation(Direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 0.5f);
+
             //Attack
             float distance = Vector3.Distance(this.transform.position, playerChar.transform.position);
             if (distance > 10.0f)
@@ -113,7 +120,7 @@ public class EnemySolider : MonoBehaviour, Damageable
             {
                 GameObject newBullet = BulletFactory.GetInstance().CreateBullet(enemyBulletInfo, BulletSpawn.position, BulletSpawn.rotation);
                 newBullet.GetComponent<Bullet>().bulletFaction = ObjectFaction.Enemy;
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(0.1f);
                 ChangeCoroutine(MoveCoroutine());
             }
             yield return new WaitForSeconds(0.01f);

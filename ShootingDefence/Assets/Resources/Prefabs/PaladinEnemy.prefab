@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0
-  maxHp: 1
+  maxHp: 10
   currentHp: 0
   myanimator: {fileID: 4626624946656093173}
 --- !u!1 &8145595342899937765

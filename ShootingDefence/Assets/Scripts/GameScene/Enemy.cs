@@ -7,7 +7,6 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour, Damageable
 {
     public float moveSpeed;
-    
     public float maxHp = 100;
     public float currentHp;
     

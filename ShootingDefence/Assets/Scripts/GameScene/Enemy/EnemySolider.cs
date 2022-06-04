@@ -16,6 +16,7 @@ public class EnemySolider : MonoBehaviour, Damageable
     GameObject playerChar;
     Image healthBar;
     Transform healthGrid;
+    Collider myCollider;
 
     Color oriColor;
     Vector3 hitVector;
@@ -33,6 +34,7 @@ public class EnemySolider : MonoBehaviour, Damageable
         playerChar = GameObject.Find("Player");
         healthBar = transform.Find("Healthbar/health").GetComponent<Image>();
         healthGrid = transform.Find("Healthbar").GetComponent<Transform>();
+        myCollider = GetComponent<Collider>();
         hitVector = Vector3.zero;
         SetBulletInfo();
         StartCoroutine(IdleCoroutine());
@@ -94,9 +96,8 @@ public class EnemySolider : MonoBehaviour, Damageable
     IEnumerator AttackingCoroutine()
     {
         NavMeshAgent agent = GetComponent<NavMeshAgent>();
-        myanimator.Play("Attack");
+        myanimator.Play("Fire");
         yield return new WaitForSeconds(0.01f);
-        Debug.Log("Attack!!");
         agent.isStopped = true;
         while (true)
         {
@@ -125,17 +126,15 @@ public class EnemySolider : MonoBehaviour, Damageable
             }
             yield return new WaitForSeconds(0.01f);
         }
-        yield return null;
     }
 
     //onDeath
     IEnumerator OnDeathCoroutine()
     {
         NavMeshAgent agent = GetComponent<NavMeshAgent>();
-        myanimator.Play("Death");
         yield return new WaitForSeconds(0.01f);
-        Debug.Log("OnDeath!!");
         agent.isStopped = true;
+        myCollider.enabled = false;
         while (true)
         {
             Debug.Log(myanimator.GetCurrentAnimatorStateInfo(0).normalizedTime);

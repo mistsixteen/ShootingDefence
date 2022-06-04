@@ -20,6 +20,7 @@ public class EnemyPaladin : MonoBehaviour, Damageable
 
     Color oriColor;
     Vector3 hitVector;
+    Collider myCollider;
 
     private Coroutine currentCoroutine;
 
@@ -30,6 +31,9 @@ public class EnemyPaladin : MonoBehaviour, Damageable
         playerChar = GameObject.Find("Player");
         healthBar = transform.Find("Healthbar/health").GetComponent<Image>();
         healthGrid = transform.Find("Healthbar").GetComponent<Transform>();
+        myCollider = GetComponent<Collider>();
+
+
         hitVector = Vector3.zero;
         StartCoroutine(IdleCoroutine());
     }
@@ -57,7 +61,6 @@ public class EnemyPaladin : MonoBehaviour, Damageable
         myanimator.Play("Run");
         yield return new WaitForSeconds(0.01f);
         agent.isStopped = false;
-        Debug.Log("Run!!");
         while (true)
         {
             //Move-rotate to Player
@@ -81,7 +84,6 @@ public class EnemyPaladin : MonoBehaviour, Damageable
         NavMeshAgent agent = GetComponent<NavMeshAgent>();
         myanimator.Play("Attack");
         yield return new WaitForSeconds(0.01f);
-        Debug.Log("Attack!!");
         agent.isStopped = true;
         while (true)
         {
@@ -114,7 +116,7 @@ public class EnemyPaladin : MonoBehaviour, Damageable
         NavMeshAgent agent = GetComponent<NavMeshAgent>();
         myanimator.Play("Death");
         yield return new WaitForSeconds(0.01f);
-        Debug.Log("OnDeath!!");
+        myCollider.enabled = false;
         agent.isStopped = true;
         while (true)
         {

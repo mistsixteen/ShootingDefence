@@ -132,7 +132,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8145595342894216392, guid: 5ba639f40dafb894dbd5e1578e3190f1, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8145595342894216392, guid: 5ba639f40dafb894dbd5e1578e3190f1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -561,7 +561,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 54.798, y: -146.115, z: -127.384}
 --- !u!1 &408863074
 GameObject:
@@ -1080,7 +1080,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1273128560
 GameObject:
@@ -2285,67 +2285,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerHealth: 100
   playerMaxHealth: 100
---- !u!1001 &478186920528487243
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 478186918707526945, guid: a014044013712a2489b603cb066c1c45, type: 3}
-      propertyPath: m_Name
-      value: TempEnemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 478186918707526949, guid: a014044013712a2489b603cb066c1c45, type: 3}
-      propertyPath: m_RootOrder
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 478186918707526949, guid: a014044013712a2489b603cb066c1c45, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -19.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 478186918707526949, guid: a014044013712a2489b603cb066c1c45, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 478186918707526949, guid: a014044013712a2489b603cb066c1c45, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -5.47
-      objectReference: {fileID: 0}
-    - target: {fileID: 478186918707526949, guid: a014044013712a2489b603cb066c1c45, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 478186918707526949, guid: a014044013712a2489b603cb066c1c45, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 478186918707526949, guid: a014044013712a2489b603cb066c1c45, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 478186918707526949, guid: a014044013712a2489b603cb066c1c45, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 478186918707526949, guid: a014044013712a2489b603cb066c1c45, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 478186918707526949, guid: a014044013712a2489b603cb066c1c45, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 478186918707526949, guid: a014044013712a2489b603cb066c1c45, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 478186918791663579, guid: a014044013712a2489b603cb066c1c45, type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 963194227}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: a014044013712a2489b603cb066c1c45, type: 3}
 --- !u!4 &7371784367155587490
 Transform:
   m_ObjectHideFlags: 0
@@ -2649,7 +2588,7 @@ Transform:
   - {fileID: 7371784367155587490}
   - {fileID: 870691938}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &7371784368340240510
 CapsuleCollider:
@@ -2697,6 +2636,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdc1fc7291b815147959e4205b40c482, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 0
+  maxHp: 50
+  currentHp: 0
+  myanimator: {fileID: 870691939}
+  BulletSpawn: {fileID: 7371784367155587490}
 --- !u!223 &7371784368356768389
 Canvas:
   m_ObjectHideFlags: 0

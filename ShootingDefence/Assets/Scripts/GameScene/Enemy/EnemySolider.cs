@@ -72,7 +72,6 @@ public class EnemySolider : MonoBehaviour, Damageable
         myanimator.Play("Run");
         yield return new WaitForSeconds(0.01f);
         agent.isStopped = false;
-        Debug.Log("Run!!");
 
         while (true)
         {

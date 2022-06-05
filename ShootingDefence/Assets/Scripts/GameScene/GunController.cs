@@ -9,6 +9,7 @@ public class GunController : MonoBehaviour
 
     public Transform BulletSpawn;
     public LineRenderer myLineRenderer;
+    public PlayerUI myUI;
 
     public gunState cGunState = gunState.gunStateIdle;
 
@@ -56,6 +57,7 @@ public class GunController : MonoBehaviour
                 if(CurrentWeapon.totalBulletLeft > 0 && CurrentWeapon.bulletLeft != CurrentWeapon.gunMagazine)
                 {
                     myLineRenderer.enabled = false;
+                    myUI.isReload = true;
                     delay_reload = CurrentWeapon.reloadTime;
                     cGunState = gunState.gunStateReloading;
                     for(int i = 0; i < 50; i++)
@@ -78,6 +80,7 @@ public class GunController : MonoBehaviour
                     }
 
                     myLineRenderer.enabled = true;
+                    myUI.isReload = false;
                     cGunState = gunState.gunStateIdle;
                 }
 

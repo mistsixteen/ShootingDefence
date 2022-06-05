@@ -1424,6 +1424,9 @@ MonoBehaviour:
   bulletText: {fileID: 950448893}
   healthBar: {fileID: 214127335}
   player: {fileID: 2110926418}
+  normalTexture: {fileID: 2800000, guid: 969c397c877411040beab6a0fe46c001, type: 3}
+  reloadTexture: {fileID: 2800000, guid: f17f64457eb3bea48b4592c7ea13c310, type: 3}
+  isReload: 0
 --- !u!1 &1675979921
 GameObject:
   m_ObjectHideFlags: 0
@@ -1932,6 +1935,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BulletSpawn: {fileID: 1982755981}
   myLineRenderer: {fileID: 1982755984}
+  myUI: {fileID: 1605401675}
   cGunState: 1
   delay_fire: 0.05
   delay_reload: 0

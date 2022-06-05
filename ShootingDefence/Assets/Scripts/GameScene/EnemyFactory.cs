@@ -6,7 +6,8 @@ public class EnemyFactory
 {
     private static EnemyFactory instance;
 
-    GameObject enemyObject = null;
+    GameObject enemyPaladin = null;
+    GameObject enemyGunner = null;
 
     public static EnemyFactory GetInstance()
     {
@@ -17,12 +18,23 @@ public class EnemyFactory
 
     public EnemyFactory()
     {
-        enemyObject = Resources.Load<GameObject>("Prefabs/PaladinEnemy");
+        enemyPaladin = Resources.Load<GameObject>("Prefabs/PaladinEnemy");
+        enemyGunner = Resources.Load<GameObject>("Prefabs/SoliderEnemy");
     }
 
-    public GameObject CreateEnemy(in Vector3 Pos)
+    public GameObject CreateEnemyPaladin(in Vector3 Pos)
     {
-        GameObject newObject = GameObject.Instantiate(enemyObject, Pos, Quaternion.identity);
+        GameObject newObject = GameObject.Instantiate(enemyPaladin, Pos, Quaternion.identity);
+        if (newObject == null)
+        {
+            Debug.Log("NULL EXEP");
+        }
+        return newObject;
+    }
+
+    public GameObject CreateEnemyGunner(in Vector3 Pos)
+    {
+        GameObject newObject = GameObject.Instantiate(enemyGunner, Pos, Quaternion.identity);
         if (newObject == null)
         {
             Debug.Log("NULL EXEP");

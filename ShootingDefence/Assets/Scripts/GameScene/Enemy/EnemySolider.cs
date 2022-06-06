@@ -136,7 +136,6 @@ public class EnemySolider : MonoBehaviour, Damageable
         myCollider.enabled = false;
         while (true)
         {
-            Debug.Log(myanimator.GetCurrentAnimatorStateInfo(0).normalizedTime);
             if (myanimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
             {
                 Destroy(this.gameObject);

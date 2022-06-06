@@ -980,6 +980,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnTime: 200
+  spawnMinLength: 20
+  player: {fileID: 2110926418}
 --- !u!4 &1242585274
 Transform:
   m_ObjectHideFlags: 0

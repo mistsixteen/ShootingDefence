@@ -11,3 +11,6 @@
 
 ![Screenshot](https://user-images.githubusercontent.com/30260233/172303479-5b15a2cf-312a-41ef-ba0c-f8dbf4d3a18c.PNG)
 
+## 주의 사항
+
+### - 3D 모델의 용량/저작권 문제로 인하여, Resource 폴더는 Commit하고 있지 않음

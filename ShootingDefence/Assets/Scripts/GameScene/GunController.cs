@@ -46,11 +46,13 @@ public class GunController : MonoBehaviour
             {
                 GunInventory.GetInstance().SetGunIdx(1);
                 CurrentWeapon = myInventory.GetCurrentItem();
+                myUI.SelectItem(1);
             }
             else if (Input.GetButton("LWeapon"))
             {
                 GunInventory.GetInstance().SetGunIdx(0);
                 CurrentWeapon = myInventory.GetCurrentItem();
+                myUI.SelectItem(0);
             }
             else if (Input.GetButton("Reload"))
             {

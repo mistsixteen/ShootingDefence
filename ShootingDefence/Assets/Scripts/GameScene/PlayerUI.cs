@@ -14,11 +14,34 @@ public class PlayerUI : MonoBehaviour
 
     public bool isReload = false;
 
+    public Sprite Red, Black;
+
+    Transform inventory;
+
+    Image[] inventorySlot;
+    Image[] inventoryItem;
+
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(UpdateUIRoutine());
         StartCoroutine(UpdateCursorRoutine());
+        inventory = gameObject.transform.Find("Inventory");
+
+        inventorySlot = new Image[10];
+        inventoryItem = new Image[10];
+
+        
+
+        for (int i = 0; i < 10; i++)
+        {
+            inventorySlot[i] = inventory.Find("Slot_" + (i+1).ToString()).GetComponent<Image>();
+            inventoryItem[i] = inventory.Find("Item_" + (i + 1).ToString()).GetComponent<Image>();
+
+            if (inventorySlot[i] == null)
+                Debug.Log("ERRORRRRR");
+        }
+
     }
 
     IEnumerator UpdateUIRoutine()
@@ -58,10 +81,16 @@ public class PlayerUI : MonoBehaviour
 
                 Cursor.SetCursor(normalTexture, mouseSpot, CursorMode.Auto);
             }
-            
-
         }
-            
     }
+    public void SelectItem(int idx)
+    {
+        for(int i = 0; i < 10; i++)
+        {
+            inventorySlot[i].sprite = Black;
+        }
+        inventorySlot[idx].sprite = Red;
+    }
+
 
 }

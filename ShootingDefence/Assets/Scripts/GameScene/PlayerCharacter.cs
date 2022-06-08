@@ -36,6 +36,11 @@ public class PlayerCharacter : MonoBehaviour, Damageable
         return (playerHealth / playerMaxHealth);
     }
 
+    public void getHealthPack()
+    {
+        playerHealth = playerMaxHealth;
+    }
+
     public void GetDamage(float Damage, float pushPower, Vector3 Direction)
     {
         ChangeHealthBy(Damage);

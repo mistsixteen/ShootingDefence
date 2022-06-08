@@ -9,7 +9,7 @@
 
 ## 플레이 스크린샷
 
-![Screenshot](https://user-images.githubusercontent.com/30260233/172303479-5b15a2cf-312a-41ef-ba0c-f8dbf4d3a18c.PNG)
+![Screenshot](https://user-images.githubusercontent.com/30260233/172665111-e5cac1b2-6bb1-4b53-8b71-bb381216fdb3.PNG)
 
 ## 주의 사항
 

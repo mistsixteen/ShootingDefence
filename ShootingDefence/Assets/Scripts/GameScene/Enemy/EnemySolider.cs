@@ -134,6 +134,7 @@ public class EnemySolider : MonoBehaviour, Damageable
         yield return new WaitForSeconds(0.01f);
         agent.isStopped = true;
         myCollider.enabled = false;
+        myanimator.Play("Death");
         while (true)
         {
             if (myanimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)

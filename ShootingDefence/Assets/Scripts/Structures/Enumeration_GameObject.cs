@@ -1,5 +1,14 @@
 using UnityEngine;
 
+public enum EnumGameScene
+{
+    SceneGameStart,
+    SceneMainMenu,
+    SceneGameReady,
+    SceneGame,
+    SceneGameOver,
+    Max
+}
 
 public enum ObjectFaction
 {

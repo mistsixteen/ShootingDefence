@@ -24,20 +24,37 @@ public class BulletFactory : MonoBehaviour
     public void EnQueueBullet(Bullet bulletObject)
     {
         if (bulletObject){
+            bulletObject.gameObject.SetActive(false);
             bulletObjectPool.Enqueue(bulletObject);
         }
     }
 
-    public GameObject CreateBullet(in BulletInfo bInfo, in Vector3 bulletPos, in Quaternion bulletRot)
+    public Bullet DeQueueBullet()
     {
-        GameObject newObject = Instantiate(bulletGameObject, bulletPos, bulletRot, transform);
-        if(newObject == null)
+        Bullet newBullet;
+
+        if (bulletObjectPool.Count == 0)
         {
-            return null;
+            GameObject newObject = Instantiate(bulletGameObject, transform);
+            newBullet = newObject.GetComponent<Bullet>();
         }
-        newObject.GetComponent<Bullet>().RegisterBulletInfo(bInfo);
-        return newObject;
+        else
+        { 
+            newBullet = bulletObjectPool.Dequeue();
+            newBullet.gameObject.SetActive(true);
+        }
+
+        return newBullet;
     }
 
-
+    public Bullet CreateBullet(in BulletInfo bInfo, in Vector3 bulletPos, in Quaternion bulletRot)
+    {
+        Bullet newBullet = DeQueueBullet();
+        if (newBullet == null)
+            return null;
+        newBullet.gameObject.transform.position = bulletPos;
+        newBullet.gameObject.transform.rotation = bulletRot;
+        newBullet.RegisterBulletInfo(bInfo);
+        return newBullet;
+    }
 }

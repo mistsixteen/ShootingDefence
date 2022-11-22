@@ -98,8 +98,8 @@ public class GunController : MonoBehaviour
 
     void Fire()
     {
-        GameObject newBullet = BulletFactory.GetInstance().CreateBullet(CurrentWeapon.bInfo, BulletSpawn.position, BulletSpawn.rotation);
-        newBullet.GetComponent<Bullet>().bulletFaction = ObjectFaction.Ally;
+        var newBullet = BulletFactory.GetInstance().CreateBullet(CurrentWeapon.bInfo, BulletSpawn.position, BulletSpawn.rotation);
+        newBullet.bulletFaction = ObjectFaction.Ally;
         newBullet.transform.Rotate(new Vector3(0.0f, Random.Range(0 - tileAngle, tileAngle), 0.0f));
         CurrentWeapon.bulletLeft--;
     }

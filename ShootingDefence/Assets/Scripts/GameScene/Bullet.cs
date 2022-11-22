@@ -21,14 +21,9 @@ public class Bullet : MonoBehaviour
 
     private Color myColor, trailStartColor, trailEndColor;
 
-
-
     // Start is called before the first frame update
     void Start()
     {
-        moveVector = transform.forward;
-        bulletCoroutine = StartCoroutine(BulletRoutine());
-
         myRenderer = GetComponent<Renderer>();
         myRenderer.material.color = myColor;
         myTrailRenderer = GetComponent<TrailRenderer>();
@@ -42,8 +37,10 @@ public class Bullet : MonoBehaviour
         bulletDamage = bInfo.bulletDamage;
         bulletPushpower = bInfo.bulletPushpower;
         bulletLifespan = bInfo.bulletLifespan;
+        moveVector = transform.forward;
+        bulletCoroutine = StartCoroutine(BulletRoutine());
         //bulletColor
-        if(myRenderer != null)
+        if (myRenderer != null)
             myRenderer.material.color = bInfo.bulletColor;
         myColor = bInfo.bulletColor;
         //trailColor
@@ -65,7 +62,7 @@ public class Bullet : MonoBehaviour
 
             yield return new WaitForSeconds(0.01f);
         }
-        Destroy(this.gameObject);
+        UnRegisterBullet();
     }
 
     void OnTriggerEnter(Collider collision)
@@ -78,21 +75,31 @@ public class Bullet : MonoBehaviour
             if (dObject.getFaction() != bulletFaction)
             {
                 dObject.GetDamage(bulletDamage, bulletPushpower, direction);
-                Destroy(this.gameObject);
+                UnRegisterBullet();
             }
             else // bypass Friendly Object
             {
 
             }
-                
+
         }
         else
-            Destroy(this.gameObject);
+            UnRegisterBullet();
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        Destroy(this.gameObject);
+        UnRegisterBullet();
+    }
+
+    public void UnRegisterBullet()
+    {
+        if(bulletCoroutine != null)
+        {
+            StopCoroutine(bulletCoroutine);
+            bulletCoroutine = null;
+        }
+        BulletFactory.GetInstance().EnQueueBullet(this);
     }
 
 }

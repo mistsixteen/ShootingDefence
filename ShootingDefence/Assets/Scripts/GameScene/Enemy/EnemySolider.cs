@@ -118,8 +118,8 @@ public class EnemySolider : MonoBehaviour, Damageable
             }
             if (myanimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
             {
-                GameObject newBullet = BulletFactory.GetInstance().CreateBullet(enemyBulletInfo, BulletSpawn.position, BulletSpawn.rotation);
-                newBullet.GetComponent<Bullet>().bulletFaction = ObjectFaction.Enemy;
+                var newBullet = BulletFactory.GetInstance().CreateBullet(enemyBulletInfo, BulletSpawn.position, BulletSpawn.rotation);
+                newBullet.bulletFaction = ObjectFaction.Enemy;
                 yield return new WaitForSeconds(0.1f);
                 ChangeCoroutine(MoveCoroutine());
             }

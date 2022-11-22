@@ -63,8 +63,8 @@ public class Enemy : MonoBehaviour, Damageable
             float distance = Vector3.Distance(this.transform.position, playerChar.transform.position);
             if(distance < 20.0f)
             {
-                GameObject newBullet = BulletFactory.GetInstance().CreateBullet(enemyBulletInfo, BulletSpawn.position, BulletSpawn.rotation);
-                newBullet.GetComponent<Bullet>().bulletFaction =  ObjectFaction.Enemy;
+                var newBullet = BulletFactory.GetInstance().CreateBullet(enemyBulletInfo, BulletSpawn.position, BulletSpawn.rotation);
+                newBullet.bulletFaction =  ObjectFaction.Enemy;
 
                 yield return new WaitForSeconds(0.1f);
             }

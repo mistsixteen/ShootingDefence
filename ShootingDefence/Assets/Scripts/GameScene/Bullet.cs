@@ -48,6 +48,7 @@ public class Bullet : MonoBehaviour
         {
             myTrailRenderer.startColor = bInfo.trailColor;
             myTrailRenderer.endColor = bInfo.trailColor;
+            myTrailRenderer.Clear();
         }
         trailStartColor = bInfo.trailColor;
         trailEndColor = bInfo.trailColor;

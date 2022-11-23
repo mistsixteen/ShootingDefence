@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
-
 public class AppInstance : MonoBehaviour
 {
     private static AppInstance instance;
@@ -24,11 +22,6 @@ public class AppInstance : MonoBehaviour
     void Start()
     {
         ChangeCurrentScene(EnumGameScene.SceneGame);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 
     public static AppInstance GetInstance(){

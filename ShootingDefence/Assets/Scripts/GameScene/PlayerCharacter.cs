@@ -19,30 +19,20 @@ public class PlayerCharacter : MonoBehaviour, Damageable
         
     }
 
-    public void ChangeHealthBy(float damage)
-    {
-        playerHealth -= damage;
-        playerHealth = Mathf.Clamp(playerHealth, 0.0f, playerMaxHealth);
-    }
-
     public ObjectFaction getFaction()
     {
         return ObjectFaction.Ally;
     }
 
-    public float getHpPercentage()
-    {
-        float fillAmount = (playerHealth / playerMaxHealth);
-        return (playerHealth / playerMaxHealth);
-    }
-
     public void getHealthPack()
     {
-        playerHealth = playerMaxHealth;
+        //TODO : 추후 Model에 맞춰 수정
+        AppInstance.GetInstance().ModelManager.ModelUser.HealHealth(30);
     }
 
     public void GetDamage(float Damage, float pushPower, Vector3 Direction)
     {
-        ChangeHealthBy(Damage);
+        AppInstance.GetInstance().ModelManager.ModelUser.GetDamage(Damage);
+
     }
 }

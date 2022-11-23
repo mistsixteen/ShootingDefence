@@ -52,7 +52,7 @@ public class PlayerUI : MonoBehaviour
             waveText.text = "Wave 001";
 
             //HpBar
-            healthBar.fillAmount = player.getHpPercentage();
+            healthBar.fillAmount = AppInstance.GetInstance().ModelManager.ModelUser.GetHpPercentage();
             //GunUI
             gunTypeText.text = GunInventory.GetInstance().GetCurrentItem().gunName;
             bulletText.text = "" + GunInventory.GetInstance().GetCurrentItem().bulletLeft + " / " + GunInventory.GetInstance().GetCurrentItem().totalBulletLeft;

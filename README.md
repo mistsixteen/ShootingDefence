@@ -4,8 +4,7 @@
 
 ### - 3D Top-down Shooter 개발
 
-## 개발 일지(티스토리 블로그)
-### - <a href="https://mist16.tistory.com/category/%EA%B2%8C%EC%9E%84%EA%B0%9C%EB%B0%9C/ShootingDefence" target="_blank"> ShootingDefence 개발 일지</a>
+## 개발 기능
 
 ## 플레이 스크린샷
 

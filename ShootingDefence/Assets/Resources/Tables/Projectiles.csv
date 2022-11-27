@@ -1,0 +1,3 @@
+﻿TID,Name,Speed,Damage,PushPower,LifeSpan,ProjColor,TrailColor
+1,HandgunBullet,0.5,5,3,3000,Blue,Blue
+2,SMGBullet,1,5,2,3000,Blue,Blue

@@ -7,8 +7,6 @@ public class ItemWeapon : ItemBase
     //public int ItemTid;
     //public int ItemAmount;
 
-    //TODO : WeaponTable
-
-    public int currentMag;
-
+    public int CurrentMag;
+    public int BulletTid;
 }

@@ -34,4 +34,17 @@ public class TableWeapon
             }
         }
     }
+
+    public TableWeaponRow GetTableRow(int tid)
+    {
+        TableWeaponRow tableRow;
+        if (TableWeaponRows.TryGetValue(tid, out tableRow))
+        {
+            return tableRow;
+        }
+        else
+            return null;
+    }
+
+
 }

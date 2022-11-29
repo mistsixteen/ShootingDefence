@@ -40,4 +40,15 @@ public class TableProjectile
             }
         }
     }
+
+    public TableProjectileRow GetTableRow(int tid)
+    {
+        TableProjectileRow tableRow;
+        if (TableProjectileRows.TryGetValue(tid, out tableRow))
+        {
+            return tableRow;
+        }
+        else
+            return null;
+    }
 }

@@ -32,4 +32,17 @@ public class TableItem
             }   
         }
     }
+
+    public TableItemRow GetTableRow(int tid)
+    {
+        TableItemRow tableRow;
+        if (TableItemRows.TryGetValue(tid, out tableRow))
+        {
+            return tableRow;
+        }
+        else
+            return null;
+    }
+
+
 }

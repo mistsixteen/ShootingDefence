@@ -120,7 +120,6 @@ public class EnemySolider : MonoBehaviour, Damageable
             }
             if (myanimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
             {
-                Debug.Log("AAA");
                 var newBullet = BulletFactory.GetInstance().CreateBullet(tableRow, BulletSpawn.position, BulletSpawn.rotation);
                 newBullet.bulletFaction = ObjectFaction.Enemy;
                 yield return new WaitForSeconds(0.1f);

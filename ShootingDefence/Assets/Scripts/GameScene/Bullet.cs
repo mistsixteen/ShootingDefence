@@ -31,6 +31,35 @@ public class Bullet : MonoBehaviour
         myTrailRenderer.endColor = trailEndColor;
     }
 
+    public void RegisterBulletInfo(in TableProjectileRow tableRow)
+    {
+        if(tableRow == null)
+        {
+            Debug.LogError("RegisterBulletInfo TableRow NULL");
+            return;
+        }
+        bulletSpeed = tableRow.Speed;
+        bulletDamage = tableRow.Damage;
+        bulletPushpower = tableRow.PushPower;
+        bulletLifespan = tableRow.LifeSpan;
+        moveVector = transform.forward;
+        bulletCoroutine = StartCoroutine(BulletRoutine());
+
+        //bulletColor
+        if (myRenderer != null)
+            myRenderer.material.color = Color.blue;
+        myColor = Color.blue;
+        //trailColor
+        if (myTrailRenderer != null)
+        {
+            myTrailRenderer.startColor = Color.blue;
+            myTrailRenderer.endColor = Color.blue;
+            myTrailRenderer.Clear();
+        }
+        trailStartColor = Color.blue;
+        trailEndColor = Color.blue;
+    }
+
     public void RegisterBulletInfo(in BulletInfo bInfo)
     {
         bulletSpeed = bInfo.bulletSpeed;

@@ -22,6 +22,7 @@ public class EnemySolider : MonoBehaviour, Damageable
     Vector3 hitVector;
 
     BulletInfo enemyBulletInfo;
+    private TableProjectileRow tableRow;
 
     public Transform BulletSpawn;
 
@@ -36,6 +37,7 @@ public class EnemySolider : MonoBehaviour, Damageable
         healthGrid = transform.Find("Healthbar").GetComponent<Transform>();
         myCollider = GetComponent<Collider>();
         hitVector = Vector3.zero;
+        tableRow = AppInstance.GetInstance().TableManager.TableProjectile.GetTableRow(3);
         SetBulletInfo();
         StartCoroutine(IdleCoroutine());
     }
@@ -118,7 +120,8 @@ public class EnemySolider : MonoBehaviour, Damageable
             }
             if (myanimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
             {
-                var newBullet = BulletFactory.GetInstance().CreateBullet(enemyBulletInfo, BulletSpawn.position, BulletSpawn.rotation);
+                Debug.Log("AAA");
+                var newBullet = BulletFactory.GetInstance().CreateBullet(tableRow, BulletSpawn.position, BulletSpawn.rotation);
                 newBullet.bulletFaction = ObjectFaction.Enemy;
                 yield return new WaitForSeconds(0.1f);
                 ChangeCoroutine(MoveCoroutine());

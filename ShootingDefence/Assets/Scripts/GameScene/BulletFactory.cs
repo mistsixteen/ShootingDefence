@@ -47,6 +47,17 @@ public class BulletFactory : MonoBehaviour
         return newBullet;
     }
 
+    public Bullet CreateBullet(in TableProjectileRow tableRow, in Vector3 bulletPos, in Quaternion bulletRot)
+    {
+        Bullet newBullet = DeQueueBullet();
+        if (newBullet == null)
+            return null;
+        newBullet.gameObject.transform.position = bulletPos;
+        newBullet.gameObject.transform.rotation = bulletRot;
+        newBullet.RegisterBulletInfo(tableRow);
+        return newBullet;
+    }
+
     public Bullet CreateBullet(in BulletInfo bInfo, in Vector3 bulletPos, in Quaternion bulletRot)
     {
         Bullet newBullet = DeQueueBullet();

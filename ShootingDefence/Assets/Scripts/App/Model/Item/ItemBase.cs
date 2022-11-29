@@ -4,17 +4,16 @@ using UnityEngine;
 
 public abstract class ItemBase
 {
+    public int ItemType;
     public int ItemTid;
     public int ItemAmount;
-    public int ItemType;
 
     //TODO : ItemTable
-
-    public ItemBase()
+    public ItemBase(int type = 0, int tid = 0, int amount = 0)
     {
-        ItemTid = 0;
-        ItemAmount = 0;
-        ItemType = 0;
+        ItemType = type;
+        ItemTid = tid;
+        ItemAmount = amount;
     }
 
 }

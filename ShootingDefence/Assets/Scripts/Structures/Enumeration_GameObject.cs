@@ -30,3 +30,11 @@ public enum gunState
     gunStateIdle,
     gunStateReloading
 }
+
+public enum ItemType
+{
+    ItemTypeNull,
+    ItemTypeGoods,
+    ItemTypeWeapon,
+
+}

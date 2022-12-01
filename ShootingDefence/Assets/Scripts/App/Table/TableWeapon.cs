@@ -23,12 +23,14 @@ public class TableWeapon
             int tid = int.Parse(TableData[i]["TID"].ToString());
             if (tid > 0)
             {
-                var newTableRow = new TableWeaponRow();
-                newTableRow.TID = tid;
-                newTableRow.Type = TableData[i]["Type"].ToString();
-                newTableRow.Name = TableData[i]["Name"].ToString();
-                newTableRow.Desc = TableData[i]["Desc"].ToString();
-                newTableRow.ProjTID = int.Parse(TableData[i]["ProjTID"].ToString());
+                var newTableRow = new TableWeaponRow
+                {
+                    TID = tid,
+                    Type = TableData[i]["Type"].ToString(),
+                    Name = TableData[i]["Name"].ToString(),
+                    Desc = TableData[i]["Desc"].ToString(),
+                    ProjTID = int.Parse(TableData[i]["ProjTID"].ToString())
+                };
 
                 TableWeaponRows.Add(tid, newTableRow);
             }
@@ -45,6 +47,4 @@ public class TableWeapon
         else
             return null;
     }
-
-
 }

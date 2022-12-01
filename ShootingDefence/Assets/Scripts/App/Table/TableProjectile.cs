@@ -26,15 +26,17 @@ public class TableProjectile
             int tid = int.Parse(TableData[i]["TID"].ToString());
             if (tid > 0)
             {
-                var newTableRow = new TableProjectileRow();
-                newTableRow.TID = tid;
-                newTableRow.Name = TableData[i]["Name"].ToString();
-                newTableRow.Speed = float.Parse(TableData[i]["Speed"].ToString());
-                newTableRow.Damage = float.Parse(TableData[i]["Damage"].ToString());
-                newTableRow.PushPower = float.Parse(TableData[i]["PushPower"].ToString());
-                newTableRow.LifeSpan = int.Parse(TableData[i]["LifeSpan"].ToString());
-                newTableRow.ProjColor = TableData[i]["ProjColor"].ToString();
-                newTableRow.TrailColor = TableData[i]["TrailColor"].ToString();
+                var newTableRow = new TableProjectileRow
+                {
+                    TID = tid,
+                    Name = TableData[i]["Name"].ToString(),
+                    Speed = float.Parse(TableData[i]["Speed"].ToString()),
+                    Damage = float.Parse(TableData[i]["Damage"].ToString()),
+                    PushPower = float.Parse(TableData[i]["PushPower"].ToString()),
+                    LifeSpan = int.Parse(TableData[i]["LifeSpan"].ToString()),
+                    ProjColor = TableData[i]["ProjColor"].ToString(),
+                    TrailColor = TableData[i]["TrailColor"].ToString()
+                };
 
                 TableProjectileRows.Add(tid, newTableRow);
             }

@@ -22,11 +22,13 @@ public class TableItem
             int tid = int.Parse(TableData[i]["TID"].ToString());
             if(tid > 0)
             {
-                var newItemRow = new TableItemRow();
-                newItemRow.TID = tid;
-                newItemRow.Type = TableData[i]["Type"].ToString();
-                newItemRow.Name = TableData[i]["Name"].ToString();
-                newItemRow.Desc = TableData[i]["Desc"].ToString();
+                var newItemRow = new TableItemRow
+                {
+                    TID = tid,
+                    Type = TableData[i]["Type"].ToString(),
+                    Name = TableData[i]["Name"].ToString(),
+                    Desc = TableData[i]["Desc"].ToString()
+                };
 
                 TableItemRows.Add(tid, newItemRow);
             }   

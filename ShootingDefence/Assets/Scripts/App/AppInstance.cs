@@ -21,7 +21,7 @@ public class AppInstance : MonoBehaviour
 
     void Start()
     {
-        ChangeCurrentScene(EnumGameScene.SceneGame);
+        ChangeCurrentScene(EnumGameScene.SceneMainMenu);
     }
 
     public static AppInstance GetInstance(){
@@ -35,6 +35,7 @@ public class AppInstance : MonoBehaviour
             case EnumGameScene.SceneGameStart:
                 break;
             case EnumGameScene.SceneMainMenu:
+                SceneManager.LoadScene("SceneMainMenu");
                 break;
             case EnumGameScene.SceneGameReady:
                 break;

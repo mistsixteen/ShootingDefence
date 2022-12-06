@@ -18,9 +18,7 @@ public class EnemySpawner : MonoBehaviour
     {
         Vector3 pos = new Vector3(0.0f, 0.0f, 0.0f);
         float length = 0.0f;
-
         pos.y = 1.5f;
-
         do
         {
             pos.x = Random.Range(-40.0f, 40.0f);
@@ -45,7 +43,6 @@ public class EnemySpawner : MonoBehaviour
             yield return new WaitForSeconds(5.0f);
             pos = GetRandomSpawnPoint();
             float length2 = (pos - player.transform.position).magnitude;
-            Debug.Log(length2);
             EnemyFactory.GetInstance().CreateEnemyGunner(pos);
 
             yield return new WaitForSeconds(5.0f);

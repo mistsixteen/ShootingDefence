@@ -8,6 +8,7 @@ public class TableItemRow
     public string Type;
     public string Name;
     public string Desc;
+    public int MaxItemCount;
 }
 
 public class TableItem
@@ -27,7 +28,8 @@ public class TableItem
                     TID = tid,
                     Type = TableData[i]["Type"].ToString(),
                     Name = TableData[i]["Name"].ToString(),
-                    Desc = TableData[i]["Desc"].ToString()
+                    Desc = TableData[i]["Desc"].ToString(),
+                    MaxItemCount = int.Parse(TableData[i]["MaxItemCount"].ToString())
                 };
 
                 TableItemRows.Add(tid, newItemRow);

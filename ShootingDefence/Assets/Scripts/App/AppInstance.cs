@@ -15,8 +15,8 @@ public class AppInstance : MonoBehaviour
         
         instance = this;
 
-        this.ModelManager = new ModelManager();
         this.TableManager = new TableManager();
+        this.ModelManager = new ModelManager();
     }
 
     void Start()

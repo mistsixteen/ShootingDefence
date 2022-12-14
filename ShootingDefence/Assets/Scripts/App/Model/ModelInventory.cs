@@ -4,19 +4,80 @@ using UnityEngine;
 
 public class ModelInventory
 {
-    private List<ItemBase> InvenList;
+    private List<ItemBase> invenList;
+    private ItemBase currentEquipItem;
 
     public ModelInventory()
     {
-        for(int i = 0; i < GlobalCommonValues.InventoryMaxSize; i++)
+        invenList = new List<ItemBase>();
+        for (int i = 0; i < GlobalCommonValues.InventoryMaxSize; i++)
         {
-            InvenList.Add(null);
+            invenList.Add(new ItemBase());
         }
+        //starting Item;
+        AddItem(1);
+        AddItem(2);
+        currentEquipItem = null;
+
     }
 
-    public bool AddItem(int tid, int count)
+    public void SetGunIdx(int idx)
     {
-        return true;
+        if (invenList[idx].Type == ItemType.ItemTypeNull)
+        {
+            currentEquipItem = null;
+        }
+        else
+            currentEquipItem = invenList[idx];
+    }
+
+    public ItemBase GetCurrentItem()
+    {
+        return currentEquipItem;
+    }
+
+    public bool AddItem(int itemTID)
+    {
+        ItemBase newItem = CreateNewItem(itemTID);
+        if (newItem != null)
+        {
+            for (int i = 0; i < GlobalCommonValues.InventoryMaxSize; i++)
+            {
+                if (invenList[i].Type == ItemType.ItemTypeNull)
+                {
+                    Debug.Log("Add Item on Slot" + i);
+                    invenList[i] = newItem;
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public ItemBase CreateNewItem(int itemTid)
+    {
+        TableItemRow tableRow = AppInstance.GetInstance().TableManager.TableItem.GetTableRow(itemTid);
+        if(tableRow != null)
+        {
+            switch (tableRow.Type)
+            {
+                case "Weapon":
+                    var tableWeaponRow = AppInstance.GetInstance().TableManager.TableWeapon.GetTableRow(itemTid);
+                    if (tableWeaponRow == null) 
+                        return null;
+                    var newWeapon = new ItemWeapon(tableRow, tableWeaponRow);
+                    return newWeapon as ItemBase;
+
+                default:
+                    return null;
+            }
+        }
+        else
+        {
+            return null;
+        }
+
     }
 
 
@@ -25,10 +86,10 @@ public class ModelInventory
     {
         for (int i = 0; i < GlobalCommonValues.InventoryMaxSize; i++)
         {
-            if (InvenList[i] == null)
+            if (invenList[i] == null)
                 Debug.Log("Item Slot " + i + " : NULL");
             else
-                Debug.Log("Item Slot " + i + " : " + InvenList[i].ItemTid);
+                Debug.Log("Item Slot " + i + " : " + invenList[i].Tid);
         }
     }
 }

@@ -13,7 +13,6 @@ public class GunInventory
     GunInventory()
     {
         gunItemList = new List<WeaponGun>();
-        //TODO : 코드 정리해서 Factory class로 분리
         WeaponGun handGun = new WeaponGun();
         handGun.gunName = "handGun";
         handGun.gunMagazine = 12;

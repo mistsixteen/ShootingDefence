@@ -23,7 +23,7 @@ public class Item : MonoBehaviour
         {
             pChar.getHealthPack();
             Destroy(this.gameObject);
-        }            
+        }
     }
 
 }

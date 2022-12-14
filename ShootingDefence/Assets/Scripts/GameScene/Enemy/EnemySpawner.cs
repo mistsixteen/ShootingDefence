@@ -36,13 +36,12 @@ public class EnemySpawner : MonoBehaviour
         {
             yield return new WaitForSeconds(5.0f);
             pos = GetRandomSpawnPoint();
-            float length = (pos - player.transform.position).magnitude;
-            Debug.Log(length);
+            //float length = (pos - player.transform.position).magnitude;
             EnemyFactory.GetInstance().CreateEnemyPaladin(pos);
 
             yield return new WaitForSeconds(5.0f);
             pos = GetRandomSpawnPoint();
-            float length2 = (pos - player.transform.position).magnitude;
+            //float length2 = (pos - player.transform.position).magnitude;
             EnemyFactory.GetInstance().CreateEnemyGunner(pos);
 
             yield return new WaitForSeconds(5.0f);

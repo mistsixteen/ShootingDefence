@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GunController : MonoBehaviour
 {
-    private GameObject Bullet;
     public GunInventory myInventory;
 
     public Transform BulletSpawn;
@@ -23,7 +22,6 @@ public class GunController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Bullet = Resources.Load<GameObject>("Prefabs/Bullet");
         myInventory = GunInventory.GetInstance();
         CurrentWeapon = myInventory.GetCurrentItem();
         StartCoroutine(GunRoutine());

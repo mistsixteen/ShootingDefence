@@ -21,7 +21,6 @@ public class EnemySolider : MonoBehaviour, Damageable
     Color oriColor;
     Vector3 hitVector;
 
-    BulletInfo enemyBulletInfo;
     private TableProjectileRow tableRow;
 
     public Transform BulletSpawn;
@@ -38,20 +37,8 @@ public class EnemySolider : MonoBehaviour, Damageable
         myCollider = GetComponent<Collider>();
         hitVector = Vector3.zero;
         tableRow = AppInstance.GetInstance().TableManager.TableProjectile.GetTableRow(3);
-        SetBulletInfo();
         StartCoroutine(IdleCoroutine());
     }
-
-    void SetBulletInfo()
-    {
-        enemyBulletInfo.bulletSpeed = 0.5f;
-        enemyBulletInfo.bulletDamage = 1.0f;
-        enemyBulletInfo.bulletPushpower = 1.0f;
-        enemyBulletInfo.bulletLifespan = 3000;
-        enemyBulletInfo.bulletColor = Color.red;
-        enemyBulletInfo.trailColor = Color.red;
-    }
-
 
     private void ChangeCoroutine(IEnumerator nextCoroutine)
     {

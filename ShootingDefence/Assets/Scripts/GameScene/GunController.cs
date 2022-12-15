@@ -6,6 +6,7 @@ using UnityEngine.PlayerLoop;
 public class GunController : MonoBehaviour
 {
     private ModelInventory modelInventory;
+    private ItemWeapon currentWeapon;
     public Transform BulletSpawn;
     public LineRenderer myLineRenderer;
     public PlayerUI myUI;
@@ -32,7 +33,7 @@ public class GunController : MonoBehaviour
         {
             if (Input.GetMouseButton(0))
             {
-                if (true)//CurrentWeapon.IsAttackAble() && (Time.time >= timeStamp))
+                if (modelInventory.IsCurrentItemWeapon() && (Time.time >= timeStamp))
                 {
                     Fire();
                     //timeStamp = Time.time + CurrentWeapon.fireDelay;
@@ -50,47 +51,32 @@ public class GunController : MonoBehaviour
             }
             else if (Input.GetButton("Reload"))
             {
-                /*
-                if (CurrentWeapon.totalBulletLeft > 0 && CurrentWeapon.bulletLeft != CurrentWeapon.gunMagazine)
+                if(modelInventory.IsReloadAble())
                 {
                     myLineRenderer.enabled = false;
                     myUI.isReload = true;
-                    delay_reload = CurrentWeapon.reloadTime;
+                    delay_reload = 2.0f;
                     cGunState = gunState.gunStateReloading;
-                    for (int i = 0; i < 50; i++)
+                    for (int i = 0; i < 100; i++)
                     {
-                        yield return new WaitForSeconds(CurrentWeapon.reloadTime / 50);
-                        delay_reload -= CurrentWeapon.reloadTime / 50;
+                        yield return new WaitForSeconds(delay_reload / 100);
+                        delay_reload -= delay_reload / 100;
 
                     }
                     delay_reload = 0.0f;
-
-                    if (CurrentWeapon.totalBulletLeft >= CurrentWeapon.gunMagazine)
-                    {
-                        CurrentWeapon.bulletLeft = CurrentWeapon.gunMagazine;
-                        CurrentWeapon.totalBulletLeft -= CurrentWeapon.gunMagazine;
-                    }
-                    else
-                    {
-                        CurrentWeapon.bulletLeft = CurrentWeapon.totalBulletLeft;
-                        CurrentWeapon.totalBulletLeft = 0;
-                    }
 
                     myLineRenderer.enabled = true;
                     myUI.isReload = false;
                     cGunState = gunState.gunStateIdle;
                 }
-
             }
-                */
+                //조준선 : LineRenderer 사용
+                myLineRenderer.SetPosition(0, BulletSpawn.position);
+                Vector3 secondPos = BulletSpawn.forward;
+                secondPos.Normalize();
+                myLineRenderer.SetPosition(1, BulletSpawn.position + secondPos * 2000.0f);
+                yield return new WaitForSeconds(0.1f);
             }
-            //조준선 : LineRenderer 사용
-            myLineRenderer.SetPosition(0, BulletSpawn.position);
-            Vector3 secondPos = BulletSpawn.forward;
-            secondPos.Normalize();
-            myLineRenderer.SetPosition(1, BulletSpawn.position + secondPos * 2000.0f);
-            yield return new WaitForSeconds(0.1f);
-        }
     }
 
     void Fire()
@@ -103,11 +89,8 @@ public class GunController : MonoBehaviour
                 var newBullet = BulletFactory.GetInstance().CreateBullet(curWeapon.ProjRow, BulletSpawn.position, BulletSpawn.rotation);
                 newBullet.bulletFaction = ObjectFaction.Ally;
                 newBullet.transform.Rotate(new Vector3(0.0f, Random.Range(0 - tileAngle, tileAngle), 0.0f));
+                curWeapon.DecreaseMag();
             }
         }
-
-        /*
-        CurrentWeapon.bulletLeft--;
-        */
     }
 }

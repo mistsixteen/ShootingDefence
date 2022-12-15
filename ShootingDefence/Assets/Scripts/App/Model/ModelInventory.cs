@@ -31,6 +31,25 @@ public class ModelInventory
             currentEquipItem = invenList[idx];
     }
 
+    public bool IsCurrentItemWeapon()
+    {
+        if (currentEquipItem is ItemWeapon)
+            return true;
+        return false;
+    }
+
+    public bool IsReloadAble()
+    {
+        //TODO : Bullet check
+        if(IsCurrentItemWeapon())
+            return true;
+        return false;
+    }
+    public void Reload()
+    {
+
+    }
+
     public ItemBase GetCurrentItem()
     {
         return currentEquipItem;

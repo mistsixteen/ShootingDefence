@@ -28,4 +28,20 @@ public class ItemWeapon : ItemBase
             return true;
         return false;
     }
+
+    public void DecreaseMag()
+    {
+        if (CurrentMag > 0)
+            CurrentMag--;
+    }
+
+    public bool isReloadAble()
+    {
+        return true;
+    }
+
+    public void ReloadMag(int bullet)
+    {
+        CurrentMag = 40;
+    }
 }

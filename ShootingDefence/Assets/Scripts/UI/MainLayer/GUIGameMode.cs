@@ -3,48 +3,56 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-//Warning : 현재 미사용 코드로, GUIGameMode로 해당 기능이 이전됨
-public class PlayerUI : MonoBehaviour
+public class GUIGameMode : MonoBehaviour
 {
-    public Text waveText, gunTypeText, bulletText;
-    public Image healthBar;
+    [SerializeField]
+    private Text waveText, gunTypeText, bulletText;
+    
+    [SerializeField]
+    private Image healthBar;
 
-    public PlayerCharacter player;
+    [SerializeField]
+    private Texture2D normalTexture, reloadTexture;
 
-    public Texture2D normalTexture, reloadTexture;
+    [SerializeField]
+    private Sprite Red, Black;
 
-    public bool isReload = false;
+    [SerializeField]
+    private Transform inventory;
 
-    public Sprite Red, Black;
+    private Image[] inventorySlot;
+    private Image[] inventoryItem;
 
-    Transform inventory;
-
-    Image[] inventorySlot;
-    Image[] inventoryItem;
+    private bool isReload;
 
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(UpdateUIRoutine());
-        StartCoroutine(UpdateCursorRoutine());
-        inventory = gameObject.transform.Find("Inventory");
-
         inventorySlot = new Image[10];
         inventoryItem = new Image[10];
-
-        
 
         for (int i = 0; i < 10; i++)
         {
             inventorySlot[i] = inventory.Find("Slot_" + (i+1).ToString()).GetComponent<Image>();
             inventoryItem[i] = inventory.Find("Item_" + (i + 1).ToString()).GetComponent<Image>();
-
-            if (inventorySlot[i] == null)
-                Debug.Log("ERRORRRRR");
         }
-
+        this.gameObject.SetActive(false);
     }
 
+    private void OnEnable()
+    {
+        if(AppInstance.GetInstance() != null)
+            AppInstance.GetInstance().ModelManager.ModelUser.onChanged += OnUpdateUserdata;
+        StartCoroutine(UpdateCursorRoutine());
+        OnUpdateUserdata();
+    }
+
+    private void OnDisable()
+    {
+        AppInstance.GetInstance().ModelManager.ModelUser.onChanged -= OnUpdateUserdata;
+        StopAllCoroutines();
+    }
+    /*
     IEnumerator UpdateUIRoutine()
     {
         while(true)
@@ -52,8 +60,7 @@ public class PlayerUI : MonoBehaviour
             //WaveText
             waveText.text = "Wave 001";
 
-            //HpBar
-            healthBar.fillAmount = AppInstance.GetInstance().ModelManager.ModelUser.GetHpPercentage();
+
             //GunUI
             gunTypeText.text = GunInventory.GetInstance().GetCurrentItem().gunName;
             bulletText.text = "" + GunInventory.GetInstance().GetCurrentItem().bulletLeft + " / " + GunInventory.GetInstance().GetCurrentItem().totalBulletLeft;
@@ -61,14 +68,30 @@ public class PlayerUI : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
     }
+    */
+
+    public void SelectItem(int idx)
+    {
+        for(int i = 0; i < 10; i++)
+        {
+            inventorySlot[i].sprite = Black;
+        }
+        inventorySlot[idx].sprite = Red;
+    }
+
+    public void OnUpdateUserdata()
+    {
+        //HpBar
+        healthBar.fillAmount = AppInstance.GetInstance().ModelManager.ModelUser.GetHpPercentage();
+    }
 
     IEnumerator UpdateCursorRoutine()
     {
         Vector2 mouseSpot;
-        while(true)
+        while (true)
         {
-            yield return new WaitForEndOfFrame();
-            if(isReload)
+            yield return new WaitForFixedUpdate();
+            if (isReload)
             {
                 mouseSpot.x = reloadTexture.width / 2;
                 mouseSpot.y = reloadTexture.width / 2;
@@ -84,14 +107,4 @@ public class PlayerUI : MonoBehaviour
             }
         }
     }
-    public void SelectItem(int idx)
-    {
-        for(int i = 0; i < 10; i++)
-        {
-            inventorySlot[i].sprite = Black;
-        }
-        inventorySlot[idx].sprite = Red;
-    }
-
-
 }

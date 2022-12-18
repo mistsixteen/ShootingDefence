@@ -5,10 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class AppInstance : MonoBehaviour
 {
-    private static AppInstance instance;
+    private static AppInstance instance = null;
 
     public ModelManager ModelManager;
     public TableManager TableManager;
+
+    public UISystem UISystem;
+
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -22,6 +25,7 @@ public class AppInstance : MonoBehaviour
     void Start()
     {
         ChangeCurrentScene(EnumGameScene.SceneMainMenu);
+        this.UISystem = UISystem.GetInstance();
     }
 
     public static AppInstance GetInstance(){
@@ -45,5 +49,6 @@ public class AppInstance : MonoBehaviour
             case EnumGameScene.SceneGameOver:
                 break;
         }
+        UISystem.OnChangeScene(targetScene);
     }
 }

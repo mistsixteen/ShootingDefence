@@ -9,7 +9,6 @@ public class GunController : MonoBehaviour
     private ItemWeapon currentWeapon;
     public Transform BulletSpawn;
     public LineRenderer myLineRenderer;
-    public PlayerUI myUI;
 
     public gunState cGunState = gunState.gunStateIdle;
 
@@ -42,19 +41,17 @@ public class GunController : MonoBehaviour
             if (Input.GetButton("RWeapon"))
             {
                 modelInventory.SetGunIdx(1);
-                myUI.SelectItem(1);
             }
             else if (Input.GetButton("LWeapon"))
             {
                 modelInventory.SetGunIdx(0);
-                myUI.SelectItem(0);
             }
             else if (Input.GetButton("Reload"))
             {
                 if(modelInventory.IsReloadAble())
                 {
                     myLineRenderer.enabled = false;
-                    myUI.isReload = true;
+                    //myUI.isReload = true;
                     delay_reload = 2.0f;
                     cGunState = gunState.gunStateReloading;
                     for (int i = 0; i < 100; i++)
@@ -66,7 +63,7 @@ public class GunController : MonoBehaviour
                     delay_reload = 0.0f;
 
                     myLineRenderer.enabled = true;
-                    myUI.isReload = false;
+                    //myUI.isReload = false;
                     cGunState = gunState.gunStateIdle;
                 }
             }

@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ModelInventory
 {
     private List<ItemBase> invenList;
     private ItemBase currentEquipItem;
+
+    public UnityAction onChanged;
 
     public ModelInventory()
     {
@@ -18,6 +21,7 @@ public class ModelInventory
         AddItem(1);
         AddItem(2);
         currentEquipItem = null;
+        this.SetGunIdx(1);
 
     }
 

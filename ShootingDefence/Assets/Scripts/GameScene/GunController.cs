@@ -6,7 +6,6 @@ using UnityEngine.PlayerLoop;
 public class GunController : MonoBehaviour
 {
     private ModelInventory modelInventory;
-    private ItemWeapon currentWeapon;
     public Transform BulletSpawn;
     public LineRenderer myLineRenderer;
 
@@ -20,60 +19,57 @@ public class GunController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //myInventory = GunInventory.GetInstance();
-        //CurrentWeapon = myInventory.GetCurrentItem();
-        modelInventory = AppInstance.GetInstance().ModelManager.ModelInventory;
-        StartCoroutine(GunRoutine());
+        modelInventory = AppInstance.GetInstance().ModelManager.ModelInventory;    
     }
 
-    IEnumerator GunRoutine()
+    private void Update()
     {
-        while (true)
+        if (Input.GetMouseButton(0))
         {
-            if (Input.GetMouseButton(0))
+            if (modelInventory.IsCurrentItemWeapon() && (Time.time >= timeStamp))
             {
-                if (modelInventory.IsCurrentItemWeapon() && (Time.time >= timeStamp))
+                Fire();
+                timeStamp = Time.time + 0.25f;
+            }
+        }
+        if (Input.GetButtonUp("RWeapon"))
+        {
+            modelInventory.SelectQuickbarNext();
+        }
+        else if (Input.GetButtonUp("LWeapon"))
+        {
+            modelInventory.SelectQuickbarPrev();
+        }
+        else if (Input.GetButtonUp("Reload"))
+        {
+            if (modelInventory.IsReloadAble())
+            {
+                modelInventory.ReloadWeapon();
+                /*
+                myLineRenderer.enabled = false;
+                delay_reload = 2.0f;
+                cGunState = gunState.gunStateReloading;
+                for (int i = 0; i < 100; i++)
                 {
-                    Fire();
-                    timeStamp = Time.time + 0.25f;
-                }
-            }
-            if (Input.GetButton("RWeapon"))
-            {
-                modelInventory.SetGunIdx(1);
-            }
-            else if (Input.GetButton("LWeapon"))
-            {
-                modelInventory.SetGunIdx(0);
-            }
-            else if (Input.GetButton("Reload"))
-            {
-                if(modelInventory.IsReloadAble())
-                {
-                    myLineRenderer.enabled = false;
-                    //myUI.isReload = true;
-                    delay_reload = 2.0f;
-                    cGunState = gunState.gunStateReloading;
-                    for (int i = 0; i < 100; i++)
-                    {
-                        yield return new WaitForSeconds(delay_reload / 100);
-                        delay_reload -= delay_reload / 100;
+                    delay_reload -= delay_reload / 100;
 
-                    }
-                    delay_reload = 0.0f;
-                    modelInventory.ReloadWeapon();
-                    myLineRenderer.enabled = true;
-                    //myUI.isReload = false;
-                    cGunState = gunState.gunStateIdle;
                 }
+                delay_reload = 0.0f;
+
+                myLineRenderer.enabled = true;
+                //myUI.isReload = false;
+                cGunState = gunState.gunStateIdle;
+                */
             }
-                //조준선 : LineRenderer 사용
-                myLineRenderer.SetPosition(0, BulletSpawn.position);
-                Vector3 secondPos = BulletSpawn.forward;
-                secondPos.Normalize();
-                myLineRenderer.SetPosition(1, BulletSpawn.position + secondPos * 2000.0f);
-                yield return new WaitForEndOfFrame();
-            }
+        }
+
+        //조준선 : LineRenderer 사용
+        //무기가 없거나 in Reload인 경우 해제
+        myLineRenderer.SetPosition(0, BulletSpawn.position);
+        Vector3 secondPos = BulletSpawn.forward;
+        secondPos.Normalize();
+        myLineRenderer.SetPosition(1, BulletSpawn.position + secondPos * 2000.0f);
+
     }
 
     void Fire()

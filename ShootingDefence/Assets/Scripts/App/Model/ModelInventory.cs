@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -19,14 +21,26 @@ public class ModelInventory
             invenList.Add(new ItemBase());
         }
         //starting Item;
-        currentIdx = -1;
-        AddItem(1);
-        AddItem(2);
+        currentIdx = 0;
         currentEquipItem = null;
+
+        AddStartingItem();
     }
 
-    public void SetGunIdx(int idx)
+    public void AddStartingItem()
     {
+        AddItem(1);
+        AddItem(2);
+
+    }
+
+    public void SelectQuickbar(int idx)
+    {
+        Debug.Log("SelectQuickbar " + idx);
+        if(idx < 0 || idx >= 10)
+        {
+            return;
+        }
         currentIdx = idx;
         if (invenList[idx].Type == ItemType.ItemTypeNull)
         {
@@ -36,6 +50,14 @@ public class ModelInventory
             currentEquipItem = invenList[idx];
 
         onChanged.Invoke();
+    }
+    public void SelectQuickbarPrev()
+    {
+        SelectQuickbar(currentIdx - 1);
+    }
+    public void SelectQuickbarNext()
+    {
+        SelectQuickbar(currentIdx + 1);
     }
 
     public bool IsCurrentItemWeapon()

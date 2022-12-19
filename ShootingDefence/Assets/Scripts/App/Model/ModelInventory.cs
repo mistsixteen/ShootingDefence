@@ -9,6 +9,7 @@ public class ModelInventory
     private ItemBase currentEquipItem;
 
     public UnityAction onChanged;
+    public int currentIdx;
 
     public ModelInventory()
     {
@@ -18,21 +19,23 @@ public class ModelInventory
             invenList.Add(new ItemBase());
         }
         //starting Item;
+        currentIdx = -1;
         AddItem(1);
         AddItem(2);
         currentEquipItem = null;
-        this.SetGunIdx(1);
-
     }
 
     public void SetGunIdx(int idx)
     {
+        currentIdx = idx;
         if (invenList[idx].Type == ItemType.ItemTypeNull)
         {
             currentEquipItem = null;
         }
         else
             currentEquipItem = invenList[idx];
+
+        onChanged.Invoke();
     }
 
     public bool IsCurrentItemWeapon()
@@ -40,6 +43,29 @@ public class ModelInventory
         if (currentEquipItem is ItemWeapon)
             return true;
         return false;
+    }
+    public ItemWeapon GetCurrentItemWeapon()
+    {
+        var currentWeapon = (currentEquipItem as ItemWeapon);
+        return currentWeapon;
+    }
+
+    public bool IsAttackAble()
+    {
+        if(currentEquipItem is ItemWeapon)
+        {
+            return (currentEquipItem as ItemWeapon).IsAttackAble();
+        }
+        return false;
+    }
+
+    public void UseItem()
+    {
+        if (currentEquipItem is ItemWeapon)
+        {
+            (currentEquipItem as ItemWeapon).DecreaseMag();
+        }
+        onChanged.Invoke();
     }
 
     public bool IsReloadAble()
@@ -49,9 +75,13 @@ public class ModelInventory
             return true;
         return false;
     }
-    public void Reload()
+    public void ReloadWeapon()
     {
-
+        if (currentEquipItem is ItemWeapon)
+        {
+            (currentEquipItem as ItemWeapon).ReloadMag(40);
+            onChanged.Invoke();
+        }
     }
 
     public ItemBase GetCurrentItem()
@@ -74,7 +104,6 @@ public class ModelInventory
                 }
             }
         }
-
         return false;
     }
 

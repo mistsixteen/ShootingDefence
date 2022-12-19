@@ -26,7 +26,5 @@ public class ItemFactory
             default:
                 return null;
         }
-
-        return null;
     }
 }

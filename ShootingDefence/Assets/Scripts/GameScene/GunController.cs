@@ -35,7 +35,7 @@ public class GunController : MonoBehaviour
                 if (modelInventory.IsCurrentItemWeapon() && (Time.time >= timeStamp))
                 {
                     Fire();
-                    //timeStamp = Time.time + CurrentWeapon.fireDelay;
+                    timeStamp = Time.time + 0.25f;
                 }
             }
             if (Input.GetButton("RWeapon"))
@@ -61,7 +61,7 @@ public class GunController : MonoBehaviour
 
                     }
                     delay_reload = 0.0f;
-
+                    modelInventory.ReloadWeapon();
                     myLineRenderer.enabled = true;
                     //myUI.isReload = false;
                     cGunState = gunState.gunStateIdle;
@@ -72,7 +72,7 @@ public class GunController : MonoBehaviour
                 Vector3 secondPos = BulletSpawn.forward;
                 secondPos.Normalize();
                 myLineRenderer.SetPosition(1, BulletSpawn.position + secondPos * 2000.0f);
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForEndOfFrame();
             }
     }
 
@@ -80,13 +80,13 @@ public class GunController : MonoBehaviour
     {
         if (modelInventory.GetCurrentItem() is ItemWeapon)
         {
-            var curWeapon = modelInventory.GetCurrentItem() as ItemWeapon;
-            if (curWeapon.IsAttackAble())
+            if (modelInventory.IsAttackAble())
             {
+                var curWeapon = modelInventory.GetCurrentItem() as ItemWeapon;
                 var newBullet = BulletFactory.GetInstance().CreateBullet(curWeapon.ProjRow, BulletSpawn.position, BulletSpawn.rotation);
                 newBullet.bulletFaction = ObjectFaction.Ally;
                 newBullet.transform.Rotate(new Vector3(0.0f, Random.Range(0 - tileAngle, tileAngle), 0.0f));
-                curWeapon.DecreaseMag();
+                modelInventory.UseItem();
             }
         }
     }

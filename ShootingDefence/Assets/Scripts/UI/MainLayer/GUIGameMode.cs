@@ -41,49 +41,53 @@ public class GUIGameMode : MonoBehaviour
 
     private void OnEnable()
     {
-        if(AppInstance.GetInstance() != null)
-            AppInstance.GetInstance().ModelManager.ModelUser.onChanged += OnUpdateUserdata;
+        if(AppInstance.GetInstance() != null) { 
+            AppInstance.GetInstance().ModelManager.ModelUser.onChanged += OnUpdateUserModel;
+            AppInstance.GetInstance().ModelManager.ModelInventory.onChanged += OnUpdateInventoryModel;
+            OnUpdateUserModel();
+            OnUpdateInventoryModel();
+        }
         StartCoroutine(UpdateCursorRoutine());
-        OnUpdateUserdata();
+
     }
 
     private void OnDisable()
     {
-        AppInstance.GetInstance().ModelManager.ModelUser.onChanged -= OnUpdateUserdata;
+        AppInstance.GetInstance().ModelManager.ModelUser.onChanged -= OnUpdateUserModel;
+        AppInstance.GetInstance().ModelManager.ModelInventory.onChanged -= OnUpdateInventoryModel;
         StopAllCoroutines();
     }
-    /*
-    IEnumerator UpdateUIRoutine()
-    {
-        while(true)
-        {
-            //WaveText
-            waveText.text = "Wave 001";
 
-
-            //GunUI
-            gunTypeText.text = GunInventory.GetInstance().GetCurrentItem().gunName;
-            bulletText.text = "" + GunInventory.GetInstance().GetCurrentItem().bulletLeft + " / " + GunInventory.GetInstance().GetCurrentItem().totalBulletLeft;
-
-            yield return new WaitForSeconds(0.1f);
-        }
-    }
-    */
-
-    public void SelectItem(int idx)
-    {
-        for(int i = 0; i < 10; i++)
-        {
-            inventorySlot[i].sprite = Black;
-        }
-        inventorySlot[idx].sprite = Red;
-    }
-
-    public void OnUpdateUserdata()
+    public void OnUpdateUserModel()
     {
         //HpBar
         healthBar.fillAmount = AppInstance.GetInstance().ModelManager.ModelUser.GetHpPercentage();
     }
+
+    public void OnUpdateInventoryModel()
+    {
+        var ModelInventory = AppInstance.GetInstance().ModelManager.ModelInventory;
+        for (int i = 0; i < 10; i++)
+        {
+            inventorySlot[i].sprite = Black;
+        }
+        if(ModelInventory.currentIdx != -1)
+            inventorySlot[ModelInventory.currentIdx].sprite = Red;
+        //gunTypeText, bulletText;
+        if (ModelInventory.IsCurrentItemWeapon())
+        {
+            var weapon = ModelInventory.GetCurrentItemWeapon();
+            gunTypeText.text = "Weapon : " + weapon.ItemRow.Name;
+            bulletText.text = weapon.CurrentMag.ToString();
+        }
+        else
+        {
+            gunTypeText.text = "Weapon : ";
+            bulletText.text = " ";
+        }
+    }
+
+    //TODO : 다른 곳으로 이동 or 별개 Prefab에서 수행할 것 
 
     IEnumerator UpdateCursorRoutine()
     {

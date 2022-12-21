@@ -5,7 +5,7 @@ using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class ModelInventory : MonoBehaviour
+public class ModelInventory
 {
     private List<ItemBase> invenList;
     private ItemBase currentEquipItem;

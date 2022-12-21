@@ -23,7 +23,6 @@ public class GUIGameMode : MonoBehaviour
     private Image[] inventorySlot;
     private Image[] inventoryItem;
 
-    private bool isReload;
 
     // Start is called before the first frame update
     private void Awake()
@@ -76,7 +75,10 @@ public class GUIGameMode : MonoBehaviour
         {
             var weapon = ModelInventory.GetCurrentItemWeapon();
             gunTypeText.text = "Weapon : " + weapon.ItemRow.Name;
-            bulletText.text = weapon.CurrentMag.ToString();
+            if (false)
+                bulletText.text = "Reload!!!";
+            else
+                bulletText.text = weapon.CurrentMag.ToString();
         }
         else
         {
@@ -93,7 +95,7 @@ public class GUIGameMode : MonoBehaviour
         while (true)
         {
             yield return new WaitForFixedUpdate();
-            if (isReload)
+            if (false)
             {
                 mouseSpot.x = reloadTexture.width / 2;
                 mouseSpot.y = reloadTexture.width / 2;

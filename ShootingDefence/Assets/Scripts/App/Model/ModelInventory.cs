@@ -5,15 +5,13 @@ using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class ModelInventory
+public class ModelInventory : MonoBehaviour
 {
     private List<ItemBase> invenList;
     private ItemBase currentEquipItem;
 
     public UnityAction onChanged;
     public int currentIdx;
-
-    private ItemState currentItemState;
 
     public ModelInventory()
     {
@@ -30,8 +28,6 @@ public class ModelInventory
         //starting Item;
         currentIdx = 0;
         currentEquipItem = null;
-
-        currentItemState = ItemState.ItemStateNull;
 
         AddStartingItem();
         SelectQuickbar(0);
@@ -55,13 +51,10 @@ public class ModelInventory
         if (invenList[idx].Type == ItemType.ItemTypeNull)
         {
             currentEquipItem = null;
-            currentItemState = ItemState.ItemStateNull;
-
         }
         else
         {
             currentEquipItem = invenList[idx];
-            currentItemState = ItemState.ItemStateIdle;
         }
 
         if(onChanged != null)
@@ -116,13 +109,14 @@ public class ModelInventory
     }
     public void ReloadWeapon()
     {
-        if (currentEquipItem is ItemWeapon)
+        if (IsReloadAble())
         {
             (currentEquipItem as ItemWeapon).ReloadMag(40);
             if (onChanged != null)
                 onChanged.Invoke();
         }
     }
+
 
     public ItemBase GetCurrentItem()
     {
@@ -171,7 +165,6 @@ public class ModelInventory
         }
 
     }
-
 
     //Debug Functions
     public void Debug_GetInventoryList()

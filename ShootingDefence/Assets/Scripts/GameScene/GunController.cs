@@ -13,6 +13,7 @@ public class GunController : MonoBehaviour
     public float delay_reload = 0.0f;
     private float timeStamp = 0.0f;
     private float tileAngle = 10.0f;
+    public bool isReloading = false;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +23,12 @@ public class GunController : MonoBehaviour
 
     private void Update()
     {
+        if (isReloading)
+        {
+            myLineRenderer.enabled = false;
+            return;
+        }
+
         if (Input.GetMouseButton(0))
         {
             if (modelInventory.IsCurrentItemWeapon() && (Time.time >= timeStamp))
@@ -42,22 +49,7 @@ public class GunController : MonoBehaviour
         {
             if (modelInventory.IsReloadAble())
             {
-                modelInventory.ReloadWeapon();
-                /*
-                myLineRenderer.enabled = false;
-                delay_reload = 2.0f;
-                cGunState = gunState.gunStateReloading;
-                for (int i = 0; i < 100; i++)
-                {
-                    delay_reload -= delay_reload / 100;
-
-                }
-                delay_reload = 0.0f;
-
-                myLineRenderer.enabled = true;
-                //myUI.isReload = false;
-                cGunState = gunState.gunStateIdle;
-                */
+                StartCoroutine(ReloadCoroutine(2.0f));
             }
         }
 
@@ -74,6 +66,17 @@ public class GunController : MonoBehaviour
         else
             myLineRenderer.enabled = false;
 
+    }
+
+    IEnumerator ReloadCoroutine(float time)
+    {
+        isReloading = true;
+        for (int i = 0; i < 100; i++)
+        {
+            yield return new WaitForSeconds(time / 100.0f);
+        }
+        modelInventory.ReloadWeapon();
+        isReloading = false;
     }
 
     void Fire()

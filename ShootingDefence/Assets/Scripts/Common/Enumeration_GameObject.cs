@@ -24,11 +24,11 @@ public enum EnemyState
     eStateAfterAttack
 }
 
-public enum gunState
+public enum ItemState
 {
-    gunStateEmpty,
-    gunStateIdle,
-    gunStateReloading
+    ItemStateNull,
+    ItemStateIdle,
+    ItemStateGunReloading,
 }
 
 public enum ItemType

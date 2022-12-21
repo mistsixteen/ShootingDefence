@@ -37,4 +37,7 @@ public enum EventType
     onModelInvenChanged,
     onModelUserChanged,
 
+    //Reload
+    onReloadStarted,
+    onReloadFinished,
 }

@@ -54,7 +54,7 @@ public class ModelInventory
         {
             currentEquipItem = invenList[idx];
         }
-        EventSystem.GetInstance().InvokeEvent(EventType.onModelInvenChanged);
+        EventSystem.GetInstance()?.InvokeEvent(EventType.onModelInvenChanged);
     }
     public void SelectQuickbarPrev()
     {
@@ -92,7 +92,7 @@ public class ModelInventory
         {
             (currentEquipItem as ItemWeapon).DecreaseMag();
         }
-        EventSystem.GetInstance().InvokeEvent(EventType.onModelInvenChanged);
+        EventSystem.GetInstance()?.InvokeEvent(EventType.onModelInvenChanged);
     }
 
     public bool IsReloadAble()
@@ -107,7 +107,7 @@ public class ModelInventory
         if (IsReloadAble())
         {
             (currentEquipItem as ItemWeapon).ReloadMag(40);
-            EventSystem.GetInstance().InvokeEvent(EventType.onModelInvenChanged);
+            EventSystem.GetInstance()?.InvokeEvent(EventType.onModelInvenChanged);
         }
     }
 

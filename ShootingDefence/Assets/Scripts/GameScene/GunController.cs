@@ -71,12 +71,11 @@ public class GunController : MonoBehaviour
     IEnumerator ReloadCoroutine(float time)
     {
         isReloading = true;
-        for (int i = 0; i < 100; i++)
-        {
-            yield return new WaitForSeconds(time / 100.0f);
-        }
+        EventSystem.GetInstance().InvokeEvent(EventType.onReloadStarted);
+        yield return new WaitForSeconds(time);
         modelInventory.ReloadWeapon();
         isReloading = false;
+        EventSystem.GetInstance().InvokeEvent(EventType.onReloadFinished);
     }
 
     void Fire()

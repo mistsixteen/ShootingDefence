@@ -27,6 +27,7 @@ public class AppInstance : MonoBehaviour
     {
         ChangeCurrentScene(EnumGameScene.SceneMainMenu);
         this.UISystem = UISystem.GetInstance();
+        this.EventSystem = EventSystem.GetInstance();
     }
 
     public static AppInstance GetInstance(){

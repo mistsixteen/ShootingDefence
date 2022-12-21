@@ -18,21 +18,21 @@ public class ModelUser
     {
         playerHealth = startMaxHealth;
         playerMaxHealth = startMaxHealth;
-        EventSystem.GetInstance().InvokeEvent(EventType.onModelUserChanged);
+        EventSystem.GetInstance()?.InvokeEvent(EventType.onModelUserChanged);
     }
 
     public void HealHealth(float healAmount)
     {
         playerHealth += healAmount;
         playerHealth = Mathf.Clamp(playerHealth, 0.0f, playerMaxHealth);
-        EventSystem.GetInstance().InvokeEvent(EventType.onModelUserChanged);
+        EventSystem.GetInstance()?.InvokeEvent(EventType.onModelUserChanged);
     }
 
     public void GetDamage(float damageAmount)
     {
         playerHealth -= damageAmount;
         playerHealth = Mathf.Clamp(playerHealth, 0.0f, playerMaxHealth);
-        EventSystem.GetInstance().InvokeEvent(EventType.onModelUserChanged);
+        EventSystem.GetInstance()?.InvokeEvent(EventType.onModelUserChanged);
     }
 
     public float GetHpPercentage()

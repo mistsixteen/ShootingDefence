@@ -23,6 +23,7 @@ public class GUIGameMode : MonoBehaviour
     private Image[] inventorySlot;
     private Image[] inventoryItem;
 
+    private bool isReloading = false;
 
     // Start is called before the first frame update
     private void Awake()
@@ -40,20 +41,27 @@ public class GUIGameMode : MonoBehaviour
     private void OnEnable()
     {
         if(AppInstance.GetInstance() != null) { 
-            EventSystem.GetInstance().RegistEventListener(EventType.onModelInvenChanged, OnUpdateInventoryModel);
-            EventSystem.GetInstance().RegistEventListener(EventType.onModelUserChanged, OnUpdateUserModel);
+            EventSystem.GetInstance()?.RegistEventListener(EventType.onModelInvenChanged, OnUpdateInventoryModel);
+            EventSystem.GetInstance()?.RegistEventListener(EventType.onModelUserChanged, OnUpdateUserModel);
+            EventSystem.GetInstance()?.RegistEventListener(EventType.onReloadStarted, OnReloadStart);
+            EventSystem.GetInstance()?.RegistEventListener(EventType.onReloadFinished, OnReloadEnd);
             OnUpdateUserModel();
             OnUpdateInventoryModel();
+            isReloading = false;
         }
         StartCoroutine(UpdateCursorRoutine());
     }
 
     private void OnDisable()
     {
-        EventSystem.GetInstance().UnRegistEventListener(EventType.onModelInvenChanged, OnUpdateInventoryModel);
-        EventSystem.GetInstance().RegistEventListener(EventType.onModelUserChanged, OnUpdateUserModel);
+        EventSystem.GetInstance()?.UnRegistEventListener(EventType.onModelInvenChanged, OnUpdateInventoryModel);
+        EventSystem.GetInstance()?.UnRegistEventListener(EventType.onModelUserChanged, OnUpdateUserModel);
+        EventSystem.GetInstance()?.UnRegistEventListener(EventType.onReloadStarted, OnReloadStart);
+        EventSystem.GetInstance()?.UnRegistEventListener(EventType.onReloadFinished, OnReloadEnd);
         StopAllCoroutines();
     }
+
+    //Event Functions
 
     public void OnUpdateUserModel()
     {
@@ -75,16 +83,24 @@ public class GUIGameMode : MonoBehaviour
         {
             var weapon = ModelInventory.GetCurrentItemWeapon();
             gunTypeText.text = "Weapon : " + weapon.ItemRow.Name;
-            if (false)
-                bulletText.text = "Reload!!!";
-            else
-                bulletText.text = weapon.CurrentMag.ToString();
+            bulletText.text = weapon.CurrentMag.ToString();
         }
         else
         {
             gunTypeText.text = "Weapon : ";
             bulletText.text = " ";
         }
+    }
+
+    public void OnReloadStart()
+    {
+        isReloading = true;
+        bulletText.text = "Reload!!!";
+    }
+
+    public void OnReloadEnd()
+    {
+        isReloading = false;
     }
 
     //TODO : 다른 곳으로 이동 or 별개 Prefab에서 수행할 것 
@@ -95,7 +111,7 @@ public class GUIGameMode : MonoBehaviour
         while (true)
         {
             yield return new WaitForFixedUpdate();
-            if (false)
+            if (isReloading)
             {
                 mouseSpot.x = reloadTexture.width / 2;
                 mouseSpot.y = reloadTexture.width / 2;

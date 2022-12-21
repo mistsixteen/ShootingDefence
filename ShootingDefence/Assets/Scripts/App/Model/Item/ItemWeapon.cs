@@ -19,7 +19,7 @@ public class ItemWeapon : ItemBase
         ItemRow = _itemRow;
         WeaponRow = _WeaponRow;
         ProjRow = AppInstance.GetInstance().TableManager.TableProjectile.GetTableRow(WeaponRow.ProjTID);
-        CurrentMag = 40;
+        CurrentMag = WeaponRow.MagazineSize;
     }
 
     public bool IsAttackAble()
@@ -42,6 +42,6 @@ public class ItemWeapon : ItemBase
 
     public void ReloadMag(int bullet)
     {
-        CurrentMag = 40;
+        CurrentMag = bullet;
     }
 }

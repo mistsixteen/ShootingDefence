@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 public class GunController : MonoBehaviour
 {
@@ -9,10 +7,7 @@ public class GunController : MonoBehaviour
     public Transform BulletSpawn;
     public LineRenderer myLineRenderer;
 
-    public float delay_fire = 0.01f;
-    public float delay_reload = 0.0f;
     private float timeStamp = 0.0f;
-    private float tileAngle = 10.0f;
     public bool isReloading = false;
 
     // Start is called before the first frame update
@@ -34,7 +29,7 @@ public class GunController : MonoBehaviour
             if (modelInventory.IsCurrentItemWeapon() && (Time.time >= timeStamp))
             {
                 Fire();
-                timeStamp = Time.time + 0.25f;
+                timeStamp = Time.time + modelInventory.GetCurrentItemWeapon().WeaponRow.FireTime;
             }
         }
         if (Input.GetButtonUp("RWeapon"))
@@ -82,12 +77,16 @@ public class GunController : MonoBehaviour
     {
         if (modelInventory.GetCurrentItem() is ItemWeapon)
         {
+            var spreadAngle = modelInventory.GetCurrentItemWeapon().WeaponRow.FireSpread;
             if (modelInventory.IsAttackAble())
             {
                 var curWeapon = modelInventory.GetCurrentItem() as ItemWeapon;
                 var newBullet = BulletFactory.GetInstance().CreateBullet(curWeapon.ProjRow, BulletSpawn.position, BulletSpawn.rotation);
                 newBullet.bulletFaction = ObjectFaction.Ally;
-                newBullet.transform.Rotate(new Vector3(0.0f, Random.Range(0 - tileAngle, tileAngle), 0.0f));
+                var angle = Random.Range(0 - spreadAngle, spreadAngle);
+                Debug.Log(angle);
+                newBullet.transform.Rotate(new Vector3(0.0f, angle/360, 0.0f));
+                Debug.Log(newBullet.transform.rotation);
                 modelInventory.UseItem();
             }
         }

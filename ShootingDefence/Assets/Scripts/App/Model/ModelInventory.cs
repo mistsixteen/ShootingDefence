@@ -106,7 +106,8 @@ public class ModelInventory
     {
         if (IsReloadAble())
         {
-            (currentEquipItem as ItemWeapon).ReloadMag(40);
+            var MagSize = (currentEquipItem as ItemWeapon).WeaponRow.MagazineSize;
+            (currentEquipItem as ItemWeapon).ReloadMag(MagSize);
             EventSystem.GetInstance()?.InvokeEvent(EventType.onModelInvenChanged);
         }
     }

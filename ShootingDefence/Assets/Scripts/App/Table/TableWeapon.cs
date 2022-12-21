@@ -9,6 +9,11 @@ public class TableWeaponRow
     public string Name;
     public string Desc;
     public int ProjTID;
+    public int BulletType;
+    public int MagazineSize;
+    public float ReloadTime;
+    public float FireTime;
+    public float FireSpread;
 }
 
 public class TableWeapon
@@ -29,7 +34,12 @@ public class TableWeapon
                     Type = TableData[i]["Type"].ToString(),
                     Name = TableData[i]["Name"].ToString(),
                     Desc = TableData[i]["Desc"].ToString(),
-                    ProjTID = int.Parse(TableData[i]["ProjTID"].ToString())
+                    ProjTID = int.Parse(TableData[i]["ProjTID"].ToString()),
+                    BulletType = int.Parse(TableData[i]["BulletType"].ToString()),
+                    MagazineSize = int.Parse(TableData[i]["MagazineSize"].ToString()),
+                    ReloadTime = float.Parse(TableData[i]["ReloadTime"].ToString()),
+                    FireTime = float.Parse(TableData[i]["FireTime"].ToString()),
+                    FireSpread = float.Parse(TableData[i]["FireSpread"].ToString()),
                 };
 
                 TableWeaponRows.Add(tid, newTableRow);

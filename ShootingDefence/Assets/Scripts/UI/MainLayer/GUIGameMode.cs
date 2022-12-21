@@ -26,17 +26,16 @@ public class GUIGameMode : MonoBehaviour
     private bool isReload;
 
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         inventorySlot = new Image[10];
         inventoryItem = new Image[10];
 
         for (int i = 0; i < 10; i++)
         {
-            inventorySlot[i] = inventory.Find("Slot_" + (i+1).ToString()).GetComponent<Image>();
+            inventorySlot[i] = inventory.Find("Slot_" + (i + 1).ToString()).GetComponent<Image>();
             inventoryItem[i] = inventory.Find("Item_" + (i + 1).ToString()).GetComponent<Image>();
         }
-        this.gameObject.SetActive(false);
     }
 
     private void OnEnable()
@@ -48,7 +47,6 @@ public class GUIGameMode : MonoBehaviour
             OnUpdateInventoryModel();
         }
         StartCoroutine(UpdateCursorRoutine());
-
     }
 
     private void OnDisable()

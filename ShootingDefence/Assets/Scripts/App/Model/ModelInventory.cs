@@ -13,6 +13,8 @@ public class ModelInventory
     public UnityAction onChanged;
     public int currentIdx;
 
+    private ItemState currentItemState;
+
     public ModelInventory()
     {
         invenList = new List<ItemBase>();
@@ -23,15 +25,17 @@ public class ModelInventory
         //starting Item;
         currentIdx = 0;
         currentEquipItem = null;
+        
+        currentItemState = ItemState.ItemStateNull;
 
         AddStartingItem();
+        SelectQuickbar(0);
     }
 
     public void AddStartingItem()
     {
         AddItem(1);
         AddItem(2);
-
     }
 
     public void SelectQuickbar(int idx)
@@ -45,11 +49,16 @@ public class ModelInventory
         if (invenList[idx].Type == ItemType.ItemTypeNull)
         {
             currentEquipItem = null;
+            currentItemState = ItemState.ItemStateNull;
+
         }
         else
+        {
             currentEquipItem = invenList[idx];
-
-        onChanged.Invoke();
+            currentItemState = ItemState.ItemStateIdle;
+        }
+        if(onChanged != null)
+            onChanged.Invoke();
     }
     public void SelectQuickbarPrev()
     {
@@ -87,7 +96,8 @@ public class ModelInventory
         {
             (currentEquipItem as ItemWeapon).DecreaseMag();
         }
-        onChanged.Invoke();
+        if(onChanged != null)
+            onChanged.Invoke();
     }
 
     public bool IsReloadAble()
@@ -102,7 +112,8 @@ public class ModelInventory
         if (currentEquipItem is ItemWeapon)
         {
             (currentEquipItem as ItemWeapon).ReloadMag(40);
-            onChanged.Invoke();
+            if (onChanged != null)
+                onChanged.Invoke();
         }
     }
 

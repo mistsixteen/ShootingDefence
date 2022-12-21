@@ -45,12 +45,13 @@ public class ModelInventory
 
     public void SelectQuickbar(int idx)
     {
-        Debug.Log("SelectQuickbar " + idx);
-        if(idx < 0 || idx >= 10)
+        if(idx < 0 || idx >= GlobalCommonValues.QuickBarMaxSize)
         {
             return;
         }
+
         currentIdx = idx;
+
         if (invenList[idx].Type == ItemType.ItemTypeNull)
         {
             currentEquipItem = null;
@@ -62,6 +63,7 @@ public class ModelInventory
             currentEquipItem = invenList[idx];
             currentItemState = ItemState.ItemStateIdle;
         }
+
         if(onChanged != null)
             onChanged.Invoke();
     }

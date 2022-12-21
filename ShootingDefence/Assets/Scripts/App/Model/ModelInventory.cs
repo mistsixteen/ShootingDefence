@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,7 +9,6 @@ public class ModelInventory
     private List<ItemBase> invenList;
     private ItemBase currentEquipItem;
 
-    public UnityAction onChanged;
     public int currentIdx;
 
     public ModelInventory()
@@ -56,9 +54,7 @@ public class ModelInventory
         {
             currentEquipItem = invenList[idx];
         }
-
-        if(onChanged != null)
-            onChanged.Invoke();
+        EventSystem.GetInstance().InvokeEvent(EventType.onModelInvenChanged);
     }
     public void SelectQuickbarPrev()
     {
@@ -96,8 +92,7 @@ public class ModelInventory
         {
             (currentEquipItem as ItemWeapon).DecreaseMag();
         }
-        if(onChanged != null)
-            onChanged.Invoke();
+        EventSystem.GetInstance().InvokeEvent(EventType.onModelInvenChanged);
     }
 
     public bool IsReloadAble()
@@ -112,8 +107,7 @@ public class ModelInventory
         if (IsReloadAble())
         {
             (currentEquipItem as ItemWeapon).ReloadMag(40);
-            if (onChanged != null)
-                onChanged.Invoke();
+            EventSystem.GetInstance().InvokeEvent(EventType.onModelInvenChanged);
         }
     }
 

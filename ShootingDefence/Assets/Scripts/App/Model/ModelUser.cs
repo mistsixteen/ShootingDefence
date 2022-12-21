@@ -5,7 +5,6 @@ using UnityEngine.Events;
 
 public class ModelUser
 {
-    public UnityAction onChanged;
     private float playerHealth;
     private float playerMaxHealth;
 
@@ -19,21 +18,21 @@ public class ModelUser
     {
         playerHealth = startMaxHealth;
         playerMaxHealth = startMaxHealth;
-        onChanged.Invoke();
+        EventSystem.GetInstance().InvokeEvent(EventType.onModelUserChanged);
     }
 
     public void HealHealth(float healAmount)
     {
         playerHealth += healAmount;
         playerHealth = Mathf.Clamp(playerHealth, 0.0f, playerMaxHealth);
-        onChanged.Invoke();
+        EventSystem.GetInstance().InvokeEvent(EventType.onModelUserChanged);
     }
 
     public void GetDamage(float damageAmount)
     {
         playerHealth -= damageAmount;
         playerHealth = Mathf.Clamp(playerHealth, 0.0f, playerMaxHealth);
-        onChanged.Invoke();
+        EventSystem.GetInstance().InvokeEvent(EventType.onModelUserChanged);
     }
 
     public float GetHpPercentage()

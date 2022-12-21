@@ -24,17 +24,17 @@ public enum EnemyState
     eStateAfterAttack
 }
 
-public enum ItemState
-{
-    ItemStateNull,
-    ItemStateIdle,
-    ItemStateGunReloading,
-}
-
 public enum ItemType
 {
     ItemTypeNull,
     ItemTypeGoods,
     ItemTypeWeapon,
+}
+
+public enum EventType
+{
+    //Model
+    onModelInvenChanged,
+    onModelUserChanged,
 
 }

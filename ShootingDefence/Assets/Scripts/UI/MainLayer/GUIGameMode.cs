@@ -40,8 +40,8 @@ public class GUIGameMode : MonoBehaviour
     private void OnEnable()
     {
         if(AppInstance.GetInstance() != null) { 
-            AppInstance.GetInstance().ModelManager.ModelUser.onChanged += OnUpdateUserModel;
-            AppInstance.GetInstance().ModelManager.ModelInventory.onChanged += OnUpdateInventoryModel;
+            EventSystem.GetInstance().RegistEventListener(EventType.onModelInvenChanged, OnUpdateInventoryModel);
+            EventSystem.GetInstance().RegistEventListener(EventType.onModelUserChanged, OnUpdateUserModel);
             OnUpdateUserModel();
             OnUpdateInventoryModel();
         }
@@ -50,8 +50,8 @@ public class GUIGameMode : MonoBehaviour
 
     private void OnDisable()
     {
-        AppInstance.GetInstance().ModelManager.ModelUser.onChanged -= OnUpdateUserModel;
-        AppInstance.GetInstance().ModelManager.ModelInventory.onChanged -= OnUpdateInventoryModel;
+        EventSystem.GetInstance().UnRegistEventListener(EventType.onModelInvenChanged, OnUpdateInventoryModel);
+        EventSystem.GetInstance().RegistEventListener(EventType.onModelUserChanged, OnUpdateUserModel);
         StopAllCoroutines();
     }
 

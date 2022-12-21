@@ -11,6 +11,7 @@ public class AppInstance : MonoBehaviour
     public TableManager TableManager;
 
     public UISystem UISystem;
+    public EventSystem EventSystem;
 
     private void Awake()
     {

@@ -9,8 +9,6 @@ public class GunController : MonoBehaviour
     public Transform BulletSpawn;
     public LineRenderer myLineRenderer;
 
-    public gunState cGunState = gunState.gunStateIdle;
-
     public float delay_fire = 0.01f;
     public float delay_reload = 0.0f;
     private float timeStamp = 0.0f;
@@ -65,10 +63,16 @@ public class GunController : MonoBehaviour
 
         //조준선 : LineRenderer 사용
         //무기가 없거나 in Reload인 경우 해제
-        myLineRenderer.SetPosition(0, BulletSpawn.position);
-        Vector3 secondPos = BulletSpawn.forward;
-        secondPos.Normalize();
-        myLineRenderer.SetPosition(1, BulletSpawn.position + secondPos * 2000.0f);
+        if (modelInventory.IsCurrentItemWeapon())
+        {
+            myLineRenderer.enabled = true;
+            myLineRenderer.SetPosition(0, BulletSpawn.position);
+            Vector3 secondPos = BulletSpawn.forward;
+            secondPos.Normalize();
+            myLineRenderer.SetPosition(1, BulletSpawn.position + secondPos * 2000.0f);
+        }
+        else
+            myLineRenderer.enabled = false;
 
     }
 

@@ -17,6 +17,11 @@ public class ModelInventory
 
     public ModelInventory()
     {
+        InitializeModelInventory();
+    }
+
+    public void InitializeModelInventory()
+    {
         invenList = new List<ItemBase>();
         for (int i = 0; i < GlobalCommonValues.InventoryMaxSize; i++)
         {
@@ -25,7 +30,7 @@ public class ModelInventory
         //starting Item;
         currentIdx = 0;
         currentEquipItem = null;
-        
+
         currentItemState = ItemState.ItemStateNull;
 
         AddStartingItem();

@@ -77,16 +77,14 @@ public class GunController : MonoBehaviour
     {
         if (modelInventory.GetCurrentItem() is ItemWeapon)
         {
-            var spreadAngle = modelInventory.GetCurrentItemWeapon().WeaponRow.FireSpread;
+            var spreadAngle = modelInventory.GetCurrentItemWeapon().WeaponRow.FireSpread / 2;
             if (modelInventory.IsAttackAble())
             {
                 var curWeapon = modelInventory.GetCurrentItem() as ItemWeapon;
-                var newBullet = BulletFactory.GetInstance().CreateBullet(curWeapon.ProjRow, BulletSpawn.position, BulletSpawn.rotation);
-                newBullet.bulletFaction = ObjectFaction.Ally;
                 var angle = Random.Range(0 - spreadAngle, spreadAngle);
-                Debug.Log(angle);
-                newBullet.transform.Rotate(new Vector3(0.0f, angle/360, 0.0f));
-                Debug.Log(newBullet.transform.rotation);
+                var newBullet = BulletFactory.GetInstance().CreateBullet(curWeapon.ProjRow, BulletSpawn.position, BulletSpawn.rotation, angle);
+                newBullet.bulletFaction = ObjectFaction.Ally;
+
                 modelInventory.UseItem();
             }
         }

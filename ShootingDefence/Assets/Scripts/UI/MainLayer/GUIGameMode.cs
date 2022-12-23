@@ -9,7 +9,7 @@ public class GUIGameMode : MonoBehaviour
     private Text waveText, gunTypeText, bulletText;
     
     [SerializeField]
-    private Image healthBar;
+    private UIPlayerHealthBar UIHealthBar;
 
     [SerializeField]
     private Texture2D normalTexture, reloadTexture;
@@ -65,8 +65,7 @@ public class GUIGameMode : MonoBehaviour
 
     public void OnUpdateUserModel()
     {
-        //HpBar
-        healthBar.fillAmount = AppInstance.GetInstance().ModelManager.ModelUser.GetHpPercentage();
+        UIHealthBar.UpdateHealthBar();
     }
 
     public void OnUpdateInventoryModel()

@@ -6,10 +6,10 @@ using UnityEngine.UI;
 public class GUIGameMode : MonoBehaviour
 {
     [SerializeField]
-    private Text gunTypeText, bulletText;
-    
-    [SerializeField]
     private UIPlayerHealthBar UIHealthBar;
+
+    [SerializeField]
+    private UICurrentWeapon UICurrentWeapon;
 
     [SerializeField]
     private Texture2D normalTexture, reloadTexture;
@@ -77,29 +77,20 @@ public class GUIGameMode : MonoBehaviour
         }
         if(ModelInventory.currentIdx != -1)
             inventorySlot[ModelInventory.currentIdx].sprite = Red;
-        //gunTypeText, bulletText;
-        if (ModelInventory.IsCurrentItemWeapon())
-        {
-            var weapon = ModelInventory.GetCurrentItemWeapon();
-            gunTypeText.text = "Weapon : " + weapon.ItemRow.Name;
-            bulletText.text = weapon.CurrentMag.ToString();
-        }
-        else
-        {
-            gunTypeText.text = "Weapon : ";
-            bulletText.text = " ";
-        }
+
+        UICurrentWeapon.UpdateStatus();
     }
 
     public void OnReloadStart()
     {
         isReloading = true;
-        bulletText.text = "Reload!!!";
+        UICurrentWeapon.SetReloadMode();
     }
 
     public void OnReloadEnd()
     {
         isReloading = false;
+        UICurrentWeapon.UpdateStatus();
     }
 
     //TODO : 다른 곳으로 이동 or 별개 Prefab에서 수행할 것 

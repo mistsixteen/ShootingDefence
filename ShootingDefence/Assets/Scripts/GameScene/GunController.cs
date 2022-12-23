@@ -4,7 +4,11 @@ using UnityEngine;
 public class GunController : MonoBehaviour
 {
     private ModelInventory modelInventory;
+    [SerializeField]
+    private MeshRenderer myMeshRenderer;
+
     public Transform BulletSpawn;
+
     public LineRenderer myLineRenderer;
 
     private float timeStamp = 0.0f;
@@ -13,7 +17,7 @@ public class GunController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        modelInventory = AppInstance.GetInstance().ModelManager.ModelInventory;    
+        modelInventory = AppInstance.GetInstance().ModelManager.ModelInventory;
     }
 
     private void Update()
@@ -52,6 +56,7 @@ public class GunController : MonoBehaviour
         //무기가 없거나 in Reload인 경우 해제
         if (modelInventory.IsCurrentItemWeapon())
         {
+            SetWeaponVisible(true);
             myLineRenderer.enabled = true;
             myLineRenderer.SetPosition(0, BulletSpawn.position);
             Vector3 secondPos = BulletSpawn.forward;
@@ -59,7 +64,10 @@ public class GunController : MonoBehaviour
             myLineRenderer.SetPosition(1, BulletSpawn.position + secondPos * 2000.0f);
         }
         else
+        {
             myLineRenderer.enabled = false;
+            SetWeaponVisible(false);
+        }
 
     }
 
@@ -88,5 +96,10 @@ public class GunController : MonoBehaviour
                 modelInventory.UseItem();
             }
         }
+    }
+
+    void SetWeaponVisible(bool isVisible)
+    {
+        myMeshRenderer.enabled = isVisible;
     }
 }

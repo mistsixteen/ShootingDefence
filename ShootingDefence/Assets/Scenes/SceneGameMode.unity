@@ -1659,6 +1659,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36b6c1e3ef303094b900eefc35bc658d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myMeshRenderer: {fileID: 1982755979}
   BulletSpawn: {fileID: 1982755981}
   myLineRenderer: {fileID: 1982755984}
   isReloading: 0

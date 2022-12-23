@@ -1661,8 +1661,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BulletSpawn: {fileID: 1982755981}
   myLineRenderer: {fileID: 1982755984}
-  delay_fire: 0.05
-  delay_reload: 0
   isReloading: 0
 --- !u!120 &1982755984
 LineRenderer:

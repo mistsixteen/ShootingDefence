@@ -12,31 +12,15 @@ public class GUIGameMode : MonoBehaviour
     private UICurrentWeapon UICurrentWeapon;
 
     [SerializeField]
+    private UIQuickBar UIQuickBar;
+
+    [SerializeField]
     private Texture2D normalTexture, reloadTexture;
 
     [SerializeField]
     private Sprite Red, Black;
 
-    [SerializeField]
-    private Transform inventory;
-
-    private Image[] inventorySlot;
-    private Image[] inventoryItem;
-
     private bool isReloading = false;
-
-    // Start is called before the first frame update
-    private void Awake()
-    {
-        inventorySlot = new Image[10];
-        inventoryItem = new Image[10];
-
-        for (int i = 0; i < 10; i++)
-        {
-            inventorySlot[i] = inventory.Find("Slot_" + (i + 1).ToString()).GetComponent<Image>();
-            inventoryItem[i] = inventory.Find("Item_" + (i + 1).ToString()).GetComponent<Image>();
-        }
-    }
 
     private void OnEnable()
     {
@@ -70,14 +54,7 @@ public class GUIGameMode : MonoBehaviour
 
     public void OnUpdateInventoryModel()
     {
-        var ModelInventory = AppInstance.GetInstance().ModelManager.ModelInventory;
-        for (int i = 0; i < 10; i++)
-        {
-            inventorySlot[i].sprite = Black;
-        }
-        if(ModelInventory.currentIdx != -1)
-            inventorySlot[ModelInventory.currentIdx].sprite = Red;
-
+        UIQuickBar.UpdateStatus();
         UICurrentWeapon.UpdateStatus();
     }
 

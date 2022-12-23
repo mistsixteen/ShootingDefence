@@ -158,7 +158,15 @@ public class ModelInventory
         {
             return null;
         }
+    }
 
+    public String GetItemName(int idx)
+    {
+        if (invenList[idx].Type != ItemType.ItemTypeNull)
+        {
+            return invenList[idx].ItemRow.Name;
+        }
+        return null;
     }
 
     //Debug Functions

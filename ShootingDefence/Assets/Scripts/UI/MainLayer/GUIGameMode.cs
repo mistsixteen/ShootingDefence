@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GUIGameMode : MonoBehaviour
 {
     [SerializeField]
-    private Text waveText, gunTypeText, bulletText;
+    private Text gunTypeText, bulletText;
     
     [SerializeField]
     private UIPlayerHealthBar UIHealthBar;

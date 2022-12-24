@@ -648,7 +648,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1080873970}
   - component: {fileID: 1080873969}
-  - component: {fileID: 1080873968}
+  - component: {fileID: 1080873971}
   m_Layer: 0
   m_Name: CameraMinimap
   m_TagString: Untagged
@@ -656,14 +656,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1080873968
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1080873967}
-  m_Enabled: 1
 --- !u!20 &1080873969
 Camera:
   m_ObjectHideFlags: 0
@@ -722,6 +714,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &1080873971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1080873967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cee73e81d6dd01d44835894ab9f8f07d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pTransform: {fileID: 2110926414}
+  yOffset: 30
 --- !u!1001 &1090939989
 PrefabInstance:
   m_ObjectHideFlags: 0

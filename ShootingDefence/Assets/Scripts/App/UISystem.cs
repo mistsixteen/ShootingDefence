@@ -7,6 +7,9 @@ public class UISystem : MonoBehaviour
 {
     private static UISystem instance;
 
+    [SerializeField]
+    private GUIGameMode GUIGameMode;
+
     public static UISystem GetInstance()
     {
         return instance;
@@ -19,6 +22,13 @@ public class UISystem : MonoBehaviour
 
     public void OnChangeScene(EnumGameScene targetScene)
     {
-
+        if(targetScene == EnumGameScene.SceneGame)
+        {
+            GUIGameMode.gameObject.SetActive(true);
+        }
+        else
+        {
+            GUIGameMode.gameObject.SetActive(false);
+        }
     }
 }

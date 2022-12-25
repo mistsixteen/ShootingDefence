@@ -20,6 +20,12 @@ public class GUIGameMode : MonoBehaviour
     [SerializeField]
     private Sprite Red, Black;
 
+    [SerializeField]
+    private Button Button1;
+
+    [SerializeField]
+    private GameObject obj;
+
     private bool isReloading = false;
 
     private void OnEnable()
@@ -34,6 +40,8 @@ public class GUIGameMode : MonoBehaviour
             isReloading = false;
         }
         StartCoroutine(UpdateCursorRoutine());
+
+        Button1.onClick.AddListener(() => { Instantiate(obj); });
     }
 
     private void OnDisable()

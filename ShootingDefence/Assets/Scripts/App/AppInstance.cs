@@ -7,6 +7,8 @@ public class AppInstance : MonoBehaviour
 {
     private static AppInstance instance = null;
 
+    private EnumGameScene CurrentScene;
+
     public ModelManager ModelManager;
     public TableManager TableManager;
 
@@ -16,6 +18,8 @@ public class AppInstance : MonoBehaviour
     private void Awake()
     {
         instance = this;
+
+        CurrentScene = EnumGameScene.SceneGameStart;
 
         this.TableManager = new TableManager();
         this.ModelManager = new ModelManager();
@@ -34,6 +38,20 @@ public class AppInstance : MonoBehaviour
 
     public void ChangeCurrentScene(EnumGameScene targetScene)
     {
+        switch (CurrentScene)
+        {
+            case EnumGameScene.SceneGameStart:
+                break;
+            case EnumGameScene.SceneMainMenu:
+                SceneManager.UnloadScene("SceneMainMenu");
+                break;
+            case EnumGameScene.SceneGameReady:
+                break;
+            case EnumGameScene.SceneGame:
+                break;
+            case EnumGameScene.SceneGameOver:
+                break;
+        }
         switch (targetScene)
         {
             case EnumGameScene.SceneGameStart:
@@ -49,6 +67,7 @@ public class AppInstance : MonoBehaviour
             case EnumGameScene.SceneGameOver:
                 break;
         }
+        CurrentScene = targetScene;
         UISystem.OnChangeScene(targetScene);
     }
 }

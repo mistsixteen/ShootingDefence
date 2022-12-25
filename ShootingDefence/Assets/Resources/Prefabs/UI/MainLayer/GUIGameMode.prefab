@@ -199,6 +199,8 @@ MonoBehaviour:
   reloadTexture: {fileID: 2800000, guid: f17f64457eb3bea48b4592c7ea13c310, type: 3}
   Red: {fileID: 21300000, guid: 1715bf1b1d513744495e02a0ddf2ca90, type: 3}
   Black: {fileID: 21300000, guid: 621dfe97236aa994d8047ed504568cc2, type: 3}
+  Button1: {fileID: 2783032898092242199}
+  obj: {fileID: 3889381164380725920, guid: 259269e9e2198cd44b998beced6e1fc9, type: 3}
 --- !u!1 &8893009312181401264
 GameObject:
   m_ObjectHideFlags: 0

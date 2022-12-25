@@ -14,11 +14,11 @@ public class UISystem : MonoBehaviour
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
         instance = this;
     }
 
     public void OnChangeScene(EnumGameScene targetScene)
     {
+
     }
 }

@@ -15,8 +15,6 @@ public class AppInstance : MonoBehaviour
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
-        
         instance = this;
 
         this.TableManager = new TableManager();

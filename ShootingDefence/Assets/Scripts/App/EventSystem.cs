@@ -18,7 +18,6 @@ public class EventSystem : MonoBehaviour
     private void Awake()
     {
         eventDict = new Dictionary<EventType, UnityAction>();
-        DontDestroyOnLoad(gameObject);
         instance = this;
     }
 

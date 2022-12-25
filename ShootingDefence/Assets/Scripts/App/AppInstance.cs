@@ -41,12 +41,12 @@ public class AppInstance : MonoBehaviour
             case EnumGameScene.SceneGameStart:
                 break;
             case EnumGameScene.SceneMainMenu:
-                SceneManager.LoadScene("SceneMainMenu");
+                SceneManager.LoadScene("SceneMainMenu", LoadSceneMode.Additive);
                 break;
             case EnumGameScene.SceneGameReady:
                 break;
             case EnumGameScene.SceneGame:
-                SceneManager.LoadScene("SceneGameMode");
+                SceneManager.LoadScene("SceneGameMode", LoadSceneMode.Additive);
                 break;
             case EnumGameScene.SceneGameOver:
                 break;

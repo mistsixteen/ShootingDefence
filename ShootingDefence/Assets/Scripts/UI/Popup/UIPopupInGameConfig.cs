@@ -11,8 +11,8 @@ public class UIPopupInGameConfig : MonoBehaviour
     void Start()
     {
         Time.timeScale = 0.0f;
-        closeButton.onClick.AddListener(() => { 
-        Destroy(this.gameObject);
+        closeButton.onClick.AddListener(() => {
+            UISystem.GetInstance().UIRemovePopup(this.gameObject);
         });
     }
 

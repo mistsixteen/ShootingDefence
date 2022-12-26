@@ -33,15 +33,19 @@ public class UISystem : MonoBehaviour
         if (uiPrefab != null)
         {
             var newUIObject = GameObject.Instantiate(uiPrefab, transformUIPopup);
-            return newUIObject;
+            if(newUIObject != null) { 
+                listUIPopup.Add(newUIObject);
+                return newUIObject;
+            }
         }
-        else
-        {
-            Debug.LogError("UICreatePopup Failed : " + Addr);
-            return null;
-        }
-        
-        
+        Debug.LogError("UICreatePopup Failed : " + Addr);
+        return null;
+    }
+
+    public void UIRemovePopup(GameObject obj)
+    {
+        listUIPopup.Remove(obj);
+        Destroy(obj);
     }
 
     public void OnChangeScene(EnumGameScene targetScene)

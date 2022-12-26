@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GamePlayManager : MonoBehaviour
+public class GameStateManager : MonoBehaviour
 {
     private GamePlayState currentState;
     private Dictionary<StateGamePlay, GamePlayState> dictPlayStates;

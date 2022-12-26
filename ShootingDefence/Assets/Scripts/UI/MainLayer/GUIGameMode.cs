@@ -21,10 +21,7 @@ public class GUIGameMode : MonoBehaviour
     private Sprite Red, Black;
 
     [SerializeField]
-    private Button Button1;
-
-    [SerializeField]
-    private GameObject obj;
+    private Button ButtonConfig;
 
     private bool isReloading = false;
 
@@ -41,7 +38,9 @@ public class GUIGameMode : MonoBehaviour
         }
         StartCoroutine(UpdateCursorRoutine());
 
-        Button1.onClick.AddListener(() => { Instantiate(obj); });
+        ButtonConfig.onClick.AddListener(() => {
+            UISystem.GetInstance()?.UICreatePopup(UIAddressPrefabPopup.UIPopupInGameConfig);
+        });
     }
 
     private void OnDisable()
@@ -51,6 +50,8 @@ public class GUIGameMode : MonoBehaviour
         EventSystem.GetInstance()?.UnRegistEventListener(EventType.onReloadStarted, OnReloadStart);
         EventSystem.GetInstance()?.UnRegistEventListener(EventType.onReloadFinished, OnReloadEnd);
         StopAllCoroutines();
+
+        ButtonConfig.onClick.RemoveAllListeners();
     }
 
     //Event Functions

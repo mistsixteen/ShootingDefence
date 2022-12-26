@@ -1,7 +1,8 @@
-using System.Collections;
+//C#
 using System.Collections.Generic;
+
+//Unity
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class UISystem : MonoBehaviour
 {
@@ -10,6 +11,11 @@ public class UISystem : MonoBehaviour
     [SerializeField]
     private GUIGameMode GUIGameMode;
 
+    [SerializeField]
+    private Transform transformUIPopup;
+
+    List<GameObject> listUIPopup;
+
     public static UISystem GetInstance()
     {
         return instance;
@@ -17,7 +23,25 @@ public class UISystem : MonoBehaviour
 
     private void Awake()
     {
+        listUIPopup = new List<GameObject>();
         instance = this;
+    }
+
+    public GameObject UICreatePopup(string Addr)
+    {
+        var uiPrefab = Resources.Load(Addr) as GameObject;
+        if (uiPrefab != null)
+        {
+            var newUIObject = GameObject.Instantiate(uiPrefab, transformUIPopup);
+            return newUIObject;
+        }
+        else
+        {
+            Debug.LogError("UICreatePopup Failed : " + Addr);
+            return null;
+        }
+        
+        
     }
 
     public void OnChangeScene(EnumGameScene targetScene)

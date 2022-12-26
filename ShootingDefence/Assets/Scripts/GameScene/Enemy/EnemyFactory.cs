@@ -22,23 +22,15 @@ public class EnemyFactory
         enemyGunner = Resources.Load<GameObject>("Prefabs/SoliderEnemy");
     }
 
-    public GameObject CreateEnemyPaladin(in Vector3 Pos)
+    public GameObject CreateEnemyPaladin(in Vector3 Pos, in Transform transform)
     {
-        GameObject newObject = GameObject.Instantiate(enemyPaladin, Pos, Quaternion.identity);
-        if (newObject == null)
-        {
-            Debug.Log("NULL EXEP");
-        }
+        GameObject newObject = GameObject.Instantiate(enemyPaladin, Pos, Quaternion.identity, transform);
         return newObject;
     }
 
-    public GameObject CreateEnemyGunner(in Vector3 Pos)
+    public GameObject CreateEnemyGunner(in Vector3 Pos, in Transform transform)
     {
-        GameObject newObject = GameObject.Instantiate(enemyGunner, Pos, Quaternion.identity);
-        if (newObject == null)
-        {
-            Debug.Log("NULL EXEP");
-        }
+        GameObject newObject = GameObject.Instantiate(enemyGunner, Pos, Quaternion.identity, transform);
         return newObject;
     }
 

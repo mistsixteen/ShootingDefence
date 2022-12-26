@@ -40,4 +40,19 @@ public enum EventType
     //Reload
     onReloadStarted,
     onReloadFinished,
+
+    //Player
+    onPlayerDead,
+
+    //GamePlayState
+    onGamePlayStateChanged,
+}
+
+public enum StateGamePlay
+{
+    StateGameReady,
+    StateGameDay,
+    StateGameNight,
+    StateGameOver,
+    Max
 }

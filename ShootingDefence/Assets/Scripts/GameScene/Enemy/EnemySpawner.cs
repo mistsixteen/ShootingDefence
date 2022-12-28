@@ -8,11 +8,14 @@ public class EnemySpawner : MonoBehaviour
     public float spawnMinLength = 20.0f;
     public PlayerCharacter player;
 
-    private void Start()
+    private static EnemySpawner instance = null;
+
+    private void Awake()
     {
-        StartCoroutine(SpawnRoutine());
+        instance = this;
     }
 
+    public static EnemySpawner GetInstance() { return instance; }
 
     Vector3 GetRandomSpawnPoint()
     {
@@ -29,24 +32,11 @@ public class EnemySpawner : MonoBehaviour
         return pos;
     }
 
-    IEnumerator SpawnRoutine()
+    public void SpawnEnemyInRandomPoint()
     {
-        Vector3 pos;
-        while (true)
-        {
-            yield return new WaitForSeconds(5.0f);
-            pos = GetRandomSpawnPoint();
-            //float length = (pos - player.transform.position).magnitude;
-            EnemyFactory.GetInstance().CreateEnemyPaladin(pos, transform);
-
-            yield return new WaitForSeconds(5.0f);
-            pos = GetRandomSpawnPoint();
-            //float length2 = (pos - player.transform.position).magnitude;
-            EnemyFactory.GetInstance().CreateEnemyGunner(pos, transform);
-
-            yield return new WaitForSeconds(5.0f);
-
-        }
+        var pos = GetRandomSpawnPoint();
+        EnemyFactory.GetInstance().CreateEnemyPaladin(pos, transform);
+        pos = GetRandomSpawnPoint();
+        EnemyFactory.GetInstance().CreateEnemyGunner(pos, transform);
     }
-
 }

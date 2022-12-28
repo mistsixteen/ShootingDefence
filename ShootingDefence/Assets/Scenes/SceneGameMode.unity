@@ -330,7 +330,7 @@ GameObject:
   - component: {fileID: 318430486}
   - component: {fileID: 318430487}
   m_Layer: 0
-  m_Name: GamePlayManager
+  m_Name: GameStateManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -360,7 +360,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 318430485}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 375a1b5c8d9745e4da68a78b216903e3, type: 3}
+  m_Script: {fileID: 11500000, guid: 61926850dfaa9274c843cce281be2bcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &408863074

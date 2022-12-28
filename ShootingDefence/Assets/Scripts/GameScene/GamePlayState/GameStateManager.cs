@@ -4,11 +4,19 @@ using UnityEngine;
 
 public class GameStateManager : MonoBehaviour
 {
-    private GamePlayState currentState;
-    private Dictionary<StateGamePlay, GamePlayState> dictPlayStates;
+    public static GameStateManager Instance = null;
+
+    private GamePlayState currentState = null;
+    private Dictionary<StateGamePlay, GamePlayState> dictGameStates;
     private void Awake()
     {
+        Instance = this;
         InitializeGamePlay();
+    }
+
+    public static GameStateManager GetInstance()
+    {
+        return Instance;
     }
 
     // Update is called once per frame
@@ -19,11 +27,28 @@ public class GameStateManager : MonoBehaviour
 
     private void InitializeGamePlay()
     {
-        dictPlayStates = new Dictionary<StateGamePlay, GamePlayState>();
+        dictGameStates = new Dictionary<StateGamePlay, GamePlayState>
+        {
+            { StateGamePlay.StateGameReady, new GamePlayStateReady() as GamePlayState },
+            { StateGamePlay.StateGameDay, new GamePlayStateDay() as GamePlayState },
+            { StateGamePlay.StateGameNight, new GamePlayStateNight() as GamePlayState },
+            { StateGamePlay.StateGameOver, new GamePlayStateNight() as GamePlayState }
+        };
+        ChangeGameState(StateGamePlay.StateGameReady);
     }
 
-    private void changeGameState(StateGamePlay targetState)
+    public void ChangeGameState(StateGamePlay targetState)
     {
-        if (currentState.gameState == targetState) { return; }
+        if(currentState != null && currentState.gameState == targetState) { return; }
+        if(currentState != null)
+        {
+            currentState.EndState();
+        }
+
+        if(dictGameStates[targetState] != null)
+        { 
+            currentState = dictGameStates[targetState];
+            currentState.StartState();
+        }
     }
 }

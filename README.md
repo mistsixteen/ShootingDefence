@@ -17,7 +17,7 @@
    - Table Manager : CSV 테이블 데이터를 읽어와, TableRow 형태로 관리한다.
    
  - Common : Enum, Gloval Value 등, 공통으로 쓰이는 데이터들을 관리한다.
- - GameScene : 인게임에서 쓰이는 스크립트들을 관리한다
+ - GameScene : Game Play Scene에서 쓰이는 스크립트들을 관리한다
    - Character
    - Enemy
    - GamePlayState
@@ -26,6 +26,33 @@
  
 ## 개발 기능 설명
 
+### Event 관리
+- 성능을 향상시키기 위하여, BroadcastMessage() 대신 직접 구현한 EventSystem을 사용하였습니다. 해당 클래스는 이벤트 타입별 Action을 관리하여, 이벤트를 전달받는 객체가 직접 이벤트 수신 여부를 등록하게 합니다.
+```C#
+private Dictionary<EventType, UnityAction> eventDict;
+
+public void RegistEventListener(EventType eventName, UnityAction eventAction)
+{
+	if(!eventDict.ContainsKey(eventName))
+	{
+		UnityAction newUnityAction = null;
+		eventDict.Add(eventName, newUnityAction);
+	}
+	eventDict[eventName] += eventAction;
+}
+```
+
+- 이벤트를 발생시키는 객체에서는, InvokeEvent 함수를 통하여 해당 이벤트가 발생하였다는 사실을 EventSystem에 통보하고, EventSystem은 등록된 Action을 호출합니다.
+```C#
+public void InvokeEvent(EventType eventName)
+{
+	if (eventDict.ContainsKey(eventName))
+	{
+		var unityAction = eventDict[eventName];
+		unityAction?.Invoke();
+	}
+}
+```
 ### 적 AI 관리
 - 추적, 공격, 원거리공격 등 FSM을 사용한 적의 AI 구현, 애니메이션 적용
 - NavMesh를 이용한 플레이어 추적

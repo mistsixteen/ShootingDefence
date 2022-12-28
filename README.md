@@ -41,6 +41,9 @@
 
 ##### - Object Pooling을 사용한 리소스 관리
 
+### Minimap 구현
+ - 별도 카메라를 사용하여, 해당 카메라에는 Minimap용 Object만 렌더링되도록 처리한다.
+ - 해당 카메라의 Render Texture을 UI에서 사용하여 미니맵을 표기한다.
 
 ## 플레이 스크린샷
 

@@ -53,11 +53,37 @@ public void InvokeEvent(EventType eventName)
 	}
 }
 ```
-### 적 AI 관리
-- 추적, 공격, 원거리공격 등 FSM을 사용한 적의 AI 구현, 애니메이션 적용
-- NavMesh를 이용한 플레이어 추적
 
-### MVC 패턴을 사용한 게임 데이터 관리 
+### FinitetateMachine을 사용한 게임 플레이 관리
+  - 유한 상태 머신을 사용하여 현재 게임 플레이 상태(게임시작/낮/밤/게임오버 등)을 관리한다.
+  - 각각의 상태는 추상 클래스를 사용하여 구현한 후, GameStateManager에서 모두 가지고 있는 형태로 관리한다.
+```C#
+public abstract class GamePlayState
+{
+    public StateGamePlay gameState;
+    public virtual void StartState();
+    public virtual void EndState();
+    public virtual void UpdateState(float timeDelta);
+}
+...
+public class GameStateManager : MonoBehaviour
+{
+	private Dictionary<StateGamePlay, GamePlayState> dictGameStates;
+//중략
+	dictGameStates = new Dictionary<StateGamePlay, GamePlayState>
+	{
+		{ StateGamePlay.StateGameReady, new GamePlayStateReady() as GamePlayState },
+		{ StateGamePlay.StateGameDay, new GamePlayStateDay() as GamePlayState },
+		{ StateGamePlay.StateGameNight, new GamePlayStateNight() as GamePlayState },
+		{ StateGamePlay.StateGameOver, new GamePlayStateNight() as GamePlayState }
+	};
+```
+### 적 AI 관리
+- 추적, 공격, 원거리공격 등, FSM을 사용한 적의 AI 구현, 애니메이션 적용
+- NavMesh를 이용한 플레이어 추적/공격
+
+### MVC 패턴을 사용한 게임 데이터 관리
+- Inventory, UserData 등, 각각의 모델이 해당 데이터 수정/저장을 전담. 
 - EventListener을 사용하여, 해당 Model이 수정될 시 UI에 정보 변경 이벤트 메시지가 전달되도록 구현
 
 ### CSV 파일을 사용한 테이블 생성 및 아이템 정보 로드
@@ -66,7 +92,7 @@ public void InvokeEvent(EventType eventName)
 
 ### Factory 패턴을 사용한 총알/적 오브젝트 생성
 
-##### - Object Pooling을 사용한 리소스 관리
+- Object Pooling을 사용한 리소스 관리
 
 ### Minimap 구현
  - 미니맵용 카메라를 별도로 정의하여, 카메라의 Culling mask 설정을 통하여 Minimap 표기용 Object만 렌더링되도록 처리한다.
@@ -79,4 +105,4 @@ public void InvokeEvent(EventType eventName)
 
 ## 기타 주의 사항
 
-##### - 3D 모델의 용량/저작권 문제로 인하여, Resource 폴더는 Commit하고 있지 않음
+##### - 3D 모델의 용량/저작권 문제로 인하여, Resource 관련 폴더는 Commit하고 있지 않음

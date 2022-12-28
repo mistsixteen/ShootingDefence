@@ -100,7 +100,7 @@ public class GameStateManager : MonoBehaviour
 
 ## 플레이 스크린샷
 
-![Screenshot](https://user-images.githubusercontent.com/30260233/172665111-e5cac1b2-6bb1-4b53-8b71-bb381216fdb3.PNG)
+![Screenshot](https://user-images.githubusercontent.com/30260233/209845479-ef24a58c-b837-476c-9072-c87652de8c13.PNG)
 
 
 ## 기타 주의 사항

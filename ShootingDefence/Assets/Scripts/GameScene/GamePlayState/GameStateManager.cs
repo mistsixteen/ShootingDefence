@@ -48,7 +48,6 @@ public class GameStateManager : MonoBehaviour
 
     public void ChangeGameState(StateGamePlay targetState)
     {
-        Debug.Log("ChangeGameState" + targetState.ToString());
         if(currentState != null && currentState.gameState == targetState) { return; }
         if(currentState != null)
         {
@@ -59,8 +58,14 @@ public class GameStateManager : MonoBehaviour
         { 
             currentState = dictGameStates[targetState];
             currentState.StartState();
+            EventSystem.GetInstance()?.InvokeEvent(EventType.onGamePlayStateChanged);
         }
     }
+    public StateGamePlay GetCurrentState()
+    {
+        return currentState.gameState;
+    }
+
     public void OnPlayerDead()
     {
         if(currentState.gameState != StateGamePlay.StateGameOver)

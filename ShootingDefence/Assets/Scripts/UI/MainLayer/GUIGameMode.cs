@@ -23,6 +23,9 @@ public class GUIGameMode : MonoBehaviour
     [SerializeField]
     private Button ButtonConfig;
 
+    [SerializeField]
+    private Text InfoText;
+
     private bool isReloading = false;
 
     private void OnEnable()
@@ -32,6 +35,7 @@ public class GUIGameMode : MonoBehaviour
             EventSystem.GetInstance()?.RegistEventListener(EventType.onModelUserChanged, OnUpdateUserModel);
             EventSystem.GetInstance()?.RegistEventListener(EventType.onReloadStarted, OnReloadStart);
             EventSystem.GetInstance()?.RegistEventListener(EventType.onReloadFinished, OnReloadEnd);
+            EventSystem.GetInstance()?.RegistEventListener(EventType.onGamePlayStateChanged, OnGameStateChanged);
             OnUpdateUserModel();
             OnUpdateInventoryModel();
             isReloading = false;
@@ -77,6 +81,23 @@ public class GUIGameMode : MonoBehaviour
     {
         isReloading = false;
         UICurrentWeapon.UpdateStatus();
+    }
+
+    public void OnGameStateChanged()
+    {
+        var cState = GameStateManager.GetInstance().GetCurrentState();
+        switch(cState)
+        {
+            case StateGamePlay.StateGameDay:
+                this.InfoText.text = "Current State : Day";
+                break;
+            case StateGamePlay.StateGameNight:
+                this.InfoText.text = "Current State : Night";
+                break;
+            default:
+                this.InfoText.text = " ";
+                break;
+        }
     }
 
     //TODO : 다른 곳으로 이동 or 별개 Prefab에서 수행할 것 

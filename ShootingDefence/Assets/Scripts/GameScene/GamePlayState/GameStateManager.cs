@@ -14,6 +14,15 @@ public class GameStateManager : MonoBehaviour
         InitializeGamePlay();
     }
 
+    private void OnEnable()
+    {
+        EventSystem.GetInstance()?.RegistEventListener(EventType.onPlayerDead, OnPlayerDead);
+    }
+    private void OnDisable()
+    {
+        EventSystem.GetInstance()?.UnRegistEventListener(EventType.onPlayerDead, OnPlayerDead);
+    }
+
     public static GameStateManager GetInstance()
     {
         return Instance;
@@ -32,13 +41,14 @@ public class GameStateManager : MonoBehaviour
             { StateGamePlay.StateGameReady, new GamePlayStateReady() as GamePlayState },
             { StateGamePlay.StateGameDay, new GamePlayStateDay() as GamePlayState },
             { StateGamePlay.StateGameNight, new GamePlayStateNight() as GamePlayState },
-            { StateGamePlay.StateGameOver, new GamePlayStateNight() as GamePlayState }
+            { StateGamePlay.StateGameOver, new GamePlayStateGameOver() as GamePlayState }
         };
         ChangeGameState(StateGamePlay.StateGameReady);
     }
 
     public void ChangeGameState(StateGamePlay targetState)
     {
+        Debug.Log("ChangeGameState" + targetState.ToString());
         if(currentState != null && currentState.gameState == targetState) { return; }
         if(currentState != null)
         {
@@ -50,5 +60,10 @@ public class GameStateManager : MonoBehaviour
             currentState = dictGameStates[targetState];
             currentState.StartState();
         }
+    }
+    public void OnPlayerDead()
+    {
+        if(currentState.gameState != StateGamePlay.StateGameOver)
+            ChangeGameState(StateGamePlay.StateGameOver);
     }
 }

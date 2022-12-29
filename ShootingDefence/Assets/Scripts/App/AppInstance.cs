@@ -43,13 +43,15 @@ public class AppInstance : MonoBehaviour
             case EnumGameScene.SceneGameStart:
                 break;
             case EnumGameScene.SceneMainMenu:
-                SceneManager.UnloadScene("SceneMainMenu");
+                SceneManager.UnloadSceneAsync("SceneMainMenu");
                 break;
             case EnumGameScene.SceneGameReady:
                 break;
             case EnumGameScene.SceneGame:
+                SceneManager.UnloadSceneAsync("SceneGameMode");
                 break;
             case EnumGameScene.SceneGameOver:
+                SceneManager.UnloadSceneAsync("SceneGameOver");
                 break;
         }
         switch (targetScene)
@@ -65,6 +67,7 @@ public class AppInstance : MonoBehaviour
                 SceneManager.LoadScene("SceneGameMode", LoadSceneMode.Additive);
                 break;
             case EnumGameScene.SceneGameOver:
+                SceneManager.LoadScene("SceneGameOver", LoadSceneMode.Additive);
                 break;
         }
         CurrentScene = targetScene;

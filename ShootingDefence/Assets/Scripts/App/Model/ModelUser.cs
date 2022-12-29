@@ -10,8 +10,7 @@ public class ModelUser
 
     public ModelUser()
     {
-        playerHealth = 100;
-        playerMaxHealth = 100;
+        this.InitializeUserData(100.0f);
     }
 
     public void InitializeUserData(float startMaxHealth)
@@ -33,6 +32,8 @@ public class ModelUser
         playerHealth -= damageAmount;
         playerHealth = Mathf.Clamp(playerHealth, 0.0f, playerMaxHealth);
         EventSystem.GetInstance()?.InvokeEvent(EventType.onModelUserChanged);
+        if(playerHealth == 0.0f)
+            EventSystem.GetInstance()?.InvokeEvent(EventType.onPlayerDead);
     }
 
     public float GetHpPercentage()

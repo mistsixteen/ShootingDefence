@@ -2,6 +2,8 @@
 
 ## Unity3D Shooting-Defence Game Project
 
+![Screenshot](https://user-images.githubusercontent.com/30260233/209845479-ef24a58c-b837-476c-9072-c87652de8c13.PNG)
+
 ### PC용 3D Top-down Shooting game 개발 프로젝트
 
 ## 프로젝트 기본 구조
@@ -97,11 +99,6 @@ public class GameStateManager : MonoBehaviour
 ### Minimap 구현
  - 미니맵용 카메라를 별도로 정의하여, 카메라의 Culling mask 설정을 통하여 Minimap 표기용 Object만 렌더링되도록 처리한다.
  - 해당 카메라의 Render Texture을 UI에서 사용하여 미니맵을 표기한다.
-
-## 플레이 스크린샷
-
-![Screenshot](https://user-images.githubusercontent.com/30260233/209845479-ef24a58c-b837-476c-9072-c87652de8c13.PNG)
-
 
 ## 기타 주의 사항
 

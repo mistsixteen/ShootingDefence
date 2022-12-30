@@ -54,7 +54,7 @@ public void InvokeEvent(EventType eventName)
 }
 ```
 
-### FinitetateMachine을 사용한 게임 플레이 관리
+### Finite State Machine을 사용한 게임 플레이 관리
   - 유한 상태 머신을 사용하여 현재 게임 플레이 상태(게임시작/낮/밤/게임오버 등)을 관리한다.
   - 각각의 상태는 추상 클래스를 사용하여 구현한 후, GameStateManager에서 모두 가지고 있는 형태로 관리한다.
 ```C#

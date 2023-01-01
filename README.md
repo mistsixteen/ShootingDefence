@@ -20,6 +20,8 @@
    - ModelSystem : Inventory, Userdata 등 각종 Model들을 관리한다.
    - EventSystem : Event Listener을 등록하고, 해당 Event 발생 시 등록된 Action들을 실행한다.
    - UISystem : 각종 UI들을 등록/해제하여 관리한다.
+   - SoundSystem : BGM, 효과음등을 등록하여 관리한다.
+   
    - Table Manager : CSV 테이블 데이터를 읽어와, TableRow 형태로 관리한다.
    
  - Common : Enum, Gloval Value 등, 공통으로 쓰이는 데이터들을 관리한다.
@@ -28,6 +30,7 @@
    - Enemy
    - GamePlayState
    - Weapons
+   
  - UI : 각 UI들의 Script들을 관리한다.
  
 ## 개발 기능 설명
@@ -127,6 +130,7 @@ gameObject.transform.position = targetPosition;
 - NavMesh를 이용하여 플레이어 추적시의 루트를 관리한다
 
 ### CSV 파일을 사용한 테이블 생성 및 아이템 정보 로드
+- CSV 파일을 파싱하여, 별도의 테이블 클래스(TableItem, TableWeapon, TableProjectile... )로 만들어 관리합니다. 해당 클래스들은 AppInstance 로드시 일괄적으로 읽어들여 메모리상에 저장하며, TID를 통하여 TableRow를 읽어들인 후, 내부에 있는 데이터를 사용합니다.
 
 ### 회복, 아이템획득 등 아이템 오브젝트 구현
 

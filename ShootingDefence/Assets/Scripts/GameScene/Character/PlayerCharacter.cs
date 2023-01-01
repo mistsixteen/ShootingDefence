@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerCharacter : MonoBehaviour, Damageable
 {
-    public float playerHealth = 100;
-    public float playerMaxHealth = 100;
 
     // Start is called before the first frame update
     void Start()

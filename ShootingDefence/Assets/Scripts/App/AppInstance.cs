@@ -14,6 +14,7 @@ public class AppInstance : MonoBehaviour
 
     public UISystem UISystem;
     public EventSystem EventSystem;
+    public SoundSystem SoundSystem;
 
     private void Awake()
     {

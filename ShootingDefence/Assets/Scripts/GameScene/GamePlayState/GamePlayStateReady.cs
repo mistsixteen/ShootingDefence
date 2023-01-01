@@ -15,6 +15,7 @@ public class GamePlayStateReady : GamePlayState
     {
         Debug.Log("StartState : GameReady");
         timeLeft = GlobalCommonValues.GameStartWaitTime;
+        SoundSystem.GetInstance().PlayBGM();
     }
 
     public override void EndState()

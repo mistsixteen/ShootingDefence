@@ -124,6 +124,7 @@ public class EnemySolider : MonoBehaviour, Damageable
         agent.isStopped = true;
         myCollider.enabled = false;
         myanimator.Play("Death");
+        healthGrid.gameObject.SetActive(false);
         while (true)
         {
             if (myanimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)

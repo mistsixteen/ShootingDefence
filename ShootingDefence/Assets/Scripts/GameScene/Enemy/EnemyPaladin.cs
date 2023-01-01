@@ -115,6 +115,7 @@ public class EnemyPaladin : MonoBehaviour, Damageable
     {
         NavMeshAgent agent = GetComponent<NavMeshAgent>();
         myanimator.Play("Death");
+        healthGrid.gameObject.SetActive(false);
         yield return new WaitForSeconds(0.01f);
         myCollider.enabled = false;
         agent.isStopped = true;

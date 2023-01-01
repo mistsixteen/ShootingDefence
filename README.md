@@ -7,12 +7,15 @@
 ### PC용 3D Top-down Shooting game 개발 프로젝트
 
 ## 프로젝트 기본 구조
-### Scene 구조 
- - AppInstance : Manager, System Class Object들이 포함된 Scene으로, 해당 Scene은 다른 Scene 로드시에도 언로드되지 않고 유지.
- 
-### Program 구조
+### 1. Scene 구조
+ - Management Scene
+   - AppInstance : Manager, System Class Object들이 포함된 Scene으로, 해당 Scene은 다른 Scene 로드시에도 언로드되지 않고 유지.
+ - Content Scenes
+   - SceneGameMode : 게임 플레이가 진행되는 Scene
+   - SceneMainMenu : 메인 메뉴 Scene
+   - SceneGameOver : 게임 종료 후 결과 Scene
+### 2. Program 구조
  - AppInstance
- 
    - ModelSystem : Inventory, Userdata 등 각종 Model들을 관리한다.
    - EventSystem : Event Listener을 등록하고, 해당 Event 발생 시 등록된 Action들을 실행한다.
    - UISystem : 각종 UI들을 등록/해제하여 관리한다.
@@ -56,9 +59,14 @@ public void InvokeEvent(EventType eventName)
 }
 ```
 
-### Finite State Machine을 사용한 게임 플레이 관리
-  - 유한 상태 머신을 사용하여 현재 게임 플레이 상태(게임시작/낮/밤/게임오버 등)을 관리한다.
-  - 각각의 상태는 추상 클래스를 사용하여 구현한 후, GameStateManager에서 모두 가지고 있는 형태로 관리한다.
+### MVC 패턴을 사용한 게임 데이터 관리
+- Inventory, UserData 등, 각각의 모델이 해당 데이터 수정/저장을 전담. 
+- EventSystem을 통하여, 해당 Model이 수정될 시 관련된 Object에 정보 변경 이벤트 메시지가 전달되도록 구현
+
+
+### FinitetateMachine을 사용한 게임 플레이 관리
+  - 유한 상태 머신을 사용하여 현재 게임 플레이 상태(게임시작/낮/밤/게임오버 등)을 관리합니다.
+  - 각각의 상태는 추상 클래스를 사용하여 구현한 후, GameStateManager에서 모두 가지고 있는 형태로 관리합니다.
 ```C#
 public abstract class GamePlayState
 {
@@ -82,11 +90,7 @@ public class GameStateManager : MonoBehaviour
 ```
 ### 적 AI 관리
 - 추적, 공격, 원거리공격 등, FSM을 사용한 적의 AI 구현, 애니메이션 적용
-- NavMesh를 이용한 플레이어 추적/공격
-
-### MVC 패턴을 사용한 게임 데이터 관리
-- Inventory, UserData 등, 각각의 모델이 해당 데이터 수정/저장을 전담. 
-- EventListener을 사용하여, 해당 Model이 수정될 시 UI에 정보 변경 이벤트 메시지가 전달되도록 구현
+- NavMesh를 이용하여 플레이어 추적시의 루트를 관리한다
 
 ### CSV 파일을 사용한 테이블 생성 및 아이템 정보 로드
 
@@ -102,4 +106,4 @@ public class GameStateManager : MonoBehaviour
 
 ## 기타 주의 사항
 
-##### - 3D 모델의 용량/저작권 문제로 인하여, Resource 관련 폴더는 Commit하고 있지 않음
+#### - 3D 모델의 용량/저작권 문제로 인하여, 외부 Resource 관련 폴더는 Commit하고 있지 않습니다.

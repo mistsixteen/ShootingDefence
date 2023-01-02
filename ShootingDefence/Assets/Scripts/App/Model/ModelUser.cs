@@ -10,13 +10,13 @@ public class ModelUser
 
     public ModelUser()
     {
-        this.InitializeUserData(100.0f);
+        this.InitializeUserData();
     }
 
-    public void InitializeUserData(float startMaxHealth)
+    public void InitializeUserData()
     {
-        playerHealth = startMaxHealth;
-        playerMaxHealth = startMaxHealth;
+        playerHealth = GlobalCommonValues.UserMaxHealth;
+        playerMaxHealth = GlobalCommonValues.UserMaxHealth;
         EventSystem.GetInstance()?.InvokeEvent(EventType.onModelUserChanged);
     }
 

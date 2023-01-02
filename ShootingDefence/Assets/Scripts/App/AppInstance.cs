@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -65,6 +65,12 @@ public class AppInstance : MonoBehaviour
             case EnumGameScene.SceneGameReady:
                 break;
             case EnumGameScene.SceneGame:
+
+                //TODO : SceneGameReady Scene 생성시 해당 Scene에서 처리 
+                ModelManager.ModelInventory.InitializeModelInventory();
+                ModelManager.ModelUser.InitializeUserData();
+                //
+
                 SceneManager.LoadScene("SceneGameMode", LoadSceneMode.Additive);
                 break;
             case EnumGameScene.SceneGameOver:

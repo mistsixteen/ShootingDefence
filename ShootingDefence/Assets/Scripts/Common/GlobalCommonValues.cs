@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class GlobalCommonValues
 {
+    public const float UserMaxHealth = 100.0f;
+
     public const int InventoryMaxSize = 20;
     public const int ItemEmpty = 0;
     public const int QuickBarMaxSize = 10;

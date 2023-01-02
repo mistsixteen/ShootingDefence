@@ -53,6 +53,7 @@ public class GUIGameMode : MonoBehaviour
         EventSystem.GetInstance()?.UnRegistEventListener(EventType.onModelUserChanged, OnUpdateUserModel);
         EventSystem.GetInstance()?.UnRegistEventListener(EventType.onReloadStarted, OnReloadStart);
         EventSystem.GetInstance()?.UnRegistEventListener(EventType.onReloadFinished, OnReloadEnd);
+        EventSystem.GetInstance()?.UnRegistEventListener(EventType.onGamePlayStateChanged, OnGameStateChanged);
         StopAllCoroutines();
 
         ButtonConfig.onClick.RemoveAllListeners();
